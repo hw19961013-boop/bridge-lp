@@ -562,20 +562,62 @@
 
     /* レスポンシブ */
     @media (max-width: 768px) {
-      .hero { padding: 0 24px 60px; }
-      .manifesto, .numbers, .what, .why, .about, .contact { padding-left: 24px; padding-right: 24px; }
-      .numbers-grid { flex-direction: column; gap: 40px; }
-      .num-item { border-left: none; padding-left: 0; border-top: 1px solid var(--faint); padding-top: 24px; }
-      .num-item:first-child { border-top: none; padding-top: 0; }
-      .what-item { grid-template-columns: 1fr; }
-      .what-num { font-size: 36px; margin-bottom: 8px; }
-      .why-grid { grid-template-columns: 1fr; }
-      .why-item { border-right: none !important; }
-      .about-inner { grid-template-columns: 1fr; gap: 32px; }
-      .product-inner { grid-template-columns: 1fr; }
+      /* 全セクションの左右パディングを統一 */
+      .hero, .manifesto, .numbers, .what, .why, .about, .contact,
+      .problem-section, .product { padding-left: 20px; padding-right: 20px; }
+
+      /* ナビ */
+      .nav { padding: 16px 20px; }
+
+      /* ヒーロー */
+      .hero { padding-top: 120px; padding-bottom: 60px; min-height: auto; }
+      .hero::before { font-size: 80px; right: -10px; }
+      .hero-main { font-size: 28px; }
+      .hero-sub { font-size: 13px; margin-top: 20px; }
+      .hero-line { margin-top: 32px; }
+
+      /* マニフェスト */
+      .manifesto { padding-top: 64px; padding-bottom: 64px; }
+      .manifesto p { font-size: 15px; line-height: 2; }
+
+      /* 課題グリッド */
       .problem-grid { grid-template-columns: 1fr; }
+      .problem-title { font-size: 22px; margin-bottom: 32px; }
+
+      /* 数字 */
+      .numbers-grid { flex-direction: column; gap: 32px; }
+      .num-item { border-left: none; padding-left: 0; border-top: 1px solid var(--faint); padding-top: 20px; }
+      .num-item:first-child { border-top: none; padding-top: 0; }
+      .num-value { font-size: 40px; }
+
+      /* サービス */
+      .what-item { grid-template-columns: 1fr; gap: 0; }
+      .what-num { font-size: 32px; margin-bottom: 8px; }
+      .what-title { font-size: 17px; }
+
+      /* プロダクト */
+      .product-inner { grid-template-columns: 1fr; gap: 32px; }
+      .product-text h2 { font-size: 22px; }
+      /* モックアップをスマホで見やすく */
+      .mock { font-size: 12px; }
+      .mock-kpis { grid-template-columns: repeat(2, 1fr); }
+      .mock-kpi-value { font-size: 14px; }
+
+      /* WHY */
+      .why-grid { grid-template-columns: 1fr; }
+      .why-item { border-right: none !important; padding: 24px 0; }
+
+      /* ABOUT */
+      .about-inner { grid-template-columns: 1fr; gap: 24px; }
+      .about-name-ja { font-size: 22px; }
+
+      /* 画像 */
       .img-split { grid-template-columns: 1fr; }
-      .img-full img, .img-split img { height: 240px; }
+      .img-full img, .img-split img { height: 200px; }
+
+      /* CTA */
+      .contact h2 { font-size: 22px; }
+      .contact-btn { padding: 14px 32px; }
     }
   </style>
 </head>
@@ -839,7 +881,8 @@
           <span class="product-tag">目標管理</span>
           <span class="product-tag">KPIカスタマイズ</span>
         </div>
-        <a href="http://localhost:3000" target="_blank" class="product-cta">デモを見る →</a>
+        <a href="#contact" class="product-cta">デモを申し込む →</a>
+        <span style="display:block;margin-top:12px;font-size:11px;color:var(--mid);">※ 現在クローズドβ版を準備中です</span>
       </div>
 
       <!-- ダッシュボードのモックアップ -->
