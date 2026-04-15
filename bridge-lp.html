@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRIDGE</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ink: #111;
+      --paper: #f5f2ed;
+      --red: #c23a22;
+      --faint: #d5d0c8;
+      --mid: #8a8477;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ========================================
+       NAV — 最小限。ロゴと1つのリンクだけ。
+       ======================================== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 40px;
+      mix-blend-mode: difference;
+    }
+    .nav-logo {
+      font-size: 14px; font-weight: 900; letter-spacing: 0.25em;
+      color: #fff;
+    }
+    .nav-contact {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+      color: #fff; text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      padding-bottom: 2px;
+    }
+
+    /* ========================================
+       HERO — タイポグラフィだけで勝負する
+       ======================================== */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 40px 80px;
+      position: relative;
+    }
+
+    /* 背景に薄く BRIDGE */
+    .hero::before {
+      content: 'BRIDGE';
+      position: absolute;
+      right: -2vw; top: 50%;
+      transform: translateY(-50%);
+      font-size: clamp(120px, 18vw, 260px);
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      color: rgba(0,0,0,0.035);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-main {
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 900;
+      line-height: 1.3;
+      letter-spacing: -0.04em;
+      max-width: 780px;
+    }
+    .hero-main em {
+      font-style: normal;
+      color: var(--red);
+    }
+
+    .hero-sub {
+      margin-top: 32px;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--mid);
+      line-height: 2;
+      max-width: 480px;
+    }
+
+    .hero-line {
+      width: 60px; height: 2px;
+      background: var(--red);
+      margin-top: 48px;
+    }
+
+    /* ========================================
+       MANIFESTO — 一枚の宣言
+       ======================================== */
+    .manifesto {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 120px 40px;
+      position: relative;
+    }
+    .manifesto-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .manifesto p {
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 300;
+      line-height: 2.2;
+      letter-spacing: 0.02em;
+    }
+    .manifesto strong {
+      font-weight: 700;
+      color: var(--red);
+    }
+    .manifesto-sig {
+      margin-top: 56px;
+      font-size: 13px;
+      color: var(--mid);
+      letter-spacing: 0.05em;
+    }
+
+    /* ========================================
+       NUMBERS — 数字で語る（横スクロール風）
+       ======================================== */
+    .numbers {
+      padding: 100px 40px;
+      border-bottom: 1px solid var(--faint);
+    }
+    .numbers-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      color: var(--mid); margin-bottom: 48px;
+    }
+    .numbers-grid {
+      display: flex; gap: 0;
+    }
+    .num-item {
+      flex: 1;
+      padding: 0 32px;
+      border-left: 1px solid var(--faint);
+    }
+    .num-item:first-child { border-left: none; padding-left: 0; }
+    .num-value {
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .num-value span { color: var(--red); }
+    .num-label {
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+
+    /* セクション間のビジュアルアクセント */
+    .visual-break {
+      padding: 0 40px;
+      overflow: hidden;
+    }
+    .visual-break svg {
+      display: block;
+      width: 100%;
+      height: 80px;
+    }
+
+    /* WHATセクションの各項目にSVGアイコン */
+    .what-icon {
+      width: 48px; height: 48px;
+      margin-bottom: 12px;
+    }
+
+    /* 課題カードのイラスト付きバージョン */
+    .problem-section {
+      padding: 100px 40px;
+      background: var(--paper);
+      border-top: 1px solid var(--faint);
+      border-bottom: 1px solid var(--faint);
+    }
+    .problem-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      color: var(--mid); margin-bottom: 16px;
+    }
+    .problem-title {
+      font-size: clamp(24px, 3.5vw, 32px);
+      font-weight: 900; letter-spacing: -0.02em;
+      margin-bottom: 48px; max-width: 500px;
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--faint);
+      border: 1px solid var(--faint);
+    }
+    .problem-cell {
+      background: var(--paper);
+      padding: 32px 28px;
+    }
+    .problem-cell svg {
+      display: block;
+      margin-bottom: 16px;
+    }
+    .problem-cell h3 {
+      font-size: 14px; font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .problem-cell p {
+      font-size: 12px; color: var(--mid); line-height: 1.9;
+    }
+
+    /* ========================================
+       WHAT — サービス。グリッドではなく縦積み。
+       ======================================== */
+    .what {
+      padding: 100px 40px;
+    }
+    .what-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      color: var(--mid); margin-bottom: 64px;
+    }
+    .what-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0 32px;
+      padding: 40px 0;
+      border-top: 1px solid var(--faint);
+      max-width: 800px;
+    }
+    .what-num {
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--faint);
+      line-height: 1;
+    }
+    .what-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .what-desc {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 2;
+      max-width: 560px;
+    }
+
+    /* ========================================
+       WHY — 差別化。テキスト重視。
+       ======================================== */
+    .why {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 100px 40px;
+    }
+    .why-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      color: var(--mid); margin-bottom: 64px;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      max-width: 900px;
+    }
+    .why-item {
+      padding: 36px 32px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .why-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); }
+    .why-item h3 {
+      font-size: 15px; font-weight: 700;
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .why-item h3::before {
+      content: '';
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .why-item p {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 2;
+      padding-left: 16px;
+    }
+
+    /* ========================================
+       ABOUT — 代表。写真なし、文章で語る。
+       ======================================== */
+    .about {
+      padding: 100px 40px;
+      border-bottom: 1px solid var(--faint);
+    }
+    .about-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      color: var(--mid); margin-bottom: 48px;
+    }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 64px;
+      max-width: 900px;
+    }
+    .about-name-block {}
+    .about-name-ja {
+      font-size: 28px; font-weight: 900;
+      letter-spacing: 0.05em;
+    }
+    .about-name-en {
+      font-size: 12px; font-weight: 400;
+      color: var(--mid); letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+    .about-title {
+      margin-top: 20px;
+      font-size: 12px; color: var(--red);
+      font-weight: 700; letter-spacing: 0.05em;
+      line-height: 1.8;
+    }
+    .about-quals {
+      margin-top: 24px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .about-qual {
+      font-size: 11px; color: var(--mid);
+      padding-left: 12px;
+      border-left: 2px solid var(--faint);
+    }
+    .about-text {
+      font-size: 14px;
+      line-height: 2.2;
+      color: var(--ink);
+    }
+    .about-text + .about-text { margin-top: 20px; }
+    .about-text em {
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    /* ========================================
+       CONTACT — 最小限。余白で語る。
+       ======================================== */
+    .contact {
+      padding: 120px 40px;
+      text-align: center;
+    }
+    .contact h2 {
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .contact p {
+      font-size: 14px;
+      color: var(--mid);
+      margin-bottom: 40px;
+      line-height: 2;
+    }
+    .contact-btn {
+      display: inline-block;
+      padding: 16px 48px;
+      background: var(--ink);
+      color: var(--paper);
+      text-decoration: none;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.1em;
+      transition: background 0.2s;
+    }
+    .contact-btn:hover { background: var(--red); }
+
+    /* ========================================
+       FOOTER
+       ======================================== */
+    footer {
+      padding: 32px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--faint);
+      font-size: 11px; color: var(--mid);
+    }
+    footer a {
+      color: var(--mid); text-decoration: none;
+      margin-left: 24px;
+    }
+    footer a:hover { color: var(--ink); }
+
+    /* ========================================
+       PRODUCT — ダッシュボードのモック表示
+       ======================================== */
+    .product {
+      padding: 100px 40px;
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .product-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      color: var(--mid); margin-bottom: 16px;
+    }
+    .product-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 64px;
+      align-items: center;
+      max-width: 1000px;
+    }
+    .product-text h2 {
+      font-size: 28px; font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .product-text h2 span { color: var(--red); }
+    .product-text p {
+      font-size: 14px; color: var(--mid); line-height: 2;
+      margin-bottom: 24px;
+    }
+    .product-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 32px;
+    }
+    .product-tag {
+      padding: 4px 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 3px;
+      font-size: 11px; color: var(--mid);
+    }
+    .product-cta {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--red);
+      color: var(--paper);
+      text-decoration: none;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+    .product-cta:hover { opacity: 0.85; }
+
+    /* ダッシュボードモック */
+    .mock {
+      background: #1a1a1a;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .mock-bar {
+      display: flex; align-items: center; gap: 6px;
+      padding: 10px 14px;
+      background: #222;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .mock-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .mock-dot.r { background: #ff5f57; }
+    .mock-dot.y { background: #febc2e; }
+    .mock-dot.g { background: #28c840; }
+    .mock-url {
+      margin-left: 12px;
+      font-size: 10px; color: var(--mid);
+      font-family: monospace;
+    }
+    .mock-body {
+      padding: 16px;
+    }
+    .mock-sidebar {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 12px;
+    }
+    .mock-nav {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .mock-nav-item {
+      width: 36px; height: 6px; border-radius: 2px;
+      background: rgba(255,255,255,0.06);
+    }
+    .mock-nav-item.active { background: var(--red); width: 36px; }
+    .mock-content {}
+    .mock-kpis {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+      margin-bottom: 10px;
+    }
+    .mock-kpi {
+      background: rgba(255,255,255,0.04);
+      border-radius: 4px;
+      padding: 8px;
+    }
+    .mock-kpi-label {
+      font-size: 7px; color: var(--mid);
+      margin-bottom: 4px; letter-spacing: 0.05em;
+    }
+    .mock-kpi-value {
+      font-size: 16px; font-weight: 900; color: var(--paper);
+    }
+    .mock-kpi-bar {
+      height: 3px; background: rgba(255,255,255,0.08);
+      border-radius: 2px; margin-top: 4px; overflow: hidden;
+    }
+    .mock-kpi-fill {
+      height: 100%; border-radius: 2px;
+    }
+    .mock-chart {
+      background: rgba(255,255,255,0.03);
+      border-radius: 4px;
+      padding: 10px;
+      height: 80px;
+      display: flex; align-items: flex-end; gap: 4px;
+    }
+    .mock-chart-bar {
+      flex: 1;
+      background: #2563eb;
+      border-radius: 2px 2px 0 0;
+      min-height: 4px;
+    }
+
+    /* ========================================
+       IMAGE — イラスト表示スロット
+       ======================================== */
+    .img-full {
+      width: 100%;
+      overflow: hidden;
+    }
+    .img-full img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%) contrast(1.05);
+    }
+    .img-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .img-split img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%) contrast(1.05);
+    }
+    /* 画像がまだない場合のプレースホルダー */
+    .img-placeholder {
+      background: var(--faint);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--mid); font-size: 12px; font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 768px) {
+      .hero { padding: 0 24px 60px; }
+      .manifesto, .numbers, .what, .why, .about, .contact { padding-left: 24px; padding-right: 24px; }
+      .numbers-grid { flex-direction: column; gap: 40px; }
+      .num-item { border-left: none; padding-left: 0; border-top: 1px solid var(--faint); padding-top: 24px; }
+      .num-item:first-child { border-top: none; padding-top: 0; }
+      .what-item { grid-template-columns: 1fr; }
+      .what-num { font-size: 36px; margin-bottom: 8px; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-item { border-right: none !important; }
+      .about-inner { grid-template-columns: 1fr; gap: 32px; }
+      .product-inner { grid-template-columns: 1fr; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .img-split { grid-template-columns: 1fr; }
+      .img-full img, .img-split img { height: 240px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">BRIDGE</div>
+    <div style="display:flex;align-items:center;gap:24px;">
+      <a href="#product" class="nav-contact" style="border-bottom:none;opacity:0.7">PRODUCT</a>
+      <a href="#contact" class="nav-contact">CONTACT</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1 class="hero-main">
+      現場の<em>面倒くさい</em>を、<br>
+      自分ごととして解く。
+    </h1>
+    <p class="hero-sub">
+      医療現場の泥臭い運用を知っている人間が、<br>
+      テクノロジーで「ちょうどいい仕組み」に変える。<br>
+      それがBRIDGEです。
+    </p>
+    <div class="hero-line"></div>
+  </section>
+
+  <!-- IMAGE 1: メインビジュアル -->
+  <div class="img-full">
+    <img src="images/hero.png" alt="BRIDGEメインビジュアル"
+      onerror="this.parentElement.classList.add('img-placeholder');this.parentElement.style.height='360px';this.style.display='none';this.parentElement.textContent='IMAGE 1: hero.png を配置してください'">
+  </div>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <div class="manifesto-inner">
+      <p>
+        現場を知らない人間が作ったシステムは、現場に定着しない。<br><br>
+        私は理学療法士として患者のそばに立ち、<br>
+        経営コンサルタントとして数字の責任を負ってきた。<br><br>
+        数字は大事だ。<br>
+        でも、<strong>数字で現場を縛る設計は間違っている。</strong><br><br>
+        KPIは管理の道具ではなく、<strong>対話のきっかけ</strong>であるべきだ。<br>
+        朝礼で「あと何単位」と詰めるためではなく、<br>
+        「ここを一緒に変えよう」と話すためにある。<br><br>
+        大企業向けの重いシステムは要らない。<br>
+        中小のクリニックが、明日から使えるものを。<br>
+        <strong>軽くて、分かりやすくて、現場が嫌がらないもの。</strong><br><br>
+        BRIDGEは、そういうものを作る会社です。
+      </p>
+      <div class="manifesto-sig">— 橋本 渉 / BRIDGE 代表</div>
+    </div>
+  </section>
+
+  <!-- PROBLEM — SVGアイコン付き課題セクション -->
+  <section class="problem-section">
+    <div class="problem-label">PROBLEM</div>
+    <h2 class="problem-title">こんな課題、放置していませんか？</h2>
+    <div class="problem-grid">
+      <div class="problem-cell">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect x="4" y="8" width="14" height="18" rx="2" stroke="#c23a22" stroke-width="1.5" fill="none"/>
+          <rect x="22" y="14" width="14" height="18" rx="2" stroke="#d5d0c8" stroke-width="1.5" fill="none"/>
+          <line x1="8" y1="14" x2="14" y2="14" stroke="#c23a22" stroke-width="1"/>
+          <line x1="8" y1="18" x2="14" y2="18" stroke="#c23a22" stroke-width="1" opacity="0.4"/>
+          <line x1="26" y1="20" x2="32" y2="20" stroke="#d5d0c8" stroke-width="1"/>
+          <line x1="26" y1="24" x2="32" y2="24" stroke="#d5d0c8" stroke-width="1" opacity="0.4"/>
+          <path d="M18 20 L22 22" stroke="#8a8477" stroke-width="1" stroke-dasharray="2 2"/>
+        </svg>
+        <h3>数字が散らばっている</h3>
+        <p>Excel、レセコン、手書きメモ。月次の数字をまとめるのに毎回1時間。院長に聞かれても即答できない。</p>
+      </div>
+      <div class="problem-cell">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="16" r="8" stroke="#c23a22" stroke-width="1.5" fill="none"/>
+          <path d="M12 32 C12 26 28 26 28 32" stroke="#c23a22" stroke-width="1.5" fill="none"/>
+          <line x1="30" y1="12" x2="36" y2="12" stroke="#d5d0c8" stroke-width="1"/>
+          <line x1="30" y1="16" x2="34" y2="16" stroke="#d5d0c8" stroke-width="1" opacity="0.4"/>
+          <line x1="30" y1="20" x2="36" y2="20" stroke="#d5d0c8" stroke-width="1" opacity="0.4"/>
+        </svg>
+        <h3>集計がリーダー頼み</h3>
+        <p>朝礼の数字を毎朝手作業でまとめるのはリーダーだけ。その人が休んだら誰もできない。</p>
+      </div>
+      <div class="problem-cell">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect x="6" y="6" width="28" height="28" rx="4" stroke="#d5d0c8" stroke-width="1.5" fill="none"/>
+          <text x="20" y="25" text-anchor="middle" fill="#c23a22" font-size="14" font-weight="900" font-family="Inter">31</text>
+          <circle cx="32" cy="8" r="4" fill="#c23a22" opacity="0.2"/>
+        </svg>
+        <h3>月末にならないと分からない</h3>
+        <p>まとめて集計するから、目標未達に気づくのは月末。月中の軌道修正ができない。</p>
+      </div>
+      <div class="problem-cell">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect x="4" y="10" width="32" height="22" rx="3" stroke="#d5d0c8" stroke-width="1.5" fill="none"/>
+          <line x1="4" y1="18" x2="36" y2="18" stroke="#d5d0c8" stroke-width="1"/>
+          <circle cx="10" cy="14" r="1.5" fill="#c23a22"/>
+          <circle cx="15" cy="14" r="1.5" fill="#d5d0c8"/>
+          <circle cx="20" cy="14" r="1.5" fill="#d5d0c8"/>
+          <text x="20" y="28" text-anchor="middle" fill="#8a8477" font-size="7" font-family="Noto Sans JP">¥¥¥</text>
+        </svg>
+        <h3>大きなシステムは入れられない</h3>
+        <p>大手SaaSは月10万円以上。導入に半年。うちの規模には重すぎる。</p>
+      </div>
+      <div class="problem-cell">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="18" r="10" stroke="#d5d0c8" stroke-width="1.5" fill="none"/>
+          <text x="20" y="22" text-anchor="middle" fill="#c23a22" font-size="16" font-weight="700">?</text>
+          <path d="M14 32 L26 32" stroke="#d5d0c8" stroke-width="1.5"/>
+        </svg>
+        <h3>ITに詳しい人がいない</h3>
+        <p>ツールを入れても使いこなせない。現場は「また新しいシステム？」と嫌がる。</p>
+      </div>
+      <div class="problem-cell">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <line x1="8" y1="32" x2="16" y2="12" stroke="#c23a22" stroke-width="1.5"/>
+          <line x1="16" y1="12" x2="24" y2="24" stroke="#c23a22" stroke-width="1.5"/>
+          <line x1="24" y1="24" x2="32" y2="8" stroke="#c23a22" stroke-width="1.5"/>
+          <circle cx="16" cy="12" r="2.5" fill="#c23a22"/>
+          <circle cx="24" cy="24" r="2.5" fill="#c23a22"/>
+          <line x1="4" y1="36" x2="36" y2="36" stroke="#d5d0c8" stroke-width="1"/>
+          <path d="M8 34 L8 36 M16 34 L16 36 M24 34 L24 36 M32 34 L32 36" stroke="#d5d0c8" stroke-width="1"/>
+        </svg>
+        <h3>KPIが現場と乖離</h3>
+        <p>経営が見たい数字と現場で使いたい数字が噛み合わない。数字が「管理の道具」になっている。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMAGE 2: 現場の風景（2枚並び） -->
+  <div class="img-split">
+    <img src="images/scene-1.png" alt="現場の風景1"
+      onerror="this.parentElement.classList.add('img-placeholder');this.style.display='none';if(!this.parentElement.dataset.err){this.parentElement.dataset.err='1';this.parentElement.style.height='320px';this.parentElement.innerHTML='IMAGE 2: scene-1.png / scene-2.png を配置してください'}">
+    <img src="images/scene-2.png" alt="現場の風景2"
+      onerror="this.style.display='none'">
+  </div>
+
+  <!-- NUMBERS -->
+  <section class="numbers">
+    <div class="numbers-label">NUMBERS</div>
+    <div class="numbers-grid">
+      <div class="num-item">
+        <div class="num-value">1<span>→</span>10</div>
+        <div class="num-label">ゼロから発明するのではなく、<br>既にある運用を整理・型化・仕組み化する</div>
+      </div>
+      <div class="num-item">
+        <div class="num-value"><span>1</span>日</div>
+        <div class="num-label">導入に半年かかるシステムは作らない。<br>最短1日で現場に入る軽さ</div>
+      </div>
+      <div class="num-item">
+        <div class="num-value"><span>0</span>円</div>
+        <div class="num-label">最初の相談は無料。<br>課題を聞いて、合わなければそれでいい</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section class="what" id="service">
+    <div class="what-label">WHAT WE DO</div>
+
+    <div class="what-item">
+      <div class="what-num">01</div>
+      <div>
+        <svg class="what-icon" viewBox="0 0 48 48" fill="none">
+          <rect x="4" y="8" width="40" height="28" rx="4" stroke="#c23a22" stroke-width="1.5" fill="none"/>
+          <line x1="4" y1="16" x2="44" y2="16" stroke="#c23a22" stroke-width="1" opacity="0.3"/>
+          <rect x="10" y="20" width="10" height="6" rx="1" fill="#c23a22" opacity="0.15"/>
+          <rect x="24" y="20" width="10" height="6" rx="1" fill="#c23a22" opacity="0.15"/>
+          <rect x="10" y="28" width="24" height="3" rx="1" fill="#d5d0c8" opacity="0.5"/>
+          <line x1="18" y1="40" x2="30" y2="40" stroke="#d5d0c8" stroke-width="1.5"/>
+        </svg>
+        <div class="what-title">軽量SaaS</div>
+        <div class="what-desc">
+          リハ部門の運営ダッシュボード「RehaBoard」をはじめ、現場の課題から生まれたツールを提供。自分自身が毎日使っているものだけを製品にしています。重い初期設定は不要。ブラウザで開けばすぐ使える。
+        </div>
+      </div>
+    </div>
+
+    <div class="what-item">
+      <div class="what-num">02</div>
+      <div>
+        <svg class="what-icon" viewBox="0 0 48 48" fill="none">
+          <rect x="6" y="6" width="16" height="20" rx="2" stroke="#c23a22" stroke-width="1.5" fill="none"/>
+          <path d="M22 16 L30 10 L30 30 L22 26 Z" stroke="#d5d0c8" stroke-width="1" fill="none"/>
+          <rect x="30" y="10" width="12" height="20" rx="2" stroke="#c23a22" stroke-width="1.5" fill="none"/>
+          <line x1="10" y1="13" x2="18" y2="13" stroke="#c23a22" stroke-width="1" opacity="0.4"/>
+          <line x1="10" y1="17" x2="16" y2="17" stroke="#c23a22" stroke-width="1" opacity="0.4"/>
+          <circle cx="36" cy="20" r="3" stroke="#c23a22" stroke-width="1" fill="none"/>
+          <path d="M14 36 L14 28 M24 36 L24 30 M34 36 L34 32" stroke="#d5d0c8" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div class="what-title">業務ツール受託開発</div>
+        <div class="what-desc">
+          まず業務フローを聞く。次に最小構成で動くものを作る。現場で試してもらう。直す。この繰り返し。半年後に完成品を納品するやり方はしません。
+        </div>
+      </div>
+    </div>
+
+    <div class="what-item">
+      <div class="what-num">03</div>
+      <div>
+        <svg class="what-icon" viewBox="0 0 48 48" fill="none">
+          <circle cx="14" cy="14" r="8" stroke="#c23a22" stroke-width="1.5" fill="none"/>
+          <circle cx="34" cy="14" r="8" stroke="#d5d0c8" stroke-width="1.5" fill="none"/>
+          <circle cx="24" cy="32" r="8" stroke="#d5d0c8" stroke-width="1.5" fill="none"/>
+          <line x1="20" y1="18" x2="28" y2="26" stroke="#c23a22" stroke-width="1" stroke-dasharray="2 2"/>
+          <line x1="28" y1="18" x2="28" y2="24" stroke="#c23a22" stroke-width="1" stroke-dasharray="2 2"/>
+          <line x1="18" y1="20" x2="20" y2="26" stroke="#c23a22" stroke-width="1" stroke-dasharray="2 2"/>
+          <text x="14" y="16" text-anchor="middle" fill="#c23a22" font-size="7" font-weight="700">運営</text>
+          <text x="34" y="16" text-anchor="middle" fill="#8a8477" font-size="7" font-weight="500">採用</text>
+          <text x="24" y="34" text-anchor="middle" fill="#8a8477" font-size="7" font-weight="500">評価</text>
+        </svg>
+        <div class="what-title">運営改善コンサルティング</div>
+        <div class="what-desc">
+          運営改善、採用、評価制度、診療報酬、現場導線。これらを別々に考えるのではなく、横断して繋げて設計する。ツールを作る前に、そもそもの業務の流れを整理するところから。
+        </div>
+      </div>
+    </div>
+
+    <div class="what-item">
+      <div class="what-num">04</div>
+      <div>
+        <svg class="what-icon" viewBox="0 0 48 48" fill="none">
+          <rect x="6" y="8" width="24" height="32" rx="2" stroke="#c23a22" stroke-width="1.5" fill="none"/>
+          <line x1="12" y1="16" x2="24" y2="16" stroke="#c23a22" stroke-width="1" opacity="0.4"/>
+          <line x1="12" y1="21" x2="22" y2="21" stroke="#c23a22" stroke-width="1" opacity="0.3"/>
+          <line x1="12" y1="26" x2="20" y2="26" stroke="#c23a22" stroke-width="1" opacity="0.2"/>
+          <path d="M34 12 L42 8 L42 24 L34 20 Z" stroke="#d5d0c8" stroke-width="1.5" fill="none"/>
+          <circle cx="38" cy="32" r="6" stroke="#d5d0c8" stroke-width="1.5" fill="none"/>
+          <path d="M36 32 L38 30 L40 32" stroke="#d5d0c8" stroke-width="1"/>
+        </svg>
+        <div class="what-title">コンテンツ発信</div>
+        <div class="what-desc">
+          医療経営×テクノロジーの実践知をNote・X・ブログで発信。机上の空論は書きません。自分が現場で試して効果があったものだけを共有しています。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMAGE 3: テクノロジー×現場 -->
+  <div class="img-full">
+    <img src="images/tech.png" alt="テクノロジーと現場"
+      onerror="this.parentElement.classList.add('img-placeholder');this.parentElement.style.height='360px';this.style.display='none';this.parentElement.textContent='IMAGE 3: tech.png を配置してください'">
+  </div>
+
+  <!-- PRODUCT -->
+  <section class="product" id="product">
+    <div class="product-label">PRODUCT</div>
+    <div class="product-inner">
+      <div class="product-text">
+        <h2><span>Reha</span>Board</h2>
+        <p>
+          リハビリ部門の運営を1画面で見渡せるダッシュボード。<br>
+          PT別の単位数、目標達成率、キャンセル率、朝礼サマリーの自動生成まで。<br>
+          現場のリーダーが毎朝30分かけていた集計作業を、ゼロにする。
+        </p>
+        <div class="product-tags">
+          <span class="product-tag">KPIダッシュボード</span>
+          <span class="product-tag">PT別実績管理</span>
+          <span class="product-tag">朝礼サマリー自動生成</span>
+          <span class="product-tag">目標管理</span>
+          <span class="product-tag">KPIカスタマイズ</span>
+        </div>
+        <a href="http://localhost:3000" target="_blank" class="product-cta">デモを見る →</a>
+      </div>
+
+      <!-- ダッシュボードのモックアップ -->
+      <div class="mock">
+        <div class="mock-bar">
+          <div class="mock-dot r"></div>
+          <div class="mock-dot y"></div>
+          <div class="mock-dot g"></div>
+          <span class="mock-url">localhost:3000</span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-sidebar">
+            <div class="mock-nav">
+              <div class="mock-nav-item active"></div>
+              <div class="mock-nav-item"></div>
+              <div class="mock-nav-item"></div>
+              <div class="mock-nav-item"></div>
+            </div>
+            <div class="mock-content">
+              <div class="mock-kpis">
+                <div class="mock-kpi">
+                  <div class="mock-kpi-label">総単位数</div>
+                  <div class="mock-kpi-value">676</div>
+                  <div class="mock-kpi-bar"><div class="mock-kpi-fill" style="width:45%;background:#2563eb"></div></div>
+                </div>
+                <div class="mock-kpi">
+                  <div class="mock-kpi-label">実施患者数</div>
+                  <div class="mock-kpi-value">195</div>
+                  <div class="mock-kpi-bar"><div class="mock-kpi-fill" style="width:62%;background:#2563eb"></div></div>
+                </div>
+                <div class="mock-kpi">
+                  <div class="mock-kpi-label">新規患者</div>
+                  <div class="mock-kpi-value">22</div>
+                  <div class="mock-kpi-bar"><div class="mock-kpi-fill" style="width:73%;background:#16a34a"></div></div>
+                </div>
+                <div class="mock-kpi">
+                  <div class="mock-kpi-label">キャンセル率</div>
+                  <div class="mock-kpi-value" style="color:#c23a22">4.2%</div>
+                  <div class="mock-kpi-bar"><div class="mock-kpi-fill" style="width:42%;background:#c23a22"></div></div>
+                </div>
+              </div>
+              <div class="mock-chart">
+                <div class="mock-chart-bar" style="height:55%"></div>
+                <div class="mock-chart-bar" style="height:60%"></div>
+                <div class="mock-chart-bar" style="height:48%"></div>
+                <div class="mock-chart-bar" style="height:52%"></div>
+                <div class="mock-chart-bar" style="height:62%"></div>
+                <div class="mock-chart-bar" style="height:70%"></div>
+                <div class="mock-chart-bar" style="height:65%"></div>
+                <div class="mock-chart-bar" style="height:58%"></div>
+                <div class="mock-chart-bar" style="height:50%"></div>
+                <div class="mock-chart-bar" style="height:64%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY BRIDGE -->
+  <section class="why" id="why">
+    <div class="why-label">WHY BRIDGE</div>
+    <div class="why-grid">
+      <div class="why-item">
+        <h3>現場を歩いてきた人間が作る</h3>
+        <p>エンジニアでもコンサルファームでもなく、リハビリの現場で汗をかいてきた人間が設計する。だから「現場で使えない」が起きない。</p>
+      </div>
+      <div class="why-item">
+        <h3>数字で縛らない。数字で繋げる</h3>
+        <p>KPIを達成率で詰める文化は作らない。朝礼で「ここを一緒に良くしよう」と対話できるダッシュボードを設計する。</p>
+      </div>
+      <div class="why-item">
+        <h3>重いものは作らない</h3>
+        <p>中小規模のクリニックが自分たちで使える軽さ。ITに詳しい人がいなくても回る設計。それが最低条件。</p>
+      </div>
+      <div class="why-item">
+        <h3>小さく作って一緒に育てる</h3>
+        <p>完成品を納品して終わりではない。最小構成で渡して、現場の声を聞いて、一緒に育てていく。</p>
+      </div>
+      <div class="why-item">
+        <h3>縦割りにしない</h3>
+        <p>運営・採用・評価・報酬・導線。分断せず横断して考える。部分最適ではなく全体最適を設計する。</p>
+      </div>
+      <div class="why-item">
+        <h3>自分が最初のユーザー</h3>
+        <p>BRIDGEの製品は、自分の日常業務を楽にするために作ったものが原型。自分が使わないものは売らない。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-label">ABOUT</div>
+    <div class="about-inner">
+      <div class="about-name-block">
+        <div class="about-name-ja">橋本 渉</div>
+        <div class="about-name-en">Wataru Hashimoto</div>
+        <div class="about-title">
+          BRIDGE 代表<br>
+          理学療法士 / 医科学修士
+        </div>
+        <div class="about-quals">
+          <div class="about-qual">理学療法士</div>
+          <div class="about-qual">医科学修士</div>
+          <div class="about-qual">診療情報管理士（取得予定）</div>
+          <div class="about-qual">医療経営コンサルタント</div>
+        </div>
+      </div>
+      <div>
+        <p class="about-text">
+          理学療法士として患者と向き合う臨床を経験した後、事業会社にて医療経営コンサルティングに転身。PMI・バリューアップフェーズにおいてリハビリ部門の数値責任を担い、運営改善・KPI設計・評価制度構築を現場レベルで推進してきました。
+        </p>
+        <p class="about-text">
+          <em>「現場感のない施策は、どれだけ美しくても機能しない。」</em>
+        </p>
+        <p class="about-text">
+          この信念のもと、自らの日常業務で必要なツールを設計・開発し始めたことがBRIDGEの出発点です。自分が使って効果があったものを、同じ課題を持つ医療機関に提供する。その繰り返しで事業を作っています。
+        </p>
+        <p class="about-text">
+          得意領域は、既にある運用を整理し、見える化し、回る仕組みに変えること。ゼロから発明するより、1を10に磨くことに強みがあります。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <h2>話を聞かせてください。</h2>
+    <p>
+      「こんなこと頼めるの？」くらいの温度感で構いません。<br>
+      現場の課題を聞かせてください。一緒に考えます。
+    </p>
+    <a href="mailto:contact@bridge-med.example.com" class="contact-btn">CONTACT</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>&copy; 2026 BRIDGE</span>
+    <div>
+      <a href="#">Note</a>
+      <a href="#">X</a>
+    </div>
+  </footer>
+
+</body>
+</html>
