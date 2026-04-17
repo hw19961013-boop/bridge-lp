@@ -560,6 +560,62 @@
       letter-spacing: 0.05em;
     }
 
+    /* ========================================
+       PROCESS — 仕事の進め方
+       ======================================== */
+    .process { padding: 100px 40px; border-top: 1px solid var(--faint); }
+    .process-steps { display: flex; gap: 0; margin-top: 48px; max-width: 900px; }
+    .process-step {
+      flex: 1; padding: 32px 24px; position: relative;
+      border-top: 2px solid var(--faint);
+    }
+    .process-step.active { border-top-color: var(--red); }
+    .step-num {
+      font-size: 48px; font-weight: 900; color: var(--faint); line-height: 1;
+      margin-bottom: 12px;
+    }
+    .process-step.active .step-num { color: var(--red); }
+    .step-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .step-desc { font-size: 12px; color: var(--mid); line-height: 1.9; }
+    .step-time { font-size: 11px; color: var(--red); font-weight: 700; margin-top: 10px; }
+
+    /* ========================================
+       CASE — 導入事例
+       ======================================== */
+    .case-section { padding: 100px 40px; background: var(--ink); color: var(--paper); }
+    .case-card {
+      max-width: 800px; margin-top: 48px;
+      display: grid; grid-template-columns: 1fr 40px 1fr; gap: 24px; align-items: start;
+    }
+    .case-side { padding: 24px; border-radius: 8px; }
+    .case-before { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+    .case-after { background: rgba(194,58,34,0.08); border: 1px solid rgba(194,58,34,0.15); }
+    .case-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; margin-bottom: 12px; }
+    .case-before .case-label { color: var(--mid); }
+    .case-after .case-label { color: var(--red); }
+    .case-item { font-size: 13px; color: var(--mid); line-height: 2; }
+    .case-after .case-item { color: var(--paper); }
+    .case-arrow { font-size: 24px; color: var(--red); text-align: center; padding-top: 48px; }
+    .case-quote {
+      margin-top: 32px; max-width: 800px;
+      padding: 20px 24px; border-left: 3px solid var(--red);
+      font-size: 14px; font-style: italic; color: var(--mid); line-height: 2;
+    }
+    .case-meta { margin-top: 12px; font-size: 11px; color: rgba(255,255,255,0.3); font-style: normal; }
+
+    /* ========================================
+       FAQ
+       ======================================== */
+    .faq-section { padding: 100px 40px; border-top: 1px solid var(--faint); }
+    .faq-list { max-width: 700px; margin-top: 48px; }
+    .faq-item { border-bottom: 1px solid var(--faint); padding: 24px 0; }
+    .faq-q {
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .faq-q::before { content: 'Q.'; color: var(--red); font-weight: 900; flex-shrink: 0; }
+    .faq-a { margin-top: 12px; padding-left: 28px; font-size: 13px; color: var(--mid); line-height: 2; }
+
     /* レスポンシブ */
     @media (max-width: 768px) {
       /* 全セクションの左右パディングを統一 */
@@ -598,6 +654,9 @@
       /* プロダクト */
       .product-inner { grid-template-columns: 1fr; gap: 32px; }
       .product2-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+      .process-steps { flex-direction: column; }
+      .case-card { grid-template-columns: 1fr; }
+      .case-arrow { transform: rotate(90deg); padding: 0; }
       .product-text h2 { font-size: 22px; }
       /* モックアップをスマホで見やすく */
       .mock { font-size: 12px; }
@@ -629,6 +688,8 @@
     <div class="nav-logo">BRIDGE</div>
     <div style="display:flex;align-items:center;gap:24px;">
       <a href="#product" class="nav-contact" style="border-bottom:none;opacity:0.7">PRODUCT</a>
+      <a href="#process" class="nav-contact" style="border-bottom:none;opacity:0.7">PROCESS</a>
+      <a href="#case" class="nav-contact" style="border-bottom:none;opacity:0.7">CASE</a>
       <a href="#contact" class="nav-contact">CONTACT</a>
     </div>
   </nav>
@@ -1092,6 +1153,115 @@
       <div class="why-item">
         <h3>自分が最初のユーザー</h3>
         <p>BRIDGEの製品は、自分の日常業務を楽にするために作ったものが原型。自分が使わないものは売らない。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS — 仕事の進め方 -->
+  <section class="process" id="process">
+    <div class="numbers-label">PROCESS</div>
+    <h2 style="font-size:clamp(22px,3.5vw,32px);font-weight:900;letter-spacing:-0.02em;max-width:500px">
+      重いシステムは作りません。<br>小さく始めて、一緒に育てる。
+    </h2>
+    <div class="process-steps">
+      <div class="process-step active">
+        <div class="step-num">01</div>
+        <div class="step-title">課題を聞く</div>
+        <div class="step-desc">現場で何が面倒か、何に時間がかかっているかを聞きます。業務フローを一緒に整理します。</div>
+        <div class="step-time">1〜2日</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-title">最小構成で作る</div>
+        <div class="step-desc">全部入りを目指さず、まず一番痛い課題を解く最小版を作ります。まずは触れるものを。</div>
+        <div class="step-time">3〜5日</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-title">現場で試す</div>
+        <div class="step-desc">実際に使ってもらいます。「ここが違う」「これが足りない」を現場から集めます。</div>
+        <div class="step-time">1〜2週間</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-title">育てる</div>
+        <div class="step-desc">フィードバックを反映し、少しずつ磨いていきます。使いながら育てるのがBRIDGE流です。</div>
+        <div class="step-time">継続</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE — 導入事例 -->
+  <section class="case-section" id="case">
+    <div class="numbers-label" style="color:rgba(255,255,255,0.3)">CASE</div>
+    <h2 style="font-size:clamp(22px,3.5vw,32px);font-weight:900;letter-spacing:-0.02em;color:var(--paper)">
+      導入イメージ
+    </h2>
+    <p style="font-size:13px;color:var(--mid);margin-top:8px">整形外科クリニック・リハビリ部門の例</p>
+
+    <div class="case-card">
+      <div class="case-side case-before">
+        <div class="case-label">BEFORE</div>
+        <div class="case-item">・朝礼の数字をリーダーが毎朝30分かけて手集計</div>
+        <div class="case-item">・月次KPIは月末にExcelで作成。気づいたときは手遅れ</div>
+        <div class="case-item">・PTごとの進捗は感覚的に把握。定量で共有されていない</div>
+        <div class="case-item">・キャンセルや空き枠への対応が属人的</div>
+        <div class="case-item">・院長に聞かれた数字に即答できない</div>
+      </div>
+      <div class="case-arrow">→</div>
+      <div class="case-side case-after">
+        <div class="case-label">AFTER</div>
+        <div class="case-item">・朝礼サマリーがボタン1つで自動生成。準備時間ゼロ</div>
+        <div class="case-item">・月中でも目標達成率がリアルタイムで見える</div>
+        <div class="case-item">・PT別の達成率・トレンドが一覧で全員に共有</div>
+        <div class="case-item">・キャンセル率の推移が見え、対策を先手で打てる</div>
+        <div class="case-item">・「あと何日で何単位必要」が即答できる</div>
+      </div>
+    </div>
+
+    <div class="case-quote">
+      「数字が見えるようになっただけで、朝礼の質が変わった。<br>
+      『あと何単位』ではなく『ここを一緒に良くしよう』と話せるようになった。」
+      <div class="case-meta">— 整形外科クリニック リハビリ部門リーダー（想定コメント）</div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="numbers-label">FAQ</div>
+    <h2 style="font-size:clamp(22px,3.5vw,32px);font-weight:900;letter-spacing:-0.02em">
+      よくある質問
+    </h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">費用はどのくらいですか？</div>
+        <div class="faq-a">
+          案件の規模によりますが、小規模な業務ツールで30〜50万円、ダッシュボード構築で50〜100万円が目安です。初回の相談は無料です。まず課題を聞かせてください。
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">ITに詳しい人がいなくても大丈夫ですか？</div>
+        <div class="faq-a">
+          大丈夫です。むしろ、ITに詳しくない現場の方が使うことを前提に設計しています。導入後の操作サポートも行います。
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">大きなシステム導入は考えていないのですが…</div>
+        <div class="faq-a">
+          BRIDGEは「大きなシステム」は作りません。今の運用に寄り添いながら、一番困っているところだけを小さく解決します。Excelの延長のようなイメージです。
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">開発にどのくらいの期間がかかりますか？</div>
+        <div class="faq-a">
+          最小構成のダッシュボードなら1〜2週間で触れるものをお渡しします。そこから現場のフィードバックを受けて育てていく形です。半年後に完成品を納品するスタイルではありません。
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">他の開発会社と何が違うのですか？</div>
+        <div class="faq-a">
+          代表自身が理学療法士であり、医療経営コンサルとして現場に立っています。エンジニアが作るツールとは「現場の解像度」が違います。使われないシステムを作るリスクが低いのが最大の違いです。
+        </div>
       </div>
     </div>
   </section>
