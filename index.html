@@ -190,7 +190,11 @@
       line-height: 1.35;
       letter-spacing: -0.02em;
       max-width: 920px;
+      /* 「。」が単独で改行される現象を防ぐ */
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
+    .hero-title .nowrap { white-space: nowrap; display: inline-block; }
     .hero-title .accent {
       color: var(--vermilion);
       font-style: normal;
@@ -614,6 +618,40 @@
       cursor: pointer;
       position: relative;
     }
+
+    /* スマホ・タブレット: ネイティブの横スワイプ + スナップ */
+    @media (max-width: 920px) {
+      .products-track-wrap {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: var(--pad-x);
+        padding-bottom: 60px;
+        /* スクロールバーを薄く */
+        scrollbar-width: thin;
+        scrollbar-color: rgba(250,250,247,0.2) transparent;
+      }
+      .products-track-wrap::-webkit-scrollbar { height: 4px; }
+      .products-track-wrap::-webkit-scrollbar-track { background: transparent; }
+      .products-track-wrap::-webkit-scrollbar-thumb {
+        background: rgba(250,250,247,0.2);
+        border-radius: 2px;
+      }
+      .products-track {
+        padding-right: var(--pad-x);
+        transform: none !important; /* GSAP transform を無効化 */
+      }
+      .product-card {
+        width: 80vw;
+        max-width: 380px;
+        scroll-snap-align: start;
+        padding: 32px 28px;
+      }
+      .product-card:hover {
+        transform: none; /* タッチではhoverを抑制 */
+      }
+    }
     .product-card:hover {
       background: rgba(250,250,247,0.07);
       border-color: rgba(200,85,61,0.5);
@@ -693,6 +731,12 @@
       letter-spacing: 0.32em;
       text-transform: uppercase;
       color: rgba(250,250,247,0.3);
+    }
+    .products-footer .hint-sp { display: none; }
+    @media (max-width: 920px) {
+      .products-footer .hint-pc { display: none; }
+      .products-footer .hint-sp { display: inline; }
+      .products-footer { padding: 32px var(--pad-x) 80px; }
     }
 
     /* ============================================================
@@ -1217,8 +1261,8 @@
     <div class="hero-eyebrow ink-line" data-reveal>BRIDGE — A SMALL MEDICAL STUDIO</div>
 
     <h1 class="hero-title" data-split>
-      現場の<span class="accent">「面倒くさい」</span>を、<br>
-      自分ごととして解く。
+      <span class="nowrap">現場の<span class="accent">「面倒くさい」</span>を、</span><br>
+      <span class="nowrap">自分ごととして</span><span class="nowrap">解く。</span>
     </h1>
 
     <div class="hero-line" data-reveal data-reveal-delay="2"></div>
@@ -1466,7 +1510,10 @@
       </div>
     </div>
 
-    <div class="products-footer">— DRAG / SCROLL TO EXPLORE —</div>
+    <div class="products-footer">
+      <span class="hint-pc">— SCROLL TO EXPLORE —</span>
+      <span class="hint-sp">← SWIPE →</span>
+    </div>
   </section>
 
   <!-- ===========================================================
