@@ -39,6 +39,14 @@
 }
 html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
 body{font-family:var(--sans-jp);background:var(--paper);color:var(--ink);overflow-x:hidden;line-height:1.7;font-feature-settings:"palt" 1}
+/* Smart wrapping for Japanese */
+h1,h2,h3,.hero-h,.cta-h,.manifesto-q{text-wrap:balance;word-break:auto-phrase;line-break:strict;overflow-wrap:break-word}
+p,.hero-sub,.manifesto-body,.founder-text p,.product-card-tagline,.stance-content p,.process-step p{text-wrap:pretty;word-break:auto-phrase;line-break:strict;overflow-wrap:break-word}
+.nowrap{white-space:nowrap}
+.br-pc{display:none}
+@media(min-width:720px){.br-pc{display:inline}}
+.br-sp{display:inline}
+@media(min-width:720px){.br-sp{display:none}}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:200;opacity:0.025;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");mix-blend-mode:multiply}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
@@ -291,14 +299,10 @@ img{display:block;max-width:100%}
   <div class="hero-inner">
     <div class="hero-eyebrow" data-reveal>BRIDGE — A Small Medical Studio</div>
     <h1 class="hero-h" data-reveal data-reveal-delay="1">
-      現場の<span class="em quote">面倒くさい</span>を、<br>
-      自分ごととして<br>
-      <span class="em">解く。</span>
+      現場の<span class="em quote nowrap">面倒くさい</span>を、自分ごととして<span class="em nowrap">解く</span>。
     </h1>
     <p class="hero-sub" data-reveal data-reveal-delay="2">
-      理学療法士が、医療現場の小さな課題から<br>
-      軽いプロダクトを毎日作る、ひとりの会社です。<br>
-      触ったことのある現場のためだけに、設計します。
+      理学療法士が、医療現場の小さな課題から軽いプロダクトを毎日作る、ひとりの会社です。触ったことのある現場のためだけに、設計します。
     </p>
     <div class="hero-meta" data-reveal data-reveal-delay="3">
       <span>Established 2026</span>
@@ -315,14 +319,12 @@ img{display:block;max-width:100%}
     <div class="eyebrow kicker manifesto-eyebrow" data-reveal>Manifesto</div>
     <p class="manifesto-q" data-reveal data-reveal-delay="1">
       <span class="em">机上の空論は、作らない。</span><br>
-      触ったことのない現場のために、プロダクトは作れない。<br>
-      数字は、人を縛るためでなく、対話のためにある。<br>
+      <span class="nowrap">触ったことのない現場のために、</span><span class="nowrap">プロダクトは作れない。</span><br>
+      <span class="nowrap">数字は、人を縛るためでなく、</span><span class="nowrap">対話のためにある。</span><br>
       そして<span class="em">「軽さ」は、正義である。</span>
     </p>
     <p class="manifesto-body" data-reveal data-reveal-delay="2">
-      BRIDGEは、自分が最初のユーザーになるところから始まる小さな道具屋です。
-      現場で動いた人間が、自分のために作り、自分で使い、その過程をそのまま発信する。
-      重厚なSaaSではなく、明日から使える軽いものを、ひとつずつ。
+      BRIDGEは、自分が最初のユーザーになるところから始まる小さな道具屋です。現場で動いた人間が、自分のために作り、自分で使い、その過程をそのまま発信する。重厚なSaaSではなく、明日から使える軽いものを、ひとつずつ。
     </p>
     <div class="manifesto-sig" data-reveal data-reveal-delay="3">— Hashimoto Wataru / Founder</div>
   </div>
@@ -333,7 +335,7 @@ img{display:block;max-width:100%}
   <div class="numbers-inner">
     <div class="numbers-head">
       <div class="eyebrow kicker" data-reveal style="color:rgba(255,255,255,0.5)">By the Numbers</div>
-      <h2 data-reveal data-reveal-delay="1">ひとりで、<br>これだけのことができる時代に。</h2>
+      <h2 data-reveal data-reveal-delay="1"><span class="nowrap">ひとりで、</span><span class="nowrap">これだけのことができる時代に。</span></h2>
     </div>
     <div class="numbers-grid">
       <div class="num-cell" data-reveal>
@@ -365,7 +367,7 @@ img{display:block;max-width:100%}
   <div class="showcase-head">
     <div>
       <div class="eyebrow kicker" data-reveal>Live Preview</div>
-      <h2 data-reveal data-reveal-delay="1">触ってみてください、<br><span class="em">いま、ここで。</span></h2>
+      <h2 data-reveal data-reveal-delay="1"><span class="nowrap">触ってみてください、</span><span class="em nowrap">いま、ここで。</span></h2>
     </div>
     <div class="showcase-tabs" data-reveal data-reveal-delay="2" id="showcaseTabs">
       <button class="showcase-tab on" data-product="0">English</button>
@@ -393,9 +395,9 @@ img{display:block;max-width:100%}
 <section class="products" id="products">
   <div class="products-head">
     <div class="eyebrow kicker" data-reveal>Products</div>
-    <h2 data-reveal data-reveal-delay="1">毎日の業務から、<br><span class="em">道具が生まれる。</span></h2>
+    <h2 data-reveal data-reveal-delay="1"><span class="nowrap">毎日の業務から、</span><span class="em nowrap">道具が生まれる。</span></h2>
     <p data-reveal data-reveal-delay="2">
-      BRIDGEのプロダクトは、すべて橋本の日常業務・学習・課題から生まれています。全8本、現在公開中です。
+      BRIDGEのプロダクトは、すべて橋本の日常業務・学習・課題から生まれています。<span class="nowrap">全8本、現在公開中です。</span>
     </p>
   </div>
   <div class="products-grid">
@@ -470,17 +472,13 @@ img{display:block;max-width:100%}
     <div class="founder-text">
       <div class="eyebrow kicker" data-reveal>Founder</div>
       <h2 data-reveal data-reveal-delay="1">
-        理学療法士が、<br>医療経営の数字に責任を持ち、<br><span class="em">道具を作る。</span>
+        <span class="nowrap">理学療法士が、</span><span class="nowrap">医療経営の数字に責任を持ち、</span><span class="em nowrap">道具を作る</span>。
       </h2>
       <p data-reveal data-reveal-delay="2">
-        現場で患者さんを診てきた<span class="ind">理学療法士</span>として10年。
-        その後、事業会社で<span class="ver">医療経営コンサル</span>として、
-        PMI・VUフェーズの数字に責任を持ってきました。
+        現場で患者さんを診てきた<span class="ind nowrap">理学療法士</span>として10年。その後、事業会社で<span class="ver nowrap">医療経営コンサル</span>として、PMI・VUフェーズの数字に責任を持ってきました。
       </p>
       <p data-reveal data-reveal-delay="3">
-        現場の動線を知っていて、経営の数字も読める。
-        そして自分でコードも書く。<br>
-        この交差点に立つ人が作る道具を、世に出していきます。
+        現場の動線を知っていて、経営の数字も読める。そして自分でコードも書く。この交差点に立つ人が作る道具を、世に出していきます。
       </p>
       <div class="founder-roles" data-reveal data-reveal-delay="4">
         <span>理学療法士</span>
@@ -496,7 +494,7 @@ img{display:block;max-width:100%}
 <section class="stance">
   <div class="stance-head">
     <div class="eyebrow kicker" data-reveal>Our Stance</div>
-    <h2 data-reveal data-reveal-delay="1">BRIDGEの全活動は、<br><span class="em">この6つの思想</span>の上に立っています。</h2>
+    <h2 data-reveal data-reveal-delay="1"><span class="nowrap">BRIDGEの全活動は、</span><span class="em nowrap">この6つの思想</span>の上に立っています。</h2>
   </div>
   <div class="stance-list">
     <div class="stance-item" data-reveal>
@@ -549,7 +547,7 @@ img{display:block;max-width:100%}
   <div class="process-inner">
     <div class="process-head">
       <div class="eyebrow kicker" data-reveal>How We Work</div>
-      <h2 data-reveal data-reveal-delay="1">依頼から納品まで、<br><span class="em">4ステップ。</span></h2>
+      <h2 data-reveal data-reveal-delay="1"><span class="nowrap">依頼から納品まで、</span><span class="em nowrap">4ステップ。</span></h2>
     </div>
     <div class="process-steps">
       <div class="process-step" data-reveal>
@@ -581,11 +579,10 @@ img{display:block;max-width:100%}
   <div class="cta-inner">
     <div class="eyebrow kicker cta-eyebrow" data-reveal>Get in Touch</div>
     <h2 class="cta-h" data-reveal data-reveal-delay="1">
-      現場の<span class="em quote">面倒くさい</span>が、<br>あれば教えてください。
+      現場の<span class="em quote nowrap">面倒くさい</span>が、<span class="nowrap">あれば教えてください。</span>
     </h2>
     <p class="cta-sub" data-reveal data-reveal-delay="2">
-      受託、SaaS導入、業務分析、コンテンツ寄稿、何でも。<br>
-      まずは話を聞かせてください。返信は、できるだけ早く。
+      受託、SaaS導入、業務分析、コンテンツ寄稿、何でも。まずは話を聞かせてください。<span class="nowrap">返信は、できるだけ早く。</span>
     </p>
     <div class="cta-actions" data-reveal data-reveal-delay="3">
       <a href="mailto:h.w19961013@gmail.com" class="cta-btn primary">メールで相談</a>
