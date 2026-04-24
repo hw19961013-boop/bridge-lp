@@ -110,23 +110,6 @@ img{display:block;max-width:100%}
 .manifesto-body{font:500 14px/2.1 var(--sans-jp);color:var(--ink-2);max-width:680px;margin:0 auto 32px}
 .manifesto-sig{font:600 13px/1 var(--serif-en);color:var(--ink-3);font-style:italic;letter-spacing:0.04em}
 
-/* ===== NUMBERS ===== */
-.numbers{padding:120px var(--pad-x);background:var(--ink);color:#fff;position:relative;overflow:hidden}
-.numbers::before{content:'';position:absolute;top:-50%;right:-30%;width:80%;height:200%;background:radial-gradient(circle,rgba(200,85,61,0.18),transparent 60%);filter:blur(60px)}
-.numbers-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:1}
-.numbers-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:60px;flex-wrap:wrap;gap:20px}
-.numbers-head .eyebrow{color:rgba(255,255,255,0.5)}
-.numbers-head h2{font:700 clamp(20px,2.6vw,32px)/1.3 var(--serif-jp);color:#fff;max-width:480px}
-.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgba(255,255,255,0.1)}
-@media(max-width:880px){.numbers-grid{grid-template-columns:repeat(2,1fr)}}
-.num-cell{padding:36px 24px 36px 0;border-bottom:1px solid rgba(255,255,255,0.1);border-right:1px solid rgba(255,255,255,0.1);position:relative}
-.num-cell:last-child{border-right:0}
-@media(max-width:880px){.num-cell:nth-child(2n){border-right:0}}
-.num-v{font:900 64px/1 var(--serif-en);font-style:italic;color:#fff;letter-spacing:-0.03em;margin-bottom:8px}
-.num-v .sm{font:700 18px/1 var(--sans-en);font-style:normal;color:rgba(255,255,255,0.6);margin-left:4px}
-.num-l{font:800 11px/1 var(--sans-en);letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px}
-.num-s{font:500 11px/1.4 var(--sans-jp);color:rgba(255,255,255,0.4)}
-
 /* ===== SHOWCASE (LIVE PREVIEW) ===== */
 .showcase{padding:140px var(--pad-x) 100px;background:var(--paper);position:relative}
 .showcase-head{max-width:var(--max);margin:0 auto 56px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px}
@@ -296,8 +279,6 @@ img{display:block;max-width:100%}
 /* progress bar */
 .progress{position:fixed;top:0;left:0;height:2px;background:var(--vermilion);z-index:200;transition:width .1s linear;width:0;box-shadow:0 0 8px rgba(200,85,61,0.5)}
 
-/* counter */
-.counting{font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -350,38 +331,6 @@ img{display:block;max-width:100%}
       BRIDGEは、自分が最初のユーザーになる小さな道具屋です。現場で動いた人間が、自分のために作り、自分で使う。その過程をそのまま発信する。重厚なSaaSではなく、明日から使える軽いものを、ひとつずつ。
     </p>
     <div class="manifesto-sig" data-reveal data-reveal-delay="3">— Hashimoto Wataru / Founder</div>
-  </div>
-</section>
-
-<!-- ============ NUMBERS ============ -->
-<section class="numbers">
-  <div class="numbers-inner">
-    <div class="numbers-head">
-      <div class="eyebrow kicker" data-reveal style="color:rgba(255,255,255,0.5)">By the Numbers</div>
-      <h2 data-reveal data-reveal-delay="1"><span class="nowrap">ひとりで、</span><span class="nowrap">これだけのことができる時代に。</span></h2>
-    </div>
-    <div class="numbers-grid">
-      <div class="num-cell" data-reveal>
-        <div class="num-v counting" data-count="8">0</div>
-        <div class="num-l">公開プロダクト</div>
-        <div class="num-s">医療×経営×学習×汎用</div>
-      </div>
-      <div class="num-cell" data-reveal data-reveal-delay="1">
-        <div class="num-v counting" data-count="360">0</div>
-        <div class="num-l">問題数</div>
-        <div class="num-s">診療情報管理士・全12章</div>
-      </div>
-      <div class="num-cell" data-reveal data-reveal-delay="2">
-        <div class="num-v counting" data-count="10"><span class="sm">年</span></div>
-        <div class="num-l">臨床経験</div>
-        <div class="num-s">理学療法士として</div>
-      </div>
-      <div class="num-cell" data-reveal data-reveal-delay="3">
-        <div class="num-v">1<span class="sm">人</span></div>
-        <div class="num-l">開発体制</div>
-        <div class="num-s">設計・実装・運営すべて</div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -716,25 +665,6 @@ window.addEventListener('scroll',()=>{
   prog.style.width=(window.scrollY/h*100)+'%';
 });
 
-// ===== Counter animation =====
-const cio=new IntersectionObserver(es=>{
-  es.forEach(e=>{
-    if(!e.isIntersecting)return;
-    const el=e.target;const target=+el.dataset.count;const dur=1400;const start=performance.now();
-    const small=el.querySelector('.sm');
-    function tick(t){
-      const p=Math.min(1,(t-start)/dur);
-      const eased=1-Math.pow(1-p,3);
-      const v=Math.round(target*eased);
-      el.firstChild ? (el.firstChild.nodeValue=v) : (el.textContent=v);
-      if(small)el.appendChild(small);
-      if(p<1)requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-    cio.unobserve(el);
-  });
-},{threshold:0.4});
-document.querySelectorAll('.counting').forEach(el=>cio.observe(el));
 </script>
 
 </body>
