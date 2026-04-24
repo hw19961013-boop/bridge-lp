@@ -186,9 +186,8 @@ img{display:block;max-width:100%}
 .founder-container{max-width:var(--max);margin:0 auto;position:relative}
 .founder-hero{display:grid;grid-template-columns:260px 1fr;gap:56px;align-items:center;margin-bottom:60px}
 @media(max-width:760px){.founder-hero{grid-template-columns:1fr;gap:32px}.founder-portrait{max-width:240px}}
-.founder-portrait{aspect-ratio:4/5;background:linear-gradient(160deg,var(--indigo) 0%,var(--indigo-deep) 100%);border-radius:14px;position:relative;overflow:hidden;box-shadow:var(--shadow-3)}
-.founder-portrait::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(200,85,61,0.35),transparent 60%);mix-blend-mode:overlay}
-.founder-portrait::after{content:'渉';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:900 180px/1 var(--serif-jp);color:#fff;opacity:0.16}
+.founder-portrait{aspect-ratio:4/5;background:#0a0a0f url('images/founder.jpg') center/cover;border-radius:14px;position:relative;overflow:hidden;box-shadow:var(--shadow-3)}
+.founder-portrait::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,transparent 55%,rgba(10,10,15,0.45) 100%)}
 .founder-portrait .badge{position:absolute;bottom:16px;left:16px;right:16px;padding:12px 14px;background:rgba(10,10,15,0.65);backdrop-filter:blur(12px);border-radius:8px;color:#fff}
 .founder-portrait .badge .name{font:900 15px/1.2 var(--serif-jp);margin-bottom:3px}
 .founder-portrait .badge .role{font:600 9px/1 var(--sans-en);letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.7)}
@@ -326,7 +325,7 @@ img{display:block;max-width:100%}
       現場の<span class="em quote nowrap">面倒くさい</span>を、自分ごととして<span class="em nowrap">解く</span>。
     </h1>
     <p class="hero-sub" data-reveal data-reveal-delay="2">
-      理学療法士が、医療現場の小さな課題から軽いプロダクトを毎日作る、ひとりの会社です。触ったことのある現場のためだけに、設計します。
+      理学療法士がひとりで作る医療道具屋。現場の小さな課題から、軽いプロダクトを毎日。触った現場のためだけに設計します。
     </p>
     <div class="hero-meta" data-reveal data-reveal-delay="3">
       <span>Established 2026</span>
@@ -342,13 +341,13 @@ img{display:block;max-width:100%}
   <div class="manifesto-inner">
     <div class="eyebrow kicker manifesto-eyebrow" data-reveal>Manifesto</div>
     <p class="manifesto-q" data-reveal data-reveal-delay="1">
-      <span class="em">机上の空論は、作らない。</span><br>
-      <span class="nowrap">触ったことのない現場のために、</span><span class="nowrap">プロダクトは作れない。</span><br>
-      <span class="nowrap">数字は、人を縛るためでなく、</span><span class="nowrap">対話のためにある。</span><br>
-      そして<span class="em">「軽さ」は、正義である。</span>
+      <span class="em">机上の空論は作らない。</span><br>
+      <span class="nowrap">触ったことのない現場に、</span><span class="nowrap">プロダクトは作れない。</span><br>
+      <span class="nowrap">数字は縛るためでなく、</span><span class="nowrap">対話のためにある。</span><br>
+      そして<span class="em">「軽さ」は正義である。</span>
     </p>
     <p class="manifesto-body" data-reveal data-reveal-delay="2">
-      BRIDGEは、自分が最初のユーザーになるところから始まる小さな道具屋です。現場で動いた人間が、自分のために作り、自分で使い、その過程をそのまま発信する。重厚なSaaSではなく、明日から使える軽いものを、ひとつずつ。
+      BRIDGEは、自分が最初のユーザーになる小さな道具屋です。現場で動いた人間が、自分のために作り、自分で使う。その過程をそのまま発信する。重厚なSaaSではなく、明日から使える軽いものを、ひとつずつ。
     </p>
     <div class="manifesto-sig" data-reveal data-reveal-delay="3">— Hashimoto Wataru / Founder</div>
   </div>
@@ -373,9 +372,9 @@ img{display:block;max-width:100%}
         <div class="num-s">診療情報管理士・全12章</div>
       </div>
       <div class="num-cell" data-reveal data-reveal-delay="2">
-        <div class="num-v counting" data-count="35"><span class="sm">+</span></div>
-        <div class="num-l">画面数</div>
-        <div class="num-s">全プロダクト合計</div>
+        <div class="num-v counting" data-count="10"><span class="sm">年</span></div>
+        <div class="num-l">臨床経験</div>
+        <div class="num-s">理学療法士として</div>
       </div>
       <div class="num-cell" data-reveal data-reveal-delay="3">
         <div class="num-v">1<span class="sm">人</span></div>
@@ -421,7 +420,7 @@ img{display:block;max-width:100%}
     <div class="eyebrow kicker" data-reveal>Products</div>
     <h2 data-reveal data-reveal-delay="1"><span class="nowrap">毎日の業務から、</span><span class="em nowrap">道具が生まれる。</span></h2>
     <p data-reveal data-reveal-delay="2">
-      BRIDGEのプロダクトは、すべて橋本の日常業務・学習・課題から生まれています。<span class="nowrap">全8本、現在公開中です。</span>
+      BRIDGEのプロダクトはすべて、橋本の日常業務・学習・課題から生まれています。<span class="nowrap">全8本、公開中。</span>
     </p>
   </div>
   <div class="products-grid">
@@ -568,43 +567,43 @@ img{display:block;max-width:100%}
     <div class="stance-item" data-reveal>
       <div class="stance-num">01</div>
       <div class="stance-content">
-        <h3>現場感のない机上の空論は、作らない。</h3>
-        <p>触ったことのない現場のために、プロダクトは設計できない。デモを動かすだけでなく、自分で使い続けることが前提です。</p>
+        <h3>机上の空論は作らない。</h3>
+        <p>触ったことのない現場に、プロダクトは設計できない。デモを動かすだけでなく、自分で使い続けるのが前提です。</p>
       </div>
     </div>
     <div class="stance-item" data-reveal>
       <div class="stance-num">02</div>
       <div class="stance-content">
-        <h3>数字は、対話のためにある。</h3>
-        <p>KPIは現場を縛る道具ではなく、改善と会話のきっかけ。「責める数字」ではなく「考える数字」を設計します。</p>
+        <h3>数字は対話のためにある。</h3>
+        <p>KPIは現場を縛る道具ではなく、改善と対話のきっかけ。「責める数字」でなく「考える数字」を設計します。</p>
       </div>
     </div>
     <div class="stance-item" data-reveal>
       <div class="stance-num">03</div>
       <div class="stance-content">
-        <h3>横断して、考える。</h3>
-        <p>運営改善・採用・評価制度・診療報酬・現場導線。これらを分断せず、繋げて設計します。組織は分業されていても、課題は繋がっています。</p>
+        <h3>横断して考える。</h3>
+        <p>運営改善・採用・評価制度・診療報酬・現場導線。分断せず繋げて設計する。組織は分業でも、課題は繋がっている。</p>
       </div>
     </div>
     <div class="stance-item" data-reveal>
       <div class="stance-num">04</div>
       <div class="stance-content">
-        <h3>軽さが、正義。</h3>
-        <p>大企業向けの重いSaaSではなく、中小規模の医療機関がすぐ使える軽量さを最優先します。導入会議が要らないくらいに、軽く。</p>
+        <h3>軽さが正義。</h3>
+        <p>大企業向けの重いSaaSではなく、中小の医療機関がすぐ使える軽さを最優先。導入会議が要らないくらい軽く。</p>
       </div>
     </div>
     <div class="stance-item" data-reveal>
       <div class="stance-num">05</div>
       <div class="stance-content">
-        <h3>1→10が、得意。</h3>
-        <p>ゼロから発明するより、既にある運用を整理・型化・仕組み化して磨く。現場には既に答えがあります。それを言語化するのが私たちの仕事です。</p>
+        <h3>1→10が得意。</h3>
+        <p>ゼロから発明するより、既にある運用を整理・型化・仕組み化して磨く。現場には既に答えがある。それを言語化するのが仕事です。</p>
       </div>
     </div>
     <div class="stance-item" data-reveal>
       <div class="stance-num">06</div>
       <div class="stance-content">
-        <h3>「現場で使える」が、最上位の判断基準。</h3>
-        <p>技術的に美しくても、現場の人が嫌がるなら作り直す。最後の判断は、いつも「現場の人の表情」です。</p>
+        <h3>「現場で使える」が最上位の判断基準。</h3>
+        <p>技術的に美しくても、現場の人が嫌がるなら作り直す。最後の判断はいつも「現場の人の表情」。</p>
       </div>
     </div>
   </div>
@@ -650,7 +649,7 @@ img{display:block;max-width:100%}
       現場の<span class="em quote nowrap">面倒くさい</span>が、<span class="nowrap">あれば教えてください。</span>
     </h2>
     <p class="cta-sub" data-reveal data-reveal-delay="2">
-      受託、SaaS導入、業務分析、コンテンツ寄稿、何でも。まずは話を聞かせてください。<span class="nowrap">返信は、できるだけ早く。</span>
+      受託・SaaS導入・業務分析・コンテンツ寄稿、何でも。まずは話を聞かせてください。<span class="nowrap">返信はできるだけ早く。</span>
     </p>
     <div class="cta-actions" data-reveal data-reveal-delay="3">
       <a href="mailto:h.w19961013@gmail.com" class="cta-btn primary">メールで相談</a>
