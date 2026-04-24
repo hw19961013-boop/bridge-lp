@@ -182,21 +182,45 @@ img{display:block;max-width:100%}
 
 /* ===== FOUNDER ===== */
 .founder{padding:140px var(--pad-x);background:var(--paper-2);position:relative;overflow:hidden}
-.founder-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center}
-@media(max-width:880px){.founder-inner{grid-template-columns:1fr;gap:48px}}
-.founder-portrait{aspect-ratio:4/5;background:linear-gradient(160deg,var(--indigo) 0%,var(--indigo-deep) 100%);border-radius:20px;position:relative;overflow:hidden;box-shadow:var(--shadow-3)}
-.founder-portrait::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(200,85,61,0.4),transparent 60%);mix-blend-mode:overlay}
-.founder-portrait::after{content:'渉';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:900 200px/1 var(--serif-jp);color:#fff;opacity:0.15}
-.founder-portrait .badge{position:absolute;bottom:24px;left:24px;right:24px;padding:14px 18px;background:rgba(10,10,15,0.6);backdrop-filter:blur(12px);border-radius:10px;color:#fff}
-.founder-portrait .badge .name{font:900 18px/1.2 var(--serif-jp);margin-bottom:4px}
-.founder-portrait .badge .role{font:600 10px/1 var(--sans-en);letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.7)}
-.founder-text h2{font:900 clamp(28px,4.4vw,48px)/1.25 var(--serif-jp);letter-spacing:-0.02em;margin:14px 0 24px}
-.founder-text h2 .em{color:var(--vermilion);font-family:var(--serif-en);font-style:italic}
-.founder-text p{font:500 14px/1.95 var(--sans-jp);color:var(--ink-2);margin-bottom:18px}
-.founder-text p .ind{color:var(--indigo);font-weight:700}
-.founder-text p .ver{color:var(--vermilion);font-weight:700}
-.founder-roles{display:flex;flex-wrap:wrap;gap:6px;margin-top:32px}
+.founder::before{content:'';position:absolute;top:-30%;right:-20%;width:80%;height:160%;background:radial-gradient(circle,rgba(27,73,101,0.05),transparent 60%);filter:blur(60px)}
+.founder-container{max-width:var(--max);margin:0 auto;position:relative}
+.founder-hero{display:grid;grid-template-columns:260px 1fr;gap:56px;align-items:center;margin-bottom:60px}
+@media(max-width:760px){.founder-hero{grid-template-columns:1fr;gap:32px}.founder-portrait{max-width:240px}}
+.founder-portrait{aspect-ratio:4/5;background:linear-gradient(160deg,var(--indigo) 0%,var(--indigo-deep) 100%);border-radius:14px;position:relative;overflow:hidden;box-shadow:var(--shadow-3)}
+.founder-portrait::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(200,85,61,0.35),transparent 60%);mix-blend-mode:overlay}
+.founder-portrait::after{content:'渉';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:900 180px/1 var(--serif-jp);color:#fff;opacity:0.16}
+.founder-portrait .badge{position:absolute;bottom:16px;left:16px;right:16px;padding:12px 14px;background:rgba(10,10,15,0.65);backdrop-filter:blur(12px);border-radius:8px;color:#fff}
+.founder-portrait .badge .name{font:900 15px/1.2 var(--serif-jp);margin-bottom:3px}
+.founder-portrait .badge .role{font:600 9px/1 var(--sans-en);letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.7)}
+.founder-name-block .name-h{font:900 clamp(32px,5vw,52px)/1.15 var(--serif-jp);letter-spacing:-0.02em;margin:12px 0 0}
+.founder-name-block .name-h .em{color:var(--vermilion);font-family:var(--serif-en);font-style:italic}
+.founder-name-block .en-name{display:block;font:700 14px/1 var(--serif-en);font-style:italic;color:var(--ink-3);margin-top:10px;letter-spacing:0.04em}
+.founder-name-block .role-tag{display:inline-block;font:800 10px/1 var(--sans-en);letter-spacing:0.18em;text-transform:uppercase;color:var(--vermilion);margin-top:16px;padding:6px 12px;background:rgba(200,85,61,0.08);border-radius:999px;border:1px solid rgba(200,85,61,0.2)}
+.founder-intro{font:500 14px/1.9 var(--sans-jp);color:var(--ink-2);margin-top:18px;max-width:540px}
+.founder-quote{background:var(--paper);border-left:4px solid var(--vermilion);padding:36px 36px 32px 44px;margin-bottom:60px;border-radius:0 14px 14px 0;box-shadow:var(--shadow-1);position:relative}
+.founder-quote::before{content:'"';position:absolute;top:-12px;left:32px;font:900 90px/1 var(--serif-en);font-style:italic;color:var(--vermilion);opacity:0.18}
+.founder-quote q{font:700 clamp(18px,2.4vw,28px)/1.75 var(--serif-jp);color:var(--ink);display:block;quotes:none;letter-spacing:-0.01em}
+.founder-quote q::before,.founder-quote q::after{content:''}
+.founder-quote .cite{display:block;font:600 12px/1 var(--serif-en);font-style:italic;color:var(--ink-3);margin-top:20px;letter-spacing:0.04em}
+.founder-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:48px}
+@media(max-width:880px){.founder-timeline{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.founder-timeline{grid-template-columns:1fr}}
+.tl-step{background:var(--paper);padding:28px 22px;display:flex;flex-direction:column;gap:10px;transition:background .25s;position:relative}
+.tl-step:hover{background:var(--paper-2)}
+.tl-step.now{background:linear-gradient(180deg,rgba(200,85,61,0.06),var(--paper))}
+.tl-step.now::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--vermilion)}
+.tl-num{font:900 38px/1 var(--serif-en);font-style:italic;color:var(--vermilion)}
+.tl-tag{font:800 9px/1 var(--sans-en);letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3)}
+.tl-title{font:900 18px/1.2 var(--serif-jp);color:var(--ink);letter-spacing:-0.01em}
+.tl-body{font:500 12px/1.85 var(--sans-jp);color:var(--ink-2);flex:1}
+.tl-now-tag{display:inline-block;margin-top:6px;padding:3px 8px;background:var(--vermilion);color:#fff;font:800 9px/1 var(--sans-en);letter-spacing:0.14em;text-transform:uppercase;border-radius:4px;align-self:flex-start}
+.founder-foot{display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+.founder-roles{display:flex;flex-wrap:wrap;gap:6px}
 .founder-roles span{padding:8px 14px;background:var(--paper);border:1px solid var(--line);border-radius:999px;font:700 11px/1 var(--sans-jp);color:var(--ink-2)}
+.note-link{font:600 12px/1.5 var(--sans-jp);color:var(--ink-2);border-bottom:1px solid var(--line);padding-bottom:6px;transition:color .2s,border-color .2s;display:inline-flex;align-items:center;gap:8px}
+.note-link::after{content:'→';transition:transform .2s}
+.note-link:hover{color:var(--vermilion);border-color:var(--vermilion)}
+.note-link:hover::after{transform:translateX(4px)}
 
 /* ===== STANCE ===== */
 .stance{padding:140px var(--pad-x);background:var(--paper)}
@@ -462,31 +486,75 @@ img{display:block;max-width:100%}
 
 <!-- ============ FOUNDER ============ -->
 <section class="founder" id="founder">
-  <div class="founder-inner">
-    <div class="founder-portrait" data-reveal>
-      <div class="badge">
-        <div class="name">橋本 渉</div>
-        <div class="role">Founder · Builder</div>
+  <div class="founder-container">
+
+    <div class="founder-hero">
+      <div class="founder-portrait" data-reveal>
+        <div class="badge">
+          <div class="name">橋本 渉</div>
+          <div class="role">Founder · Builder</div>
+        </div>
+      </div>
+      <div class="founder-name-block">
+        <div class="eyebrow kicker" data-reveal>Founder</div>
+        <h2 class="name-h" data-reveal data-reveal-delay="1">
+          <span class="nowrap">臨床</span><span class="em">×</span><span class="nowrap">研究</span><span class="em">×</span><span class="nowrap">経営、</span><br class="br-sp">
+          <span class="em nowrap">そして道具づくり。</span>
+          <span class="en-name">Wataru Hashimoto</span>
+        </h2>
+        <span class="role-tag" data-reveal data-reveal-delay="2">PT × Consultant × Builder</span>
+        <p class="founder-intro" data-reveal data-reveal-delay="3">
+          現場で患者を診て、大学院で論文を書き、事業会社で医療経営の数字に責任を持ち、いまBRIDGEで道具を作る。<span class="nowrap">「臨床×研究×経営」</span>を一人で繋ぐことが、設計の出発点です。
+        </p>
       </div>
     </div>
-    <div class="founder-text">
-      <div class="eyebrow kicker" data-reveal>Founder</div>
-      <h2 data-reveal data-reveal-delay="1">
-        <span class="nowrap">理学療法士が、</span><span class="nowrap">医療経営の数字に責任を持ち、</span><span class="em nowrap">道具を作る</span>。
-      </h2>
-      <p data-reveal data-reveal-delay="2">
-        現場で患者さんを診てきた<span class="ind nowrap">理学療法士</span>として10年。その後、事業会社で<span class="ver nowrap">医療経営コンサル</span>として、PMI・VUフェーズの数字に責任を持ってきました。
-      </p>
-      <p data-reveal data-reveal-delay="3">
-        現場の動線を知っていて、経営の数字も読める。そして自分でコードも書く。この交差点に立つ人が作る道具を、世に出していきます。
-      </p>
-      <div class="founder-roles" data-reveal data-reveal-delay="4">
+
+    <div class="founder-quote" data-reveal>
+      <q><span class="nowrap">医療を持続可能にするには、</span><span class="nowrap">経営の視点が要る。</span><br class="br-pc"><span class="nowrap">そう気づいた理学療法士が、</span><span class="nowrap">いま道具を作っている。</span></q>
+      <span class="cite">— Wataru Hashimoto</span>
+    </div>
+
+    <div class="founder-timeline">
+      <div class="tl-step" data-reveal>
+        <div class="tl-num">01</div>
+        <div class="tl-tag">Clinical</div>
+        <div class="tl-title">臨床</div>
+        <div class="tl-body">理学療法士として現場に立つ。患者の動線を体に染み込ませた日々。<span class="nowrap">「もっとできるのに」</span>を、ここで知った。</div>
+      </div>
+      <div class="tl-step" data-reveal data-reveal-delay="1">
+        <div class="tl-num">02</div>
+        <div class="tl-tag">Research</div>
+        <div class="tl-title">研究</div>
+        <div class="tl-body">大学院で<span class="nowrap">「評価の客観性」</span>と向き合う。英語論文を発表。データ解釈と現場応用の難しさから、別角度の視点を獲得。</div>
+      </div>
+      <div class="tl-step" data-reveal data-reveal-delay="2">
+        <div class="tl-num">03</div>
+        <div class="tl-tag">Management</div>
+        <div class="tl-title">経営</div>
+        <div class="tl-body">事業会社で医療経営コンサル。PMI・VUフェーズの数字に責任。<span class="nowrap">「医療を持続可能にする」</span>視点が、ここで言語化された。</div>
+      </div>
+      <div class="tl-step now" data-reveal data-reveal-delay="3">
+        <div class="tl-num">04</div>
+        <div class="tl-tag">Builder</div>
+        <div class="tl-title">道具づくり</div>
+        <div class="tl-body">BRIDGEを開始。臨床×研究×経営の交差点で、自分のために、現場のために、軽い道具を作る。</div>
+        <span class="tl-now-tag">Now</span>
+      </div>
+    </div>
+
+    <div class="founder-foot" data-reveal>
+      <div class="founder-roles">
         <span>理学療法士</span>
         <span>医科学修士</span>
         <span>医療経営コンサル</span>
         <span>診療情報管理士（学習中）</span>
+        <span>Solo Builder</span>
       </div>
+      <a href="https://note.com/prime_duck4944" target="_blank" class="note-link">
+        Note でキャリア探求シリーズを書いています
+      </a>
     </div>
+
   </div>
 </section>
 
