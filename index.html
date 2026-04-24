@@ -27,6 +27,9 @@
   --vermilion:#C8553D;--vermilion-deep:#A8442F;
   --indigo:#1B4965;--indigo-deep:#0F2D44;
   --gold:#B8860B;
+  /* Design System v1.0 新色 — bridge-hq/design-system/ 参照 */
+  --moegi:#8A9A5B;--moegi-deep:#6B7A4F;--moegi-pale:#C8D4B0;
+  --taisha:#8B5A2B;--taisha-deep:#6B4420;--taisha-pale:#D4B896;
   --serif-jp:'Noto Serif JP',serif;
   --sans-jp:'Noto Sans JP',sans-serif;
   --serif-en:'Fraunces',serif;
@@ -189,13 +192,13 @@ img{display:block;max-width:100%}
 @media(max-width:520px){.founder-timeline{grid-template-columns:1fr}}
 .tl-step{background:var(--paper);padding:28px 22px;display:flex;flex-direction:column;gap:10px;transition:background .25s;position:relative}
 .tl-step:hover{background:var(--paper-2)}
-.tl-step.now{background:linear-gradient(180deg,rgba(200,85,61,0.06),var(--paper))}
-.tl-step.now::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--vermilion)}
+.tl-step.now{background:linear-gradient(180deg,rgba(138,154,91,0.08),var(--paper))}
+.tl-step.now::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--moegi)}
 .tl-num{font:900 38px/1 var(--serif-en);font-style:italic;color:var(--vermilion)}
 .tl-tag{font:800 9px/1 var(--sans-en);letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3)}
 .tl-title{font:900 18px/1.2 var(--serif-jp);color:var(--ink);letter-spacing:-0.01em}
 .tl-body{font:500 12px/1.85 var(--sans-jp);color:var(--ink-2);flex:1}
-.tl-now-tag{display:inline-block;margin-top:6px;padding:3px 8px;background:var(--vermilion);color:#fff;font:800 9px/1 var(--sans-en);letter-spacing:0.14em;text-transform:uppercase;border-radius:4px;align-self:flex-start}
+.tl-now-tag{display:inline-block;margin-top:6px;padding:3px 8px;background:var(--moegi);color:#fff;font:800 9px/1 var(--sans-en);letter-spacing:0.14em;text-transform:uppercase;border-radius:2px;align-self:flex-start}
 .founder-foot{display:flex;flex-direction:column;align-items:flex-start;gap:20px}
 .founder-roles{display:flex;flex-wrap:wrap;gap:6px}
 .founder-roles span{padding:8px 14px;background:var(--paper);border:1px solid var(--line);border-radius:999px;font:700 11px/1 var(--sans-jp);color:var(--ink-2)}
