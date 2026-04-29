@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RehaBoard — リハ運営ダッシュボード(Web版・買い切り ¥1,980)/ BRIDGE</title>
+<meta name="description" content="ブラウザで動くリハ運営ダッシュボード。ダッシュボード・担当患者・月次レビュー・院長報告 A4 自動生成。データはお手元のブラウザに保存、クラウドへ送信なし。買い切り ¥1,980。">
+<meta property="og:title" content="RehaBoard — リハ運営ダッシュボード(Web版・買い切り)">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bridge-med.github.io/bridge-lp/rehaboard/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/subpage.css">
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<nav class="nav" id="nav">
+  <a href="../index.html" class="nav-logo" data-link="bridge-lp">BRIDGE<span class="dot">.</span><span class="small">RehaBoard</span></a>
+  <div class="nav-actions">
+    <a href="../index.html" class="back" data-link="bridge-lp">← BRIDGE</a>
+    <a href="https://bridge-med.github.io/rehaboard-demo/" target="_blank" class="cta" data-link="demo">デモを触る ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow" data-reveal>RehaBoard / リハ運営ダッシュボード(Web版)</div>
+    <h1 class="hero-h" data-reveal>
+      ブラウザで動く、<br>
+      <span class="em">リハ運営の道具。</span>
+    </h1>
+    <p class="hero-sub" data-reveal>
+      朝礼サマリー、担当患者の起算日アラート、月次レビュー、院長報告 A4 自動生成。リハ部門の責任者が日々見たい数字と、毎月作り直していた資料を、HTML 1ファイルにまとめました。データはお手元のブラウザに保存、クラウドへの送信は一切ありません。
+    </p>
+    <div class="hero-meta" data-reveal>
+      <span>HTML 1ファイル</span>
+      <span>クラウド非送信</span>
+      <span>買い切り ¥1,980</span>
+    </div>
+  </div>
+</section>
+
+<!-- 課題 -->
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">01 / The Problem</div>
+      <h2><span class="nowrap">紙と Excel の往復で、</span><span class="em nowrap">月初がいつも消えていく。</span></h2>
+      <p>リハ部門の責任者が、毎月繰り返している「あるある」です。</p>
+    </div>
+    <div class="problems">
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">01</div>
+        <div class="problem-content">
+          <h3>朝礼で同じ数字を見られない</h3>
+          <p>「先週の単位数」「昨日の新患」を、責任者が口頭でバラバラに伝えている。投影できるものがない。</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">02</div>
+        <div class="problem-content">
+          <h3>担当患者の起算日管理が紙</h3>
+          <p>「あと残何日?」を電卓で計算。残日数の少ない患者が誰か、紙のリストでないと分からない。</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">03</div>
+        <div class="problem-content">
+          <h3>院長報告を毎月作り直し</h3>
+          <p>月初の数日が、院長報告の Word 作成と Excel 集計で潰れる。同じフォーマットを毎月作っているのに。</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">04</div>
+        <div class="problem-content">
+          <h3>SaaS は重い・データが外に出る不安</h3>
+          <p>クラウド型は院内の情報セキュリティ規程に引っかかる。かといって紙には戻れない。中間が欲しい。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 機能 -->
+<section>
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">02 / What it Does</div>
+      <h2><span class="nowrap">7つの画面で、</span><span class="em nowrap">リハ運営を1画面に。</span></h2>
+      <p>サイドバーから切り替える、シンプルな構成。すべてブラウザで完結します。</p>
+    </div>
+
+    <div class="feat-grid" data-reveal>
+      <div class="feat-item">
+        <h4 class="feat-h"><span class="ic">1</span>ダッシュボード</h4>
+        <p class="feat-d">月の総単位数・実施患者数・新患・キャンセル・計画書の KPI と、日次/週次/月次/年次の単位数推移チャート。進捗ペースリングで「今月の到達」を直感的に。</p>
+      </div>
+      <div class="feat-item">
+        <h4 class="feat-h"><span class="ic">2</span>PT実績一覧</h4>
+        <p class="feat-d">PT別の単位数・達成率・直近3日のトレンド・前月比までを1テーブルで。展開行で日次の内訳も確認できます。</p>
+      </div>
+      <div class="feat-item">
+        <h4 class="feat-h"><span class="ic">3</span>担当患者リスト</h4>
+        <p class="feat-d">担当 PT × 患者の名簿に、起算日・残日数を自動算出。残日数アラート(7日 / 30日 / 期限切れ)で算定切れの予兆を可視化。</p>
+      </div>
+      <div class="feat-item">
+        <h4 class="feat-h"><span class="ic">4</span>データ入力</h4>
+        <p class="feat-d">PT × 日付ごとに、単位数・患者数・新規・計画書・キャンセルを記録。未入力日のサマリーを自動表示します。</p>
+      </div>
+      <div class="feat-item">
+        <h4 class="feat-h"><span class="ic">5</span>朝礼サマリー</h4>
+        <p class="feat-d">基準日を選んで「生成」を押すだけで、朝礼で読み上げる用のテキストを自動生成。クリップボード コピー / 印刷対応。</p>
+      </div>
+      <div class="feat-item">
+        <h4 class="feat-h"><span class="ic">6</span>月次レビュー / 院長報告</h4>
+        <p class="feat-d">数字 / 良かった点 / 詰まり / 改善アクション(1つに絞る) / スタッフへの共有文言。院長報告は A4 1ページで自動生成し、印刷可能。</p>
+      </div>
+      <div class="feat-item">
+        <h4 class="feat-h"><span class="ic">7</span>目標設定 + 設定</h4>
+        <p class="feat-d">部門全体の月次目標と PT別目標を別管理。施設名・PT マスタ・データ管理(JSON エクスポート/インポート/全リセット)もここから。</p>
+      </div>
+      <div class="feat-item">
+        <h4 class="feat-h"><span class="ic">+</span>KPI 辞書(全 19 指標)</h4>
+        <p class="feat-d">サイドバーから開ける辞書モーダル。各 KPI に「定義」「良い使い方」「悪い使い方」を併記。導入時の読み合わせ用。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 画面のイメージ(SVG モック) -->
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">03 / Screen</div>
+      <h2><span class="nowrap">担当患者リストは、</span><span class="em nowrap">こう見えます。</span></h2>
+      <p>「期限切れ」「7日以内」「30日以内」「通院中合計」の4枚アラートと、PT別 担当者サマリー、患者一覧テーブル。残日数の少ない患者から順に並びます。</p>
+    </div>
+
+    <div class="mock-wrap" data-reveal>
+      <div class="mock-bar"><i></i><i></i><i></i><span class="mock-title">RehaBoard — 担当患者リスト</span></div>
+      <div class="mock-content">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;">
+          <div style="padding:14px;border-radius:6px;background:#FBE5DD;color:#A8442F;text-align:center;border:1px solid #F0C0B0">
+            <div style="font:800 italic 24px/1 'Fraunces',serif;">2</div>
+            <div style="font-size:10px;letter-spacing:0.04em;margin-top:4px;">期限切れ</div>
+          </div>
+          <div style="padding:14px;border-radius:6px;background:#FAEFD8;color:#B26B40;text-align:center;border:1px solid #E5C5A0">
+            <div style="font:800 italic 24px/1 'Fraunces',serif;">5</div>
+            <div style="font-size:10px;letter-spacing:0.04em;margin-top:4px;">7日以内</div>
+          </div>
+          <div style="padding:14px;border-radius:6px;background:#FAF5DA;color:#806430;text-align:center;border:1px solid #D8C290">
+            <div style="font:800 italic 24px/1 'Fraunces',serif;">12</div>
+            <div style="font-size:10px;letter-spacing:0.04em;margin-top:4px;">30日以内</div>
+          </div>
+          <div style="padding:14px;border-radius:6px;background:#EFF2E4;color:#6B7A4F;text-align:center;border:1px solid #C5D2A8">
+            <div style="font:800 italic 24px/1 'Fraunces',serif;">98</div>
+            <div style="font-size:10px;letter-spacing:0.04em;margin-top:4px;">通院中合計</div>
+          </div>
+        </div>
+        <table class="cmp-table" style="font-size:11px;">
+          <thead><tr><th>患者ID</th><th>主疾患</th><th>担当PT</th><th>起算日</th><th>残日数</th><th>状態</th></tr></thead>
+          <tbody>
+            <tr style="background:#FBE5DD"><td>P-2026-018</td><td>膝OA</td><td>鈴木</td><td class="num">2025-11-30</td><td class="num delta-down">期限切れ</td><td>通院中</td></tr>
+            <tr style="background:#FBEFEA"><td>P-2026-007</td><td>腰部脊柱管</td><td>小島</td><td class="num">2025-12-04</td><td class="num delta-down">3日</td><td>通院中</td></tr>
+            <tr><td>P-2026-022</td><td>肩</td><td>鈴木</td><td class="num">2025-12-22</td><td class="num">21日</td><td>通院中</td></tr>
+            <tr><td>P-2026-014</td><td>膝OA</td><td>廣瀬</td><td class="num">2026-01-08</td><td class="num">38日</td><td>通院中</td></tr>
+          </tbody>
+        </table>
+        <p class="cmp-note" style="margin-top:14px">※ サンプルです。起算日 + 150日 を上限の目安として残日数を自動算出します。閾値は施設ごとに調整可能。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 院長報告 A4 -->
+<section>
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">04 / Director Report</div>
+      <h2><span class="nowrap">院長報告は、</span><span class="em nowrap">A4 1枚に整います。</span></h2>
+      <p>月次レビュー画面に「数字」「良かった点」「詰まり」「改善アクション」を入れると、A4 1ページの院長報告として自動生成。そのまま印刷できます。</p>
+    </div>
+
+    <div class="mock-wrap" data-reveal>
+      <div class="mock-bar"><i></i><i></i><i></i><span class="mock-title">RehaBoard — 院長報告(A4 自動生成)</span></div>
+      <div class="mock-content" style="background:#FAFAF7;font-family:'Noto Serif JP',serif;color:#0A0A0F;line-height:1.85;">
+        <h3 style="margin:0 0 6px 0;font-weight:900;font-size:18px;">リハビリ部門 月次報告</h3>
+        <div style="font-size:12px;color:#6E6E78;margin-bottom:24px;">2026年4月 / BRIDGE 整形外科クリニック</div>
+
+        <div style="margin-bottom:18px;">
+          <div style="font-weight:800;font-size:11px;letter-spacing:0.14em;color:#C8553D;border-left:2px solid #C8553D;padding-left:8px;margin-bottom:8px;">先月の数字(確定値)</div>
+          <div style="font-size:12px;">
+            実施単位数: <strong>1,512 単位</strong> / 目標 1,500 単位 (達成率 100.8%)<br>
+            実施患者数: 124 人 / 新規 22 人<br>
+            キャンセル: 18 件 / 計画書: 19 件
+          </div>
+        </div>
+
+        <div style="margin-bottom:18px;">
+          <div style="font-weight:800;font-size:11px;letter-spacing:0.14em;color:#C8553D;border-left:2px solid #C8553D;padding-left:8px;margin-bottom:8px;">良かった点</div>
+          <div style="font-size:12px;">新患が前月比 +20%。初回時の説明資料を変更してから、患者からの質問が増えた。</div>
+        </div>
+
+        <div style="margin-bottom:18px;">
+          <div style="font-weight:800;font-size:11px;letter-spacing:0.14em;color:#C8553D;border-left:2px solid #C8553D;padding-left:8px;margin-bottom:8px;">詰まりポイント</div>
+          <div style="font-size:12px;">・キャンセル率がやや上昇 (前月 6% → 8%) — リマインド運用の見直し検討</div>
+        </div>
+
+        <div style="margin-bottom:18px;">
+          <div style="font-weight:800;font-size:11px;letter-spacing:0.14em;color:#C8553D;border-left:2px solid #C8553D;padding-left:8px;margin-bottom:8px;">来月の運用変更</div>
+          <div style="font-size:12px;">
+            初回リハ後、その場で次回予約を取る運用に統一する。<br>
+            <span style="color:#6E6E78;font-size:11px;">担当: PT_A(リーダー) / 測る指標: 2回目移行率 / 期限: 6/1 から運用</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- データ安心 -->
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">05 / Data</div>
+      <h2><span class="nowrap">データは、</span><span class="em nowrap">院内ブラウザの中だけ。</span></h2>
+      <p>BRIDGE のサーバには何も送信しません。HTML 1ファイル + ブラウザの LocalStorage で完結する設計です。</p>
+    </div>
+    <div class="phil-grid" data-reveal>
+      <div class="phil-card"><h3>クラウドに上げない</h3><p>JavaScript で外部 API を一切呼びません。データはお手元のブラウザにだけ残ります。情報セキュリティ規程の壁を越えやすい設計です。</p></div>
+      <div class="phil-card"><h3>院内管理なので実名OK</h3><p>院内のブラウザで使うので、PT・患者IDは実名・カルテ番号でも構いません(各施設の個人情報保護規程に従ってご判断ください)。</p></div>
+      <div class="phil-card"><h3>移行・バックアップは JSON</h3><p>機種変更や端末追加の際は、設定画面の「JSON エクスポート」でバックアップ → 新しいブラウザで「JSON インポート」。データの所有権は施設側に常にあります。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- デモ vs 商品 -->
+<section>
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">06 / Demo vs Full</div>
+      <h2><span class="nowrap">先に触ってから、</span><span class="em nowrap">買えます。</span></h2>
+      <p>触ってみて、自施設の運用に合いそうか確認してから購入してください。</p>
+    </div>
+
+    <div class="ba-grid" data-reveal>
+      <div class="ba-col before">
+        <span class="ba-tag">Demo(無料)</span>
+        <h3>触れる・確認できる</h3>
+        <ul>
+          <li>全機能をサンプルデータで体験</li>
+          <li>データ保存なし(リロードで消える)</li>
+          <li>担当患者の登録上限あり</li>
+          <li>印刷・JSON エクスポート不可</li>
+          <li>初回ウィザードなし</li>
+        </ul>
+      </div>
+      <div class="ba-arrow" aria-hidden="true">
+        <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 H30 M22 10 L30 18 L22 26"/></svg>
+      </div>
+      <div class="ba-col after">
+        <span class="ba-tag">Full ¥1,980</span>
+        <h3>運用で使える</h3>
+        <ul>
+          <li>データはブラウザに永続化(再訪で復元)</li>
+          <li>担当患者・PT 登録に上限なし</li>
+          <li>印刷(朝礼サマリー / 院長報告 A4)</li>
+          <li>JSON エクスポート / インポート / 全リセット</li>
+          <li>初回ウィザードで施設情報・PT・目標を一括設定</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="buy">
+  <div data-reveal>
+    <div class="eyebrow kicker" style="display:inline-flex;justify-content:center;color:var(--ink-3);margin-bottom:14px">Pricing</div>
+    <h2 style="font:900 clamp(24px,3.6vw,40px)/1.3 var(--serif-jp);color:var(--ink);margin-bottom:14px;letter-spacing:-0.02em"><span class="nowrap">買い切り、</span><span class="em nowrap">¥1,980。</span></h2>
+    <p style="font:500 13px/1.85 var(--sans-jp);color:var(--ink-2);max-width:580px;margin:0 auto 36px">
+      明日から使えるかどうかが、買う理由のすべてだと思います。<br class="br-pc">
+      サブスクではなく、買い切りです。アップデートは購入者向けに無償提供します。
+    </p>
+    <div class="cta-actions-c" style="flex-direction:column;max-width:480px;margin:0 auto 28px">
+      <a class="buy-btn primary" href="#purchase-rehaboard" data-link="purchase-rehaboard" style="width:100%">RehaBoard を購入する(¥1,980)</a>
+      <a class="buy-btn ghost" href="https://bridge-med.github.io/rehaboard-demo/" target="_blank" rel="noopener" data-link="demo" style="width:100%">先にデモを触る ↗</a>
+      <a class="buy-btn ghost" href="../index.html#contact" data-link="consult-all" style="width:100%">自施設で導入を相談する</a>
+    </div>
+    <p class="buy-note">
+      ※ 本ツールは部門運営の数字管理を支援する道具です。診療報酬算定の要件充足、監査対応、施設基準の充足については保証しません。各施設の責任のもと、公式情報に基づいてご判断ください。<br>
+      ※ デジタル商品の性質上、原則として返金は承っておりません。先にデモ版で動作と画面の感触を必ずご確認ください。
+    </p>
+  </div>
+</section>
+
+<!-- Founder -->
+<section class="founder">
+  <div class="founder-inner" data-reveal>
+    <div class="eyebrow kicker">From the Founder</div>
+    <p class="founder-quote">
+      重厚な SaaS を入れる前に、<br>
+      ブラウザ 1 枚で運用が回ったら、<br>
+      入れる必要のないシステムだってある。<br><br>
+      理学療法士として、医療経営コンサルとして、<br>
+      現場で「これで足りるな」と感じる軽さを目指して作りました。
+    </p>
+    <div class="founder-meta">
+      <strong>橋本 渉 / Wataru Hashimoto</strong>
+      理学療法士 · 医科学修士 · 医療経営コンサル · BRIDGE Founder
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-brand">BRIDGE<span class="dot">.</span></div>
+  <div class="foot-tag">理学療法士がひとりで作る、医療現場の小さな道具屋。</div>
+  <div class="foot-links">
+    <a href="../index.html" data-link="bridge-lp">BRIDGE</a>
+    <a href="https://note.com/prime_duck4944" target="_blank">Note</a>
+    <a href="https://x.com/WataruPT1013" target="_blank">X</a>
+    <a href="mailto:h.w19961013@gmail.com">Mail</a>
+  </div>
+  <div style="margin-top:24px;font:500 10px/1.5 var(--sans-jp);color:rgba(255,255,255,0.4)">© 2026 BRIDGE — Hashimoto Wataru / Built by hand. No frameworks.</div>
+</footer>
+
+<script src="../shared/subpage.js"></script>
+</body>
+</html>

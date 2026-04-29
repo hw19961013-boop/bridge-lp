@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RehaBoard Starter Kit — 整形外科クリニック向け リハKPI管理スターターキット</title>
+<meta name="description" content="リハ部門の数字を、責めるためでなく、流れを整えるために。Googleスプレッドシート1ファイルで明日から始められる、整形外科向けKPI管理スターターキット。¥2,980。">
+
+<!-- OGP -->
+<meta property="og:title" content="RehaBoard Starter Kit — 整形外科向けリハKPI管理スターターキット">
+<meta property="og:description" content="Googleスプレッドシート1ファイルで明日から始められる、リハ部門のKPI管理。¥2,980。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bridge-med.github.io/bridge-lp/rehaboard-starter/">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+/* ===== BASE ===== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#FAFAF7;--paper-2:#F4F1E8;--paper-3:#EDE8DD;
+  --ink:#0A0A0F;--ink-2:#2A2A35;--ink-3:#6E6E78;--ink-4:#B8B5A8;
+  --line:rgba(10,10,15,0.08);--line-w:rgba(122,99,75,0.14);
+  --vermilion:#C8553D;--vermilion-deep:#A8442F;
+  --indigo:#1B4965;--indigo-deep:#0F2D44;
+  --gold:#B8860B;
+  --moegi:#8A9A5B;--moegi-deep:#6B7A4F;--moegi-pale:#C8D4B0;
+  --taisha:#8B5A2B;--taisha-deep:#6B4420;--taisha-pale:#D4B896;
+  --serif-jp:'Noto Serif JP',serif;
+  --sans-jp:'Noto Sans JP',sans-serif;
+  --serif-en:'Fraunces',serif;
+  --sans-en:'Inter',sans-serif;
+  --max:1180px;
+  --pad-x:clamp(20px,5vw,80px);
+  --shadow-1:0 1px 2px rgba(15,20,36,0.04),0 4px 12px rgba(15,20,36,0.05);
+  --shadow-2:0 2px 8px rgba(15,20,36,0.06),0 16px 40px rgba(15,20,36,0.10);
+}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
+body{font-family:var(--sans-jp);background:var(--paper);color:var(--ink);overflow-x:hidden;line-height:1.85;font-feature-settings:"palt" 1}
+h1,h2,h3,.hero-h{text-wrap:balance;word-break:auto-phrase;line-break:strict;overflow-wrap:break-word}
+p{text-wrap:pretty;word-break:auto-phrase;line-break:strict;overflow-wrap:break-word}
+.nowrap{white-space:nowrap}
+.br-pc{display:none}
+@media(min-width:720px){.br-pc{display:inline}}
+.br-sp{display:inline}
+@media(min-width:720px){.br-sp{display:none}}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:200;opacity:0.025;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");mix-blend-mode:multiply}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+::selection{background:var(--vermilion);color:#fff}
+
+.serif{font-family:var(--serif-jp)}
+.serif-en{font-family:var(--serif-en);font-optical-sizing:auto}
+.italic{font-style:italic}
+.eyebrow{font:800 10px/1 var(--sans-en);letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3)}
+.kicker{display:inline-flex;align-items:center;gap:8px}
+.kicker::before{content:'';width:18px;height:1px;background:var(--ink-3)}
+.em{color:var(--vermilion);font-family:var(--serif-en);font-style:italic;font-weight:900}
+
+/* progress bar */
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--vermilion);z-index:200;transition:width .1s linear;width:0;box-shadow:0 0 8px rgba(200,85,61,0.5)}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:18px var(--pad-x);transition:all .3s;background:transparent}
+.nav.scrolled{background:rgba(250,250,247,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line);padding:12px var(--pad-x)}
+.nav-logo{font:700 14px/1 var(--serif-en);letter-spacing:0.2em;color:var(--ink)}
+.nav-logo .dot{color:var(--vermilion)}
+.nav-logo .small{font:500 9px/1 var(--sans-en);letter-spacing:0.16em;color:var(--ink-3);margin-left:8px;text-transform:uppercase}
+.nav-actions{display:flex;gap:10px;align-items:center}
+.nav-actions a{font:600 11px/1 var(--sans-jp);letter-spacing:0.04em;padding:9px 14px;border-radius:2px;transition:all .15s}
+.nav-actions a.back{color:var(--ink-3)}
+.nav-actions a.back:hover{color:var(--ink)}
+.nav-actions a.cta{background:var(--ink);color:#fff}
+.nav-actions a.cta:hover{background:var(--indigo-deep)}
+
+/* hero */
+.hero{padding:160px var(--pad-x) 100px;position:relative;background:var(--paper);text-align:left;border-bottom:1px solid var(--line)}
+.hero-inner{max-width:var(--max);margin:0 auto}
+.hero-eyebrow{font:700 11px/1 var(--sans-en);letter-spacing:0.2em;text-transform:uppercase;color:var(--vermilion);margin-bottom:24px}
+.hero-h{font:900 clamp(32px,5.4vw,64px)/1.18 var(--serif-jp);letter-spacing:-0.02em;color:var(--ink);max-width:880px;margin-bottom:28px}
+.hero-h .em{font-family:var(--serif-en);font-style:italic;color:var(--vermilion)}
+.hero-sub{font:500 16px/1.95 var(--sans-jp);color:var(--ink-2);max-width:680px;margin-bottom:36px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:18px;font:500 11px/1 var(--sans-en);letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-3)}
+.hero-meta span::before{content:'·';margin-right:18px;color:var(--ink-4)}
+.hero-meta span:first-child::before{display:none}
+
+/* sections */
+section{padding:120px var(--pad-x);position:relative}
+section.alt{background:var(--paper-2)}
+.s-inner{max-width:var(--max);margin:0 auto}
+.s-head{margin-bottom:60px;max-width:780px}
+.s-head h2{font:900 clamp(26px,4vw,44px)/1.3 var(--serif-jp);letter-spacing:-0.02em;color:var(--ink);margin-top:14px}
+.s-head h2 .em{font-family:var(--serif-en);font-style:italic;color:var(--vermilion)}
+.s-head p{font:500 14px/1.95 var(--sans-jp);color:var(--ink-2);margin-top:16px;max-width:640px}
+
+/* ============ section: 課題4つ ============ */
+.problems{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:760px){.problems{grid-template-columns:1fr}}
+.problem-item{background:var(--paper);padding:36px 32px;display:flex;gap:22px}
+.problem-num{font:900 28px/1 var(--serif-en);font-style:italic;color:var(--vermilion);flex-shrink:0;width:46px}
+.problem-content h3{font:800 16px/1.45 var(--serif-jp);color:var(--ink);margin-bottom:10px;letter-spacing:-0.01em}
+.problem-content p{font:500 12.5px/1.85 var(--sans-jp);color:var(--ink-2)}
+
+/* ============ section: Before/After ============ */
+.ba-grid{display:grid;grid-template-columns:1fr 60px 1fr;gap:0;align-items:stretch}
+@media(max-width:880px){.ba-grid{grid-template-columns:1fr;gap:14px}.ba-arrow{transform:rotate(90deg);height:60px}}
+.ba-col{background:var(--paper);border:1px solid var(--line);padding:32px;border-radius:2px}
+.ba-col.before{background:var(--paper-3)}
+.ba-col.after{background:var(--paper);border-color:var(--moegi);box-shadow:0 0 0 1px var(--moegi-pale) inset}
+.ba-tag{font:800 10px/1 var(--sans-en);letter-spacing:0.18em;text-transform:uppercase;display:inline-block;padding:5px 10px;border-radius:2px;margin-bottom:16px}
+.ba-col.before .ba-tag{background:var(--ink-3);color:#fff}
+.ba-col.after .ba-tag{background:var(--moegi);color:#fff}
+.ba-col h3{font:800 18px/1.4 var(--serif-jp);color:var(--ink);margin-bottom:14px;letter-spacing:-0.01em}
+.ba-col ul{list-style:none}
+.ba-col li{font:500 12.5px/1.7 var(--sans-jp);color:var(--ink-2);padding:8px 0 8px 22px;position:relative;border-bottom:1px dashed var(--line)}
+.ba-col li:last-child{border-bottom:0}
+.ba-col li::before{position:absolute;left:0;top:10px;font:700 10px/1 var(--sans-en);letter-spacing:0;color:var(--ink-3)}
+.ba-col.before li::before{content:'×';color:var(--vermilion);font-size:14px;top:8px}
+.ba-col.after li::before{content:'○';color:var(--moegi-deep);font-size:13px;top:8px}
+.ba-arrow{display:flex;align-items:center;justify-content:center}
+.ba-arrow svg{width:36px;height:36px;color:var(--ink-3)}
+
+/* ============ section: 14シート構造 ============ */
+.sheets-fig{background:var(--paper);border:1px solid var(--line);padding:48px 32px;border-radius:2px;margin-top:32px}
+.sheets-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:18px;align-items:start}
+@media(max-width:760px){.sheets-row{grid-template-columns:1fr}}
+.sheets-col{display:flex;flex-direction:column;gap:8px;position:relative}
+.sheets-col-h{font:800 10px/1 var(--sans-en);letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.sheet-tag{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--paper-2);border-left:3px solid var(--ink-3);font:600 12px/1.4 var(--sans-jp);color:var(--ink-2)}
+.sheet-tag .num{font:800 10px/1 var(--sans-en);color:var(--ink-3);min-width:22px}
+.sheet-tag.input{border-left-color:var(--moegi)}
+.sheet-tag.calc{border-left-color:var(--indigo)}
+.sheet-tag.view{border-left-color:var(--taisha)}
+.sheets-arrow{display:flex;justify-content:center;color:var(--ink-3);font:700 16px/1 var(--sans-en);margin:8px 0}
+.sheets-arrow span{transform:rotate(0deg)}
+@media(max-width:760px){.sheets-arrow span{transform:rotate(90deg);display:inline-block}}
+
+/* ============ section: モックアップ画面 ============ */
+.mock-wrap{background:var(--paper);border:1px solid var(--line);padding:0;border-radius:4px;overflow:hidden;box-shadow:var(--shadow-2);margin-top:24px}
+.mock-bar{background:var(--paper-3);padding:8px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.mock-bar i{width:10px;height:10px;border-radius:50%;background:var(--ink-4);display:inline-block}
+.mock-bar i:nth-child(1){background:#E08070}
+.mock-bar i:nth-child(2){background:#E0BC60}
+.mock-bar i:nth-child(3){background:#80B870}
+.mock-title{font:600 11px/1 var(--sans-jp);color:var(--ink-3);margin-left:auto}
+.mock-tabs{display:flex;background:var(--paper-2);padding:0 14px;gap:0;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:thin}
+.mock-tab{font:500 10px/1 var(--sans-jp);color:var(--ink-3);padding:10px 12px;border-right:1px solid var(--line);white-space:nowrap}
+.mock-tab.active{color:var(--ink);background:var(--paper);font-weight:700}
+.mock-content{padding:30px;background:var(--paper)}
+
+/* 朝礼ビュー mock */
+.morning-mock{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+@media(max-width:760px){.morning-mock{grid-template-columns:repeat(2,1fr)}}
+.kpi-cell{padding:18px;border:1px solid var(--line);background:var(--paper);text-align:left}
+.kpi-cell .kpi-label{font:700 9px/1 var(--sans-en);letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.kpi-cell .kpi-num{font:800 26px/1 var(--serif-en);color:var(--indigo-deep);font-style:italic}
+.kpi-cell .kpi-unit{font:500 10px/1 var(--sans-jp);color:var(--ink-3);margin-left:4px}
+.kpi-cell .kpi-sub{font:500 10px/1.4 var(--sans-jp);color:var(--ink-3);margin-top:6px}
+.kpi-cell.featured{border-color:var(--moegi);box-shadow:0 0 0 1px var(--moegi-pale) inset}
+.kpi-cell.alert .kpi-num{color:var(--vermilion)}
+
+/* 月次レビュー mock */
+.review-mock{display:flex;flex-direction:column;gap:18px}
+.review-table{width:100%;border-collapse:collapse;font:500 11px/1.5 var(--sans-jp)}
+.review-table th{background:var(--paper-3);padding:10px 14px;text-align:left;font:700 10px/1 var(--sans-en);letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--line)}
+.review-table td{padding:10px 14px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+.review-table td.num{font:600 12px/1 var(--serif-en);color:var(--indigo-deep);font-style:italic;text-align:right;font-variant-numeric:tabular-nums}
+.review-table td.delta-up{color:var(--moegi-deep)}
+.review-table td.delta-down{color:var(--vermilion)}
+.review-action{padding:18px 22px;background:var(--paper-2);border-left:3px solid var(--moegi);font:500 12px/1.7 var(--sans-jp);color:var(--ink-2)}
+.review-action strong{color:var(--ink);font-weight:800}
+
+/* 院長報告 A4 mock */
+.report-mock{aspect-ratio:1/1.414;max-width:560px;margin:0 auto;background:var(--paper);border:1px solid var(--line);padding:42px 38px;font:500 11px/1.6 var(--sans-jp);color:var(--ink-2);box-shadow:var(--shadow-2);position:relative}
+.report-mock::before{content:'A4';position:absolute;top:14px;right:18px;font:700 9px/1 var(--sans-en);letter-spacing:0.15em;color:var(--ink-4)}
+.report-h{font:900 18px/1.3 var(--serif-jp);color:var(--ink);margin-bottom:6px;letter-spacing:-0.01em}
+.report-sub{font:500 11px/1 var(--sans-jp);color:var(--ink-3);margin-bottom:24px}
+.report-block{margin-bottom:20px}
+.report-block h4{font:800 11px/1 var(--sans-en);letter-spacing:0.14em;text-transform:uppercase;color:var(--vermilion);margin-bottom:10px;padding-left:8px;border-left:2px solid var(--vermilion)}
+.report-block .row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dashed var(--line);font-size:10.5px}
+.report-block .row:last-child{border-bottom:0}
+.report-block .row .num{font:600 11px/1 var(--serif-en);color:var(--indigo-deep);font-variant-numeric:tabular-nums}
+.report-block p{font-size:10.5px;line-height:1.65}
+
+/* ============ section: KPI 良い/悪い ============ */
+.kpi-compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:24px}
+@media(max-width:760px){.kpi-compare{grid-template-columns:1fr}}
+.kpi-col{background:var(--paper);padding:36px 32px}
+.kpi-col.bad{background:var(--paper-3)}
+.kpi-col.good{background:var(--paper);border-left:3px solid var(--moegi)}
+.kpi-col h3{font:800 16px/1.4 var(--serif-jp);color:var(--ink);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.kpi-col h3 .badge{font:700 9px/1 var(--sans-en);letter-spacing:0.16em;text-transform:uppercase;padding:5px 9px;border-radius:2px}
+.kpi-col.bad h3 .badge{background:var(--vermilion);color:#fff}
+.kpi-col.good h3 .badge{background:var(--moegi);color:#fff}
+.kpi-col ul{list-style:none}
+.kpi-col li{font:500 12.5px/1.85 var(--sans-jp);color:var(--ink-2);padding:9px 0 9px 22px;position:relative;border-bottom:1px dashed var(--line)}
+.kpi-col li:last-child{border-bottom:0}
+.kpi-col.bad li::before{content:'×';position:absolute;left:0;top:9px;font:700 14px/1 var(--sans-en);color:var(--vermilion)}
+.kpi-col.good li::before{content:'○';position:absolute;left:0;top:9px;font:700 13px/1 var(--sans-en);color:var(--moegi-deep)}
+
+/* ============ section: 価格 / CTA ============ */
+.buy{background:var(--paper-2);padding:120px var(--pad-x);text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.buy-card{max-width:520px;margin:0 auto;background:var(--paper);padding:48px 40px;border:1px solid var(--moegi);box-shadow:0 0 0 1px var(--moegi-pale) inset,var(--shadow-2);border-radius:4px}
+.buy-status{display:inline-block;font:800 10px/1 var(--sans-en);letter-spacing:0.16em;text-transform:uppercase;background:var(--moegi);color:#fff;padding:6px 12px;border-radius:2px;margin-bottom:18px}
+.buy-name{font:900 22px/1.3 var(--serif-jp);color:var(--ink);margin-bottom:10px}
+.buy-name .jp{display:block;font:500 11px/1 var(--sans-jp);color:var(--ink-3);letter-spacing:0.04em;margin-top:8px}
+.buy-price{display:flex;align-items:baseline;gap:6px;justify-content:center;padding:24px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);margin:24px 0}
+.buy-price .yen{font:700 16px/1 var(--sans-jp);color:var(--ink-3)}
+.buy-price .num{font:900 44px/1 var(--serif-en);color:var(--indigo-deep);font-style:italic;letter-spacing:-0.01em}
+.buy-price .unit{font:500 11px/1.4 var(--sans-jp);color:var(--ink-3);margin-left:6px;text-align:left}
+.buy-list{list-style:none;text-align:left;padding:8px 0 24px}
+.buy-list li{font:500 12.5px/1.7 var(--sans-jp);color:var(--ink-2);padding:8px 0 8px 22px;position:relative;border-bottom:1px dashed var(--line)}
+.buy-list li:last-child{border-bottom:0}
+.buy-list li::before{content:'';position:absolute;left:0;top:14px;width:10px;height:1px;background:var(--ink-3)}
+.buy-actions{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.buy-btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 22px;font:700 13px/1 var(--sans-jp);letter-spacing:0.06em;border-radius:2px;transition:all .18s;border:1px solid transparent}
+.buy-btn.primary{background:var(--ink);color:#fff}
+.buy-btn.primary:hover{background:var(--indigo-deep)}
+.buy-btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.buy-btn.ghost:hover{border-color:var(--ink)}
+.buy-note{font:500 11px/1.7 var(--sans-jp);color:var(--ink-3);margin-top:24px;max-width:780px;margin-left:auto;margin-right:auto;text-align:center}
+
+/* ============ section: Founder ============ */
+.founder{padding:120px var(--pad-x);background:var(--paper)}
+.founder-inner{max-width:760px;margin:0 auto}
+.founder-quote{font:500 italic 18px/2 var(--serif-jp);color:var(--ink-2);padding:32px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:24px}
+.founder-quote::before{content:'\201C';font:900 64px/0.7 var(--serif-en);color:var(--vermilion);font-style:italic;display:block;margin-bottom:14px}
+.founder-meta{font:600 11px/1.7 var(--sans-jp);color:var(--ink-3);letter-spacing:0.04em}
+.founder-meta strong{display:block;font:700 14px/1.5 var(--serif-jp);color:var(--ink);margin-bottom:6px;font-style:normal}
+
+/* ============ footer ============ */
+.foot{padding:48px var(--pad-x);background:var(--ink);color:rgba(255,255,255,0.7);text-align:center}
+.foot a{color:rgba(255,255,255,0.85)}
+.foot-brand{font:700 13px/1 var(--serif-en);letter-spacing:0.2em;color:#fff;margin-bottom:12px}
+.foot-brand .dot{color:var(--vermilion)}
+.foot-tag{font:500 11px/1.7 var(--sans-jp);color:rgba(255,255,255,0.5);margin-bottom:18px}
+.foot-links{display:flex;gap:18px;justify-content:center;font:600 11px/1 var(--sans-en);letter-spacing:0.12em;text-transform:uppercase}
+
+/* reveal */
+[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(0.2,0.7,0.2,1),transform .8s cubic-bezier(0.2,0.7,0.2,1)}
+[data-reveal].vis{opacity:1;transform:translateY(0)}
+
+</style>
+</head>
+<body>
+
+<!--
+  ============================================================
+  RehaBoard Starter Kit 紹介ページ
+  ------------------------------------------------------------
+  ★ URL差し替えポイント(購入ページ確定後、href のみ書き換え)
+    [購入]    data-link="purchase-starter"  → note の購入ページ
+    [相談]    data-link="consult-all"       → Google フォーム/メール
+    [LP戻る]  data-link="bridge-lp"         → BRIDGE LP
+  ============================================================
+-->
+
+<div class="progress" id="prog"></div>
+
+<nav class="nav" id="nav">
+  <a href="../index.html" class="nav-logo" data-link="bridge-lp">BRIDGE<span class="dot">.</span><span class="small">RehaBoard Starter</span></a>
+  <div class="nav-actions">
+    <a href="../index.html" class="back" data-link="bridge-lp">← BRIDGE</a>
+    <a href="#purchase-rehaboard-starter" class="cta" data-link="purchase-starter">購入する</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow" data-reveal>RehaBoard Starter Kit / ¥2,980</div>
+    <h1 class="hero-h" data-reveal>
+      リハ部門の数字を、<span class="em">責めるためでなく、</span><br>
+      <span class="em">流れを整える</span>ために。
+    </h1>
+    <p class="hero-sub" data-reveal>
+      整形外科クリニックのリハ部門が、Googleスプレッドシート1ファイルだけで「総単位数」「新患→2回目→継続」の流れを一画面で見られるようになる、ひと揃いのスターターキットです。電子カルテ連携も、SaaS契約も要りません。明日から動きます。
+    </p>
+    <div class="hero-meta" data-reveal>
+      <span>Googleスプレッドシート 1ファイル</span>
+      <span>14シート / 全19指標</span>
+      <span>個人情報を扱わない設計</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 1. 課題 ============ -->
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">01 / The Problem</div>
+      <h2><span class="nowrap">総単位数しか見ていない部門、</span><span class="em nowrap">こうなっていませんか?</span></h2>
+      <p>多くの整形外科クリニックのリハ部門で、私が現場で繰り返し聞いてきた4つの「あるある」です。</p>
+    </div>
+
+    <div class="problems">
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">01</div>
+        <div class="problem-content">
+          <h3>新患→2回目→継続の「流れ」が見えない</h3>
+          <p>総単位数は集計している。でも、新患がどこで途切れているか、2回目に来てもらえているかは、データでは追えていない。</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">02</div>
+        <div class="problem-content">
+          <h3>PT別の数字が属人的</h3>
+          <p>PTごとの単位数は出せるけど、責めるツールにしたくない。一方で、忙しさの偏りも見過ごしたくない。出し方が決まらない。</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">03</div>
+        <div class="problem-content">
+          <h3>朝礼・月次会議・院長報告で別資料</h3>
+          <p>同じ部門の話なのに、立場ごとに別のExcelを毎月作っている。集計に時間がかかり、月初にしか数字が出てこない。</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">04</div>
+        <div class="problem-content">
+          <h3>KPIで詰めるか、見ないかの二択</h3>
+          <p>数字を出すと現場が萎縮する。だから見ない。でも経営側は数字を求める。「責めない数字の出し方」が言語化されていない。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. Before/After ============ -->
+<section>
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">02 / Before & After</div>
+      <h2><span class="nowrap">本キットを入れると、</span><span class="em nowrap">こうなります。</span></h2>
+      <p>派手な変化ではなく、日々の運用で「数字の見え方」が静かに変わるイメージです。</p>
+    </div>
+
+    <div class="ba-grid" data-reveal>
+      <div class="ba-col before">
+        <span class="ba-tag">Before</span>
+        <h3>毎月、集計に追われる</h3>
+        <ul>
+          <li>月初の3日間、集計と資料作りで他の業務が止まる</li>
+          <li>朝礼用・月次用・院長報告用、同じ数字を3回作る</li>
+          <li>「先月よりキャンセル多かった?」が即答できない</li>
+          <li>PT別の数字を出すと、現場の空気が悪くなる</li>
+          <li>「2回目移行率」を聞かれて、定義から考え直す</li>
+        </ul>
+      </div>
+
+      <div class="ba-arrow" aria-hidden="true">
+        <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 18 H30 M22 10 L30 18 L22 26"/>
+        </svg>
+      </div>
+
+      <div class="ba-col after">
+        <span class="ba-tag">After</span>
+        <h3>数字が、対話の入り口になる</h3>
+        <ul>
+          <li>毎日の入力で、月次集計が自動で揃う</li>
+          <li>朝礼・月次・院長報告、すべて同じ数字を共有できる</li>
+          <li>「先月よりキャンセル増」が、画面投影で即見える</li>
+          <li>PT別は出るが、ランキング表示は意図的に作らない</li>
+          <li>KPI定義書に「悪い使い方/良い使い方」が言語化済み</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. 14シート構造 ============ -->
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">03 / Structure</div>
+      <h2><span class="nowrap">14のシートで、</span><span class="em nowrap">入力 → 集計 → 可視化。</span></h2>
+      <p>1つのスプレッドシートの中に、入力する場所・集計が走る場所・見るための場所が分かれています。触る場所と触らない場所が、最初から決まっています。</p>
+    </div>
+
+    <div class="sheets-fig" data-reveal>
+      <div class="sheets-row">
+        <div class="sheets-col">
+          <div class="sheets-col-h">入力するシート</div>
+          <div class="sheet-tag input"><span class="num">01</span>初期設定(施設名・PT・目標)</div>
+          <div class="sheet-tag input"><span class="num">03</span>日次入力(セッション)</div>
+          <div class="sheet-tag input"><span class="num">04</span>患者フロー入力(匿名ID)</div>
+          <div class="sheet-tag input"><span class="num">05</span>PT別入力(マスタ)</div>
+          <div class="sheet-tag input"><span class="num">12</span>月次レビュー(月初に記入)</div>
+        </div>
+
+        <div class="sheets-col">
+          <div class="sheets-col-h">自動で動くシート</div>
+          <div class="sheet-tag calc"><span class="num">06</span>月次集計(19指標を自動算出)</div>
+          <div class="sheet-tag calc"><span class="num">07</span>PT別月次集計</div>
+          <div class="sheet-tag calc"><span class="num">99</span>計算用(中間集計・隠し)</div>
+        </div>
+
+        <div class="sheets-col">
+          <div class="sheets-col-h">見るシート</div>
+          <div class="sheet-tag view"><span class="num">10</span>ダッシュボード(全体把握)</div>
+          <div class="sheet-tag view"><span class="num">11</span>朝礼ビュー(画面投影で共有)</div>
+          <div class="sheet-tag view"><span class="num">02</span>KPI定義(辞書として)</div>
+          <div class="sheet-tag view"><span class="num">20</span>サンプルデータ</div>
+          <div class="sheet-tag view"><span class="num">30</span>FAQ(自助で解決)</div>
+          <div class="sheet-tag view"><span class="num">00</span>README(使い方の入口)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. 朝礼ビュー mock ============ -->
+<section>
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">04 / Morning View</div>
+      <h2><span class="nowrap">朝礼に、</span><span class="em nowrap">そのまま使える。</span></h2>
+      <p>毎朝の朝礼で、画面投影するだけ。「先週の動き」「当月の進捗」「気になる数字」が、責任者が口頭で説明しなくても、スタッフ全員が自分で読めます。</p>
+    </div>
+
+    <div class="mock-wrap" data-reveal>
+      <div class="mock-bar">
+        <i></i><i></i><i></i>
+        <span class="mock-title">11_朝礼ビュー — RehaBoard Starter</span>
+      </div>
+      <div class="mock-tabs">
+        <span class="mock-tab">00_README</span>
+        <span class="mock-tab">01_初期設定</span>
+        <span class="mock-tab">03_日次入力</span>
+        <span class="mock-tab">06_月次集計</span>
+        <span class="mock-tab">10_ダッシュボード</span>
+        <span class="mock-tab active">11_朝礼ビュー</span>
+        <span class="mock-tab">12_月次レビュー</span>
+      </div>
+      <div class="mock-content">
+        <div class="morning-mock">
+          <div class="kpi-cell featured">
+            <div class="kpi-label">当月単位数</div>
+            <div class="kpi-num">3,180</div>
+            <div class="kpi-sub">/ 目標 4,200</div>
+          </div>
+          <div class="kpi-cell">
+            <div class="kpi-label">達成率</div>
+            <div class="kpi-num">76<span class="kpi-unit">%</span></div>
+            <div class="kpi-sub">月の半ば時点</div>
+          </div>
+          <div class="kpi-cell">
+            <div class="kpi-label">実施患者数</div>
+            <div class="kpi-num">142</div>
+            <div class="kpi-sub">前月 138</div>
+          </div>
+          <div class="kpi-cell">
+            <div class="kpi-label">新患</div>
+            <div class="kpi-num">28</div>
+            <div class="kpi-sub">前月 24</div>
+          </div>
+          <div class="kpi-cell alert">
+            <div class="kpi-label">キャンセル率</div>
+            <div class="kpi-num">11.3<span class="kpi-unit">%</span></div>
+            <div class="kpi-sub">前月 8.2%</div>
+          </div>
+          <div class="kpi-cell">
+            <div class="kpi-label">2回目移行率</div>
+            <div class="kpi-num">73<span class="kpi-unit">%</span></div>
+            <div class="kpi-sub">前月 71%</div>
+          </div>
+          <div class="kpi-cell">
+            <div class="kpi-label">先週の単位数</div>
+            <div class="kpi-num">812</div>
+            <div class="kpi-sub">直近の週</div>
+          </div>
+          <div class="kpi-cell">
+            <div class="kpi-label">先週の新患</div>
+            <div class="kpi-num">7</div>
+            <div class="kpi-sub">過去4週平均 6.5</div>
+          </div>
+          <div class="kpi-cell">
+            <div class="kpi-label">30日再来率</div>
+            <div class="kpi-num">78<span class="kpi-unit">%</span></div>
+            <div class="kpi-sub">前月 76%(確定値)</div>
+          </div>
+          <div class="kpi-cell">
+            <div class="kpi-label">継続患者</div>
+            <div class="kpi-num">98</div>
+            <div class="kpi-sub">前月 95</div>
+          </div>
+          <div class="kpi-cell alert">
+            <div class="kpi-label">離脱率</div>
+            <div class="kpi-num">22<span class="kpi-unit">%</span></div>
+            <div class="kpi-sub">前月 18%</div>
+          </div>
+          <div class="kpi-cell">
+            <div class="kpi-label">計画書件数</div>
+            <div class="kpi-num">38</div>
+            <div class="kpi-sub">前月 35</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. 月次レビュー mock ============ -->
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">05 / Monthly Review</div>
+      <h2><span class="nowrap">月次レビューを、</span><span class="em nowrap">ひと続きで回す。</span></h2>
+      <p>月初に、「今月の数字」「良かった点」「詰まり」「来月の改善アクション(1つに絞る)」「スタッフへの共有文言」「院長報告」までが、1つのシートで連続して整理できます。</p>
+    </div>
+
+    <div class="mock-wrap" data-reveal>
+      <div class="mock-bar">
+        <i></i><i></i><i></i>
+        <span class="mock-title">12_月次レビュー — 2026年5月</span>
+      </div>
+      <div class="mock-content">
+        <div class="review-mock">
+          <table class="review-table">
+            <thead>
+              <tr>
+                <th style="width:34%">指標</th>
+                <th style="text-align:right">今月</th>
+                <th style="text-align:right">先月</th>
+                <th style="text-align:right">前年同月</th>
+                <th style="text-align:right">月次目標</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>月間総単位数</td><td class="num">4,212</td><td class="num">3,985</td><td class="num">3,920</td><td class="num">4,200</td></tr>
+              <tr><td>月間実施患者数</td><td class="num">156</td><td class="num">148</td><td class="num">142</td><td class="num">—</td></tr>
+              <tr><td>新規リハ患者数</td><td class="num">31</td><td class="num">26</td><td class="num">24</td><td class="num">—</td></tr>
+              <tr><td>2回目移行率</td><td class="num delta-down">71.0%</td><td class="num">75.4%</td><td class="num">72.0%</td><td class="num">—</td></tr>
+              <tr><td>30日以内再来率</td><td class="num delta-up">78.2%</td><td class="num">76.0%</td><td class="num">74.5%</td><td class="num">—</td></tr>
+              <tr><td>離脱率</td><td class="num delta-down">22.0%</td><td class="num">18.0%</td><td class="num">19.5%</td><td class="num">—</td></tr>
+              <tr><td>キャンセル率</td><td class="num delta-down">11.3%</td><td class="num">8.2%</td><td class="num">9.0%</td><td class="num">—</td></tr>
+              <tr><td>計画書件数</td><td class="num">38</td><td class="num">35</td><td class="num">32</td><td class="num">—</td></tr>
+              <tr><td>目標達成率</td><td class="num delta-up">100.3%</td><td class="num">96.4%</td><td class="num">93.0%</td><td class="num">100%</td></tr>
+            </tbody>
+          </table>
+
+          <div class="review-action">
+            <strong>来月の改善アクション(1つに絞る)</strong><br>
+            初回リハ後、<strong>その場で次回予約を取る運用</strong>に統一する。次回が決められない場合は3日以内に電話で再連絡。
+            測る指標: 2回目移行率(60日後の確定値で見る)。担当: PT_A(リーダー)。期限: 2026年6月1日から運用、7月1日のレビューで効果確認。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. 院長報告 A4 mock ============ -->
+<section>
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">06 / Director's Report</div>
+      <h2><span class="nowrap">院長報告は、</span><span class="em nowrap">A4 1枚で。</span></h2>
+      <p>毎月作り直しが要らない、固定フォーマット。立ち入った専門用語ではなく、経営側が読みやすい粒度で「先月の事実」「来月の運用変更」「院長への相談事項1つ」までを揃えます。</p>
+    </div>
+
+    <div class="report-mock" data-reveal>
+      <div class="report-h">リハビリ部門 月次報告</div>
+      <div class="report-sub">2026年5月度 / BRIDGE整形外科クリニック</div>
+
+      <div class="report-block">
+        <h4>先月の数字(確定値)</h4>
+        <div class="row"><span>実施単位数</span><span class="num">4,212 単位 / 目標 4,200 (達成率 100.3%)</span></div>
+        <div class="row"><span>実施患者数</span><span class="num">156 人 / 新患 31 人</span></div>
+        <div class="row"><span>2回目移行率</span><span class="num">71.0%</span></div>
+        <div class="row"><span>30日再来率</span><span class="num">78.2%</span></div>
+        <div class="row"><span>継続 / 離脱</span><span class="num">98 人 / 28 人(離脱率 22.0%)</span></div>
+        <div class="row"><span>キャンセル率</span><span class="num">11.3%</span></div>
+        <div class="row"><span>計画書件数</span><span class="num">38 件</span></div>
+      </div>
+
+      <div class="report-block">
+        <h4>良かった点</h4>
+        <p>新患が前月比+19%。初回後の説明資料を変えてから、患者からの質問が増えた。</p>
+      </div>
+
+      <div class="report-block">
+        <h4>詰まりポイント</h4>
+        <p>2回目移行率が 75% → 71% に低下。初回後の予約取り直し運用が変わった可能性。キャンセル率も上昇傾向。</p>
+      </div>
+
+      <div class="report-block">
+        <h4>来月の運用変更</h4>
+        <p>初回リハ後、その場で次回予約を取る運用に統一。PT_A(リーダー)主導、6/1 開始、7/1 レビューで効果確認。</p>
+      </div>
+
+      <div class="report-block">
+        <h4>院長への相談事項</h4>
+        <p>キャンセル率の上昇要因として、診察予約システム側の連動不具合の可能性あり。事務長と確認したい。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. KPI 良い/悪い使い方 ============ -->
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">07 / Good vs Bad</div>
+      <h2><span class="nowrap">KPI定義書には、</span><span class="em nowrap">「悪い使い方」も書いてあります。</span></h2>
+      <p>数字は、運用する側の姿勢で簡単に毒にも薬にもなります。本キットの KPI定義書(全19指標)は、各指標について「良い使い方」と「悪い使い方」を明文化しています。導入時に責任者で読み合わせる前提です。</p>
+    </div>
+
+    <div class="kpi-compare" data-reveal>
+      <div class="kpi-col bad">
+        <h3><span class="badge">Bad</span>悪い使い方</h3>
+        <ul>
+          <li>PT別単位数のランキング表示</li>
+          <li>目標未達のPTを名指しで指摘する</li>
+          <li>「来月は10%増」のような根拠のない目標</li>
+          <li>単月の数字だけで部門評価する</li>
+          <li>2回目移行率を他院と単純比較する</li>
+          <li>離脱を全部「失敗」と捉える</li>
+          <li>「キャンセルする患者」をリスト化する</li>
+          <li>計画書件数を算定可否の判定根拠にする</li>
+        </ul>
+      </div>
+      <div class="kpi-col good">
+        <h3><span class="badge">Good</span>良い使い方</h3>
+        <ul>
+          <li>部門全体で「枠の埋まり方の偏り」を見る</li>
+          <li>3ヶ月移動平均でトレンドを判断する</li>
+          <li>数字が動いた要因を現場に聞く</li>
+          <li>来月の運用変更は1つに絞る</li>
+          <li>自施設のベースラインから動かす</li>
+          <li>離脱フェーズ別に要因を分解する</li>
+          <li>予約運用・リマインドの議論のきっかけに</li>
+          <li>朝礼で「数字は責めるためじゃない」と毎月言う</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. 価格 / CTA ============ -->
+<section class="buy" id="purchase">
+  <div data-reveal>
+    <div class="eyebrow kicker" style="display:inline-flex;justify-content:center;color:var(--ink-3);margin-bottom:14px">Pricing</div>
+    <h2 style="font:900 clamp(24px,3.6vw,40px)/1.3 var(--serif-jp);color:var(--ink);margin-bottom:14px;letter-spacing:-0.02em">
+      <span class="nowrap">買い切り、</span><span class="em nowrap">¥2,980。</span>
+    </h2>
+    <p style="font:500 13px/1.85 var(--sans-jp);color:var(--ink-2);max-width:560px;margin:0 auto 48px">
+      明日から使えるかどうかが、買う理由のすべてだと思います。<br class="br-pc">サブスクではなく、買い切りです。
+    </p>
+
+    <div class="buy-card">
+      <span class="buy-status">販売中</span>
+      <div class="buy-name">RehaBoard Starter Kit<span class="jp">整形外科クリニック向け リハKPI管理スターターキット</span></div>
+      <div class="buy-price">
+        <span class="yen">¥</span><span class="num">2,980</span><span class="unit">買い切り<br>税込</span>
+      </div>
+      <ul class="buy-list">
+        <li>Googleスプレッドシートテンプレート(本体・14シート・19指標)</li>
+        <li>サンプル入りデモ版(架空患者30名・5月分データ込み)</li>
+        <li>入力マニュアル / 月次レビューシート</li>
+        <li>KPI定義書(全19指標・良い使い方/悪い使い方つき)</li>
+        <li>朝礼ダッシュボード / FAQ / 免責文</li>
+        <li>アップデート無償提供</li>
+      </ul>
+      <div class="buy-actions">
+        <a class="buy-btn primary" href="#purchase-rehaboard-starter" data-link="purchase-starter">Starter Kit を購入する</a>
+        <a class="buy-btn ghost" href="#consult-rehaboard" data-link="consult-all">先に相談する(自施設で使えるか不安な方)</a>
+      </div>
+    </div>
+
+    <p class="buy-note">
+      ※ 本キットは部門運営のKPI管理を目的としたツールです。診療報酬算定の要件充足、監査対応、施設基準の充足については保証しません。各施設の責任のもと、公式情報に基づいてご判断ください。<br>
+      ※ 個人情報を入れない設計です。患者は匿名ID(P-2026-001 等)、PTもPT_IDで運用します。デジタル商品の性質上、原則として返金は承っておりません。
+    </p>
+  </div>
+</section>
+
+<!-- ============ 9. Founder ============ -->
+<section class="founder">
+  <div class="founder-inner" data-reveal>
+    <div class="eyebrow kicker">From the Founder</div>
+    <p class="founder-quote">
+      数字は、誰かを評価するためにあるのではなく、<br class="br-pc">部門の流れを整えるためにある。<br><br>
+      私自身が現場で、数字に詰められて萎縮するスタッフを見てきました。<br>
+      数字を出さない現場は、改善が止まる。数字で詰める現場は、雰囲気が壊れる。<br>
+      その間にある「数字で対話する」運用を、軽い道具で実現したくて作りました。
+    </p>
+    <div class="founder-meta">
+      <strong>橋本 渉 / Wataru Hashimoto</strong>
+      理学療法士 · 医科学修士 · 医療経営コンサル · BRIDGE Founder<br>
+      <a href="https://note.com/prime_duck4944" target="_blank" style="color:var(--ink-2);text-decoration:underline;text-decoration-color:var(--line)">Note でキャリア探求シリーズを書いています</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="foot-brand">BRIDGE<span class="dot">.</span></div>
+  <div class="foot-tag">理学療法士がひとりで作る、医療現場の小さな道具屋。</div>
+  <div class="foot-links">
+    <a href="../index.html" data-link="bridge-lp">BRIDGE</a>
+    <a href="https://note.com/prime_duck4944" target="_blank">Note</a>
+    <a href="https://x.com/WataruPT1013" target="_blank">X</a>
+    <a href="mailto:h.w19961013@gmail.com">Mail</a>
+  </div>
+  <div style="margin-top:24px;font:500 10px/1.5 var(--sans-jp);color:rgba(255,255,255,0.4)">© 2026 BRIDGE — Hashimoto Wataru / Built by hand. No frameworks.</div>
+</footer>
+
+<script>
+// reveal on scroll
+const io = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+// nav scroll state + progress bar
+const nav = document.getElementById('nav');
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  prog.style.width = (window.scrollY / h * 100) + '%';
+});
+</script>
+
+</body>
+</html>

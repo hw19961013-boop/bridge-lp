@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ConsultSim — 診察オペレーション設計シミュレーター / BRIDGE</title>
+<meta name="description" content="1診/2診体制 × 曜日カスタム × グループ同期。診察オペレーションを数字で設計するシミュレーター。デモ公開中。">
+<meta property="og:title" content="ConsultSim — 診察オペレーション設計シミュレーター">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bridge-med.github.io/bridge-lp/consult-simulator/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/subpage.css">
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<nav class="nav" id="nav">
+  <a href="../index.html" class="nav-logo" data-link="bridge-lp">BRIDGE<span class="dot">.</span><span class="small">ConsultSim</span></a>
+  <div class="nav-actions">
+    <a href="../index.html" class="back" data-link="bridge-lp">← BRIDGE</a>
+    <a href="https://bridge-med.github.io/consult-simulator/" target="_blank" class="cta" data-link="demo">デモを開く ↗</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow" data-reveal>ConsultSim / 診察オペレーション設計シミュレーター</div>
+    <h1 class="hero-h" data-reveal>
+      診察オペを、<br>
+      <span class="em">経験ではなく、数字で</span>設計する。
+    </h1>
+    <p class="hero-sub" data-reveal>
+      1診体制と2診体制、曜日ごとの診察時間、複数施設のグループ同期。これまで「経験と勘」で決めていた診察運用を、需給シミュレーションで数字に変えます。
+    </p>
+    <div class="hero-meta" data-reveal>
+      <span>1診 / 2診 切替</span>
+      <span>曜日カスタム</span>
+      <span>グループ同期</span>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">01 / The Problem</div>
+      <h2><span class="nowrap">院長の意思決定、</span><span class="em nowrap">経験頼みになっていませんか?</span></h2>
+      <p>院長・事務長との対話で繰り返し聞く、4つの課題です。</p>
+    </div>
+    <div class="problems">
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">01</div>
+        <div class="problem-content">
+          <h3>1診/2診の判断が、毎回経験頼み</h3>
+          <p>「火曜は2診にしたほうがいい?」「来年から月曜も2診?」その意思決定に、数字の根拠が無い。</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">02</div>
+        <div class="problem-content">
+          <h3>曜日ごとの偏りが、感覚値</h3>
+          <p>金曜は混む、月曜は空いている。それが事実か、印象か、確かめる方法がない。</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">03</div>
+        <div class="problem-content">
+          <h3>需給のシミュレーションができない</h3>
+          <p>「もし水曜を2診にしたら、待ち時間はどう変わる?」を試算するツールが無い。やってみるしかない。</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">04</div>
+        <div class="problem-content">
+          <h3>複数施設の運用を揃えられない</h3>
+          <p>本院と分院で診察時間がバラバラ。スタッフの応援シフトが組みにくい。グループとしての統一が難しい。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">02 / Before & After</div>
+      <h2><span class="nowrap">ConsultSimを使うと、</span><span class="em nowrap">こうなります。</span></h2>
+    </div>
+    <div class="ba-grid" data-reveal>
+      <div class="ba-col before">
+        <span class="ba-tag">Before</span>
+        <h3>経験と勘で運用設計</h3>
+        <ul>
+          <li>1診/2診の判断を、感覚で決める</li>
+          <li>曜日の混雑度を「印象」で語る</li>
+          <li>シミュレーションは「やってみる」しかない</li>
+          <li>グループ施設の運用が、それぞれバラバラ</li>
+          <li>院長報告で運用提案の根拠が出せない</li>
+        </ul>
+      </div>
+      <div class="ba-arrow" aria-hidden="true">
+        <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 H30 M22 10 L30 18 L22 26"/></svg>
+      </div>
+      <div class="ba-col after">
+        <span class="ba-tag">After</span>
+        <h3>数字で運用を設計</h3>
+        <ul>
+          <li>1診/2診の判断が、需給予測に基づく</li>
+          <li>曜日ごとの混雑度が、画面上で見える</li>
+          <li>「もし変えたら」を画面でシミュレート可能</li>
+          <li>グループの運用基準を1ファイルで統一</li>
+          <li>院長報告で、根拠ある提案ができる</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">03 / Schedule Heatmap</div>
+      <h2><span class="nowrap">曜日 × 時間帯の</span><span class="em nowrap">需給を、可視化。</span></h2>
+      <p>曜日ごと・時間帯ごとの患者数予測と、診察キャパの差が一目で見えます。</p>
+    </div>
+    <div class="mock-wrap" data-reveal>
+      <div class="mock-bar"><i></i><i></i><i></i><span class="mock-title">ConsultSim — 需給ヒートマップ</span></div>
+      <div class="mock-content">
+        <div class="sched-mock">
+          <table class="sched-table">
+            <thead>
+              <tr><th>時間</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>09:00</td><td class="med">余裕</td><td class="busy">超過</td><td class="calm">余裕</td><td class="med">適正</td><td class="busy">超過</td><td class="busy">超過</td></tr>
+              <tr><td>10:00</td><td class="busy">超過</td><td class="busy">超過</td><td class="med">適正</td><td class="busy">超過</td><td class="busy">超過</td><td class="busy">超過</td></tr>
+              <tr><td>11:00</td><td class="med">適正</td><td class="busy">超過</td><td class="med">適正</td><td class="busy">超過</td><td class="busy">超過</td><td class="med">適正</td></tr>
+              <tr><td>14:00</td><td class="calm">余裕</td><td class="med">適正</td><td class="calm">余裕</td><td class="calm">余裕</td><td class="med">適正</td><td class="calm">休診</td></tr>
+              <tr><td>15:00</td><td class="med">適正</td><td class="med">適正</td><td class="calm">余裕</td><td class="med">適正</td><td class="busy">超過</td><td class="calm">休診</td></tr>
+              <tr><td>16:00</td><td class="busy">超過</td><td class="busy">超過</td><td class="med">適正</td><td class="busy">超過</td><td class="busy">超過</td><td class="calm">休診</td></tr>
+            </tbody>
+          </table>
+          <div class="sched-leg">
+            <span class="l-busy">超過(1診では捌けない)</span>
+            <span class="l-med">適正</span>
+            <span class="l-calm">余裕(2診はオーバースペック)</span>
+          </div>
+          <p class="cmp-note" style="margin-top:18px">※ サンプルです。実際は施設ごとの予測モデルで算出されます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">04 / Simulation</div>
+      <h2><span class="nowrap">「もし変えたら」を、</span><span class="em nowrap">画面で試す。</span></h2>
+      <p>1診→2診への切替、曜日の診察時間変更、休診日の調整。シミュレーション結果がその場で更新されます。</p>
+    </div>
+    <div class="mock-wrap" data-reveal>
+      <div class="mock-bar"><i></i><i></i><i></i><span class="mock-title">ConsultSim — シミュレーション結果</span></div>
+      <div class="mock-content">
+        <table class="cmp-table">
+          <thead>
+            <tr><th>シナリオ</th><th>平均待ち時間</th><th>スタッフ稼働率</th><th>1日の診察可能数</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>現状(火曜のみ2診)</td><td class="num">28分</td><td class="num">72%</td><td class="num">82人</td></tr>
+            <tr class="hl"><td>水曜も2診化</td><td class="num delta-up">19分</td><td class="num">78%</td><td class="num delta-up">98人</td></tr>
+            <tr><td>金曜の診察時間を1時間延長</td><td class="num">25分</td><td class="num">80%</td><td class="num">90人</td></tr>
+            <tr><td>月曜午前を2診化</td><td class="num">22分</td><td class="num delta-up">85%</td><td class="num">94人</td></tr>
+          </tbody>
+        </table>
+        <p class="cmp-note" style="margin-top:18px">※ サンプルです。各シナリオの数値は、施設の実績データから算出されます。意思決定は数字+現場の文脈の総合で。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">05 / Philosophy</div>
+      <h2><span class="nowrap">数字は意思決定の補助。</span><span class="em nowrap">決定は、人間が。</span></h2>
+    </div>
+    <div class="phil-grid" data-reveal>
+      <div class="phil-card"><h3>勘を否定しない</h3><p>院長の経験には、数字に出ない暗黙知がある。本ツールは「数字を補完する」もので、判断を奪うものではない。</p></div>
+      <div class="phil-card"><h3>仮説検証を高速に</h3><p>「やってみるしかない」を「画面で試せる」に。リアル運用変更前に、複数シナリオを並べて比較できる。</p></div>
+      <div class="phil-card"><h3>グループ全体の整合</h3><p>本院と分院の運用基準を1ファイルで統一。個別最適でなく、全体最適の議論ができる。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="buy">
+  <div data-reveal>
+    <div class="eyebrow kicker" style="display:inline-flex;justify-content:center;color:var(--ink-3);margin-bottom:14px">Try Now</div>
+    <h2 style="font:900 clamp(24px,3.6vw,40px)/1.3 var(--serif-jp);color:var(--ink);margin-bottom:14px;letter-spacing:-0.02em"><span class="nowrap">いまブラウザで、</span><span class="em nowrap">シミュレーション。</span></h2>
+    <p style="font:500 13px/1.85 var(--sans-jp);color:var(--ink-2);max-width:560px;margin:0 auto 36px">ConsultSim はデモ版を無料公開中。<br class="br-pc">サンプル施設で、1診/2診切替・曜日カスタムを実体験してください。</p>
+    <div class="cta-actions-c">
+      <a class="buy-btn primary" href="https://bridge-med.github.io/consult-simulator/" target="_blank" data-link="demo">デモを開く ↗</a>
+      <a class="buy-btn ghost" href="../index.html#contact" data-link="consult-all">自施設で導入を相談する</a>
+    </div>
+    <p class="buy-note">※ 本ツールはオペレーション設計の補助です。診療報酬算定・施設基準の充足については保証しません。<br>運用変更は各施設の責任のもと、現場・経営側と合意のうえで実施してください。</p>
+  </div>
+</section>
+
+<section class="founder">
+  <div class="founder-inner" data-reveal>
+    <div class="eyebrow kicker">From the Founder</div>
+    <p class="founder-quote">
+      院長の机に、紙の予約表が広がっていた。<br>
+      「水曜は2診にしたほうがいい気がするけど、根拠が弱くてな」<br><br>
+      勘で運用するのは、医療では特別なことじゃない。<br>
+      ただ、それを補助する数字があれば、<br>
+      会議の議論はもう一段、深くなる。
+    </p>
+    <div class="founder-meta">
+      <strong>橋本 渉 / Wataru Hashimoto</strong>
+      理学療法士 · 医科学修士 · 医療経営コンサル · BRIDGE Founder
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-brand">BRIDGE<span class="dot">.</span></div>
+  <div class="foot-tag">理学療法士がひとりで作る、医療現場の小さな道具屋。</div>
+  <div class="foot-links">
+    <a href="../index.html" data-link="bridge-lp">BRIDGE</a>
+    <a href="https://note.com/prime_duck4944" target="_blank">Note</a>
+    <a href="https://x.com/WataruPT1013" target="_blank">X</a>
+    <a href="mailto:h.w19961013@gmail.com">Mail</a>
+  </div>
+  <div style="margin-top:24px;font:500 10px/1.5 var(--sans-jp);color:rgba(255,255,255,0.4)">© 2026 BRIDGE — Hashimoto Wataru / Built by hand. No frameworks.</div>
+</footer>
+
+<script src="../shared/subpage.js"></script>
+
+</body>
+</html>

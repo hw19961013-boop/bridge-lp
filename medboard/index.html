@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedBoard — 外来クリニック患者フローDB / BRIDGE</title>
+<meta name="description" content="外来クリニックの数字を「金額」ではなく「流れ」で見る、軽量経営DB。2施設横並び比較・入力6項目・異変アラート。デモ公開中。">
+<meta property="og:title" content="MedBoard — 外来クリニック患者フローDB">
+<meta property="og:description" content="入力6項目だけで、患者の流れの異変に気づける外来クリニック向けDB。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bridge-med.github.io/bridge-lp/medboard/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/subpage.css">
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<nav class="nav" id="nav">
+  <a href="../index.html" class="nav-logo" data-link="bridge-lp">BRIDGE<span class="dot">.</span><span class="small">MedBoard</span></a>
+  <div class="nav-actions">
+    <a href="../index.html" class="back" data-link="bridge-lp">← BRIDGE</a>
+    <a href="https://bridge-med.github.io/med-kpi/" target="_blank" class="cta" data-link="demo">デモを開く ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow" data-reveal>MedBoard / 外来クリニック患者フロー DB</div>
+    <h1 class="hero-h" data-reveal>
+      外来の数字は、<span class="em">金額じゃなく</span><br>
+      <span class="em">「流れ」</span>で見る。
+    </h1>
+    <p class="hero-sub" data-reveal>
+      患者数・初診・再診・リハ・処置・手術。たった6項目を毎日入れるだけで、外来の「流れの異変」に気づける軽量経営DBです。2施設の横並び比較・異変アラートまで、1ファイルで完結します。
+    </p>
+    <div class="hero-meta" data-reveal>
+      <span>2施設横並び比較</span>
+      <span>入力6項目のみ</span>
+      <span>異変アラート搭載</span>
+    </div>
+  </div>
+</section>
+
+<!-- 課題 -->
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">01 / The Problem</div>
+      <h2><span class="nowrap">月次の数字を読み上げる会議に、</span><span class="em nowrap">なっていませんか?</span></h2>
+      <p>外来クリニックの経営会議で、毎月起きている「あるある」です。</p>
+    </div>
+    <div class="problems">
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">01</div>
+        <div class="problem-content">
+          <h3>売上の異変に気づくのは、翌月以降</h3>
+          <p>レセプト確定を待ってから集計、では「先月起きていたこと」しか分からない。動ける時には手遅れになっている。</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">02</div>
+        <div class="problem-content">
+          <h3>2施設の比較が、毎月手作業</h3>
+          <p>本院と分院、経営会議のたびに Excel を作り直し。横並びで見たいのに、フォーマットが微妙にずれている。</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">03</div>
+        <div class="problem-content">
+          <h3>「異変」より「数字の読み上げ」になる</h3>
+          <p>会議で出てくるのは月次数字の朗読。「気になる動きがあったか?」が議題に上がらない。気づきの起点が無い。</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div class="problem-num">04</div>
+        <div class="problem-content">
+          <h3>本格BIは重すぎる、Excelは限界</h3>
+          <p>Power BI を入れるほどの予算もリソースもない。でも Excel 集計はもう限界。中間にある「軽い経営DB」が欲しい。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Before/After -->
+<section>
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">02 / Before & After</div>
+      <h2><span class="nowrap">MedBoard を入れると、</span><span class="em nowrap">こうなります。</span></h2>
+      <p>派手な変化ではなく、毎日の入力から「気づく経営」に変わる、静かな変化のイメージです。</p>
+    </div>
+    <div class="ba-grid" data-reveal>
+      <div class="ba-col before">
+        <span class="ba-tag">Before</span>
+        <h3>月次集計を待ってから動く</h3>
+        <ul>
+          <li>レセプト確定後に異変に気づく(後追いで気づく)</li>
+          <li>2施設の比較フォーマットを毎月作り直す</li>
+          <li>会議で月次数字を読み上げて終わる</li>
+          <li>「先月の異変」の理由を、もう誰も覚えていない</li>
+          <li>Power BI 導入は重すぎて止まっている</li>
+        </ul>
+      </div>
+      <div class="ba-arrow" aria-hidden="true">
+        <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 18 H30 M22 10 L30 18 L22 26"/>
+        </svg>
+      </div>
+      <div class="ba-col after">
+        <span class="ba-tag">After</span>
+        <h3>毎日の数字で、流れに気づく</h3>
+        <ul>
+          <li>毎日6項目入力 → 翌日には流れの変化が見える</li>
+          <li>2施設の比較が、画面上で常に横並び</li>
+          <li>会議で「先週の異変」が議題に上がる</li>
+          <li>異変アラートが、議論の起点になる</li>
+          <li>BIなし、SaaSなし、Excelの上位互換として動く</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6項目構造 -->
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">03 / Structure</div>
+      <h2><span class="nowrap">入力は、</span><span class="em nowrap">たった6項目。</span></h2>
+      <p>毎日の入力負担を最小化するために、項目を絞り込みました。これだけで、外来の流れの状態は十分に見えます。</p>
+    </div>
+    <div class="six-fig" data-reveal>
+      <div class="six-grid">
+        <div class="six-item"><div class="six-n">01</div><div class="six-h">来院患者数</div><div class="six-d">その日来院した患者の総数</div></div>
+        <div class="six-item"><div class="six-n">02</div><div class="six-h">初診数</div><div class="six-d">うち、初診の患者数</div></div>
+        <div class="six-item"><div class="six-n">03</div><div class="six-h">再診数</div><div class="six-d">うち、再診(継続来院)の患者数</div></div>
+        <div class="six-item"><div class="six-n">04</div><div class="six-h">リハ単位数</div><div class="six-d">その日のリハ実施単位数の合計</div></div>
+        <div class="six-item"><div class="six-n">05</div><div class="six-h">処置件数</div><div class="six-d">注射・処置・指導等の件数</div></div>
+        <div class="six-item"><div class="six-n">06</div><div class="six-h">手術件数</div><div class="six-d">その日の手術件数(該当施設のみ)</div></div>
+      </div>
+      <div class="six-foot">
+        収益額は、施設で設定した単価から自動概算します(参考値)。<br>
+        正確な収益はレセプト確定値で、本DBは「日々の流れ」の把握用です。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 異変アラート -->
+<section>
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">04 / Alert View</div>
+      <h2><span class="nowrap">「異変」は、</span><span class="em nowrap">優しく知らせる。</span></h2>
+      <p>異変アラートの語調は「責める」のではなく「確認しよう」。経営判断の起点としてだけ機能し、現場を萎縮させない設計です。</p>
+    </div>
+    <div class="mock-wrap" data-reveal>
+      <div class="mock-bar">
+        <i></i><i></i><i></i>
+        <span class="mock-title">MedBoard — 異変アラート</span>
+      </div>
+      <div class="mock-content alert-view">
+        <div class="alert-item warn">
+          <div class="alert-tag">確認しよう</div>
+          <div class="alert-body">
+            <strong>本院の初診数が、先週比 -28%。</strong>
+            連休前の影響かもしれません。広告経由の流入があれば、状態を確認してください。
+          </div>
+        </div>
+        <div class="alert-item info">
+          <div class="alert-tag">気にしておこう</div>
+          <div class="alert-body">
+            <strong>分院のリハ単位数が、4週連続で増加傾向。</strong>
+            PT稼働は問題ないか、来週の予約状況を確認してください。
+          </div>
+        </div>
+        <div class="alert-item ok">
+          <div class="alert-tag">いつも通り</div>
+          <div class="alert-body">
+            <strong>処置・手術件数は、過去4週の平均レンジ内。</strong>特に異変なし。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2施設比較 -->
+<section class="alt">
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">05 / Comparison</div>
+      <h2><span class="nowrap">2施設の数字を、</span><span class="em nowrap">並べて見る。</span></h2>
+      <p>本院と分院、姉妹院、グループ施設。同じフォーマットの数字を画面上で並べるだけで、議論の質が変わります。</p>
+    </div>
+    <div class="mock-wrap" data-reveal>
+      <div class="mock-bar">
+        <i></i><i></i><i></i>
+        <span class="mock-title">MedBoard — 施設比較</span>
+      </div>
+      <div class="mock-content">
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>本院</th>
+              <th>分院</th>
+              <th>差分</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>当月来院患者数</td><td class="num">1,420</td><td class="num">820</td><td class="num">+600</td></tr>
+            <tr><td>初診数</td><td class="num">218</td><td class="num">112</td><td class="num">+106</td></tr>
+            <tr><td>再診数</td><td class="num">1,202</td><td class="num">708</td><td class="num">+494</td></tr>
+            <tr><td>リハ単位数</td><td class="num">3,840</td><td class="num">1,920</td><td class="num">+1,920</td></tr>
+            <tr><td>処置件数</td><td class="num">582</td><td class="num">268</td><td class="num">+314</td></tr>
+            <tr><td>手術件数</td><td class="num">38</td><td class="num">—</td><td class="num">—</td></tr>
+            <tr><td>収益概算(参考)</td><td class="num">¥18.4M</td><td class="num">¥9.6M</td><td class="num">+¥8.8M</td></tr>
+            <tr class="hl"><td>初診/再診比</td><td class="num">15.4%</td><td class="num delta-down">13.7%</td><td class="num">-1.7pt</td></tr>
+          </tbody>
+        </table>
+        <p class="cmp-note">※ 収益額は施設設定の単価による概算です。正確な収益は施設のレセプト確定値でご確認ください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 思想 -->
+<section>
+  <div class="s-inner">
+    <div class="s-head" data-reveal>
+      <div class="eyebrow kicker">06 / Philosophy</div>
+      <h2><span class="nowrap">金額の精度より、</span><span class="em nowrap">流れの異変。</span></h2>
+      <p>MedBoard の設計思想は「収益の精度を競わない」ことです。レセプト確定値と一致させることが目的ではなく、毎日の流れの異変に気づくためのものです。</p>
+    </div>
+    <div class="phil-grid" data-reveal>
+      <div class="phil-card">
+        <h3>収益額は参考値</h3>
+        <p>施設で設定した単価(初診¥7,000 / 再診¥4,500 / リハ¥3,050/単位 / 手術¥150,000 等)から自動概算。実額はレセプトで確認する前提。</p>
+      </div>
+      <div class="phil-card">
+        <h3>気づきの起点が目的</h3>
+        <p>「先週より新患が減った」「分院のリハが伸びている」を、議論の起点にする。意思決定は人間が、データではなく現場の文脈と合わせて。</p>
+      </div>
+      <div class="phil-card">
+        <h3>軽さは正義</h3>
+        <p>BI ツール導入が止まっている施設のための、現実的な選択肢。Excel の上位互換として、明日から動かせる軽さで。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="buy">
+  <div data-reveal>
+    <div class="eyebrow kicker" style="display:inline-flex;justify-content:center;color:var(--ink-3);margin-bottom:14px">Try Now</div>
+    <h2 style="font:900 clamp(24px,3.6vw,40px)/1.3 var(--serif-jp);color:var(--ink);margin-bottom:14px;letter-spacing:-0.02em">
+      <span class="nowrap">いまブラウザで、</span><span class="em nowrap">触ってみてください。</span>
+    </h2>
+    <p style="font:500 13px/1.85 var(--sans-jp);color:var(--ink-2);max-width:560px;margin:0 auto 36px">
+      MedBoard はデモ版を無料公開中です。<br class="br-pc">
+      ダミーデータで全機能を触れます。
+    </p>
+    <div class="cta-actions-c">
+      <a class="buy-btn primary" href="https://bridge-med.github.io/med-kpi/" target="_blank" data-link="demo">デモを開く ↗</a>
+      <a class="buy-btn ghost" href="../index.html#contact" data-link="consult-all">自施設で導入を相談する</a>
+    </div>
+    <p class="buy-note">
+      ※ MedBoard は外来クリニックの経営判断を支援するためのDBです。<br>
+      診療報酬算定の要件充足、監査対応、施設基準の充足については保証しません。各施設の責任のもと、公式情報に基づいてご判断ください。<br>
+      ※ 本デモには実在の患者・施設の情報は含まれていません。すべて架空のサンプルです。
+    </p>
+  </div>
+</section>
+
+<!-- Founder -->
+<section class="founder">
+  <div class="founder-inner" data-reveal>
+    <div class="eyebrow kicker">From the Founder</div>
+    <p class="founder-quote">
+      外来の経営会議に何度も出てきて、<br class="br-pc">
+      気づいたことが一つだけある。<br><br>
+      「異変に気づくのが、いつも翌月になってからだ。」<br>
+      その時には、もう動けない。<br><br>
+      気づきの起点を、毎日の入力に置きたい。<br>
+      レセプトの精度を競うのではなく、<br>
+      流れの違和感に、その日のうちに反応できる仕組みを。
+    </p>
+    <div class="founder-meta">
+      <strong>橋本 渉 / Wataru Hashimoto</strong>
+      理学療法士 · 医科学修士 · 医療経営コンサル · BRIDGE Founder
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-brand">BRIDGE<span class="dot">.</span></div>
+  <div class="foot-tag">理学療法士がひとりで作る、医療現場の小さな道具屋。</div>
+  <div class="foot-links">
+    <a href="../index.html" data-link="bridge-lp">BRIDGE</a>
+    <a href="https://note.com/prime_duck4944" target="_blank">Note</a>
+    <a href="https://x.com/WataruPT1013" target="_blank">X</a>
+    <a href="mailto:h.w19961013@gmail.com">Mail</a>
+  </div>
+  <div style="margin-top:24px;font:500 10px/1.5 var(--sans-jp);color:rgba(255,255,255,0.4)">© 2026 BRIDGE — Hashimoto Wataru / Built by hand. No frameworks.</div>
+</footer>
+
+<script src="../shared/subpage.js"></script>
+
+</body>
+</html>
