@@ -82,12 +82,24 @@ img{display:block;max-width:100%}
 @media(max-width:640px){.nav-links{display:none}}
 
 /* ===== HERO ===== */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px var(--pad-x) 80px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr;position:relative;overflow:hidden}
+@media(min-width:880px){.hero{grid-template-columns:1.1fr 1fr}}
+.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
 .hero-bg::before{content:'';position:absolute;top:-30%;right:-20%;width:80%;height:160%;background:radial-gradient(circle,rgba(200,85,61,0.08),transparent 60%);filter:blur(40px)}
 .hero-bg::after{content:'';position:absolute;bottom:-30%;left:-20%;width:70%;height:140%;background:radial-gradient(circle,rgba(27,73,101,0.06),transparent 60%);filter:blur(40px)}
-.hero-watermark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:900 clamp(160px,30vw,420px)/0.85 var(--serif-en);font-style:italic;color:var(--ink);opacity:0.025;letter-spacing:-0.04em;pointer-events:none;z-index:-1;white-space:nowrap}
-.hero-inner{max-width:var(--max);margin:0 auto;width:100%;position:relative;z-index:1}
+.hero-watermark{position:absolute;left:30%;top:50%;transform:translate(-50%,-50%);font:900 clamp(140px,22vw,300px)/0.85 var(--serif-en);font-style:italic;color:var(--ink);opacity:0.04;letter-spacing:-0.04em;pointer-events:none;z-index:0;white-space:nowrap}
+@media(min-width:880px){.hero-watermark{left:24%}}
+@media(max-width:880px){.hero-watermark{display:none}}
+.hero-text{padding:120px var(--pad-x) 80px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;min-height:100vh}
+@media(max-width:880px){.hero-text{min-height:auto;padding:80px var(--pad-x) 56px;order:2}}
+.hero-inner{max-width:640px;width:100%;margin:0;position:relative;z-index:2}
+.hero-visual{position:relative;background:var(--paper-2);overflow:hidden;min-height:56vh}
+@media(min-width:880px){.hero-visual{min-height:100vh}}
+@media(max-width:880px){.hero-visual{order:1;min-height:48vh;border-bottom:1px solid var(--line)}}
+.hero-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(250,250,247,0.0) 0%,rgba(250,250,247,0.0) 55%,rgba(200,85,61,0.08) 100%);pointer-events:none}
+.hero-visual::before{content:'';position:absolute;top:0;bottom:0;left:0;width:24px;background:linear-gradient(90deg,rgba(250,250,247,0.3),transparent);z-index:1;pointer-events:none}
+@media(max-width:880px){.hero-visual::before{display:none}}
 .hero-eyebrow{font:800 11px/1 var(--sans-en);letter-spacing:0.2em;text-transform:uppercase;color:var(--vermilion);margin-bottom:48px;display:inline-flex;align-items:center;gap:12px}
 .hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--vermilion)}
 .hero-h{font:900 clamp(40px,7.5vw,98px)/1.18 var(--serif-jp);letter-spacing:-0.025em;color:var(--ink);margin-bottom:28px}
@@ -99,8 +111,9 @@ img{display:block;max-width:100%}
 .hero-meta{display:flex;gap:32px;flex-wrap:wrap;font:600 11px/1 var(--sans-en);letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-3)}
 .hero-meta span{display:inline-flex;align-items:center;gap:8px}
 .hero-meta span::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--vermilion);opacity:0.6}
-.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);font:700 10px/1 var(--sans-en);letter-spacing:0.3em;color:var(--ink-3);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px;animation:floaty 2.4s ease-in-out infinite}
+.scroll-hint{position:absolute;bottom:28px;left:26%;transform:translateX(-50%);font:700 10px/1 var(--sans-en);letter-spacing:0.3em;color:var(--ink-3);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px;animation:floaty 2.4s ease-in-out infinite;z-index:3}
 .scroll-hint::after{content:'';width:1px;height:32px;background:linear-gradient(to bottom,var(--ink-3),transparent)}
+@media(max-width:880px){.scroll-hint{display:none}}
 @keyframes floaty{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
 
 /* ===== MANIFESTO ===== */
@@ -195,7 +208,12 @@ img{display:block;max-width:100%}
 .notes-foot{max-width:var(--max);margin:56px auto 0;text-align:center}
 .notes-cta{font:700 12px/1 var(--sans-jp);letter-spacing:0.08em;color:var(--ink);padding:16px 28px;border:1px solid var(--ink);border-radius:2px;display:inline-block;transition:all .2s}
 .notes-cta:hover{background:var(--ink);color:#fff}
-.product-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:28px 26px;display:flex;flex-direction:column;gap:14px;transition:all .25s cubic-bezier(0.16,1,0.3,1);cursor:pointer;position:relative;overflow:hidden}
+.product-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:0;display:flex;flex-direction:column;gap:0;transition:all .25s cubic-bezier(0.16,1,0.3,1);cursor:pointer;position:relative;overflow:hidden}
+.product-card-thumb{aspect-ratio:16/10;background:var(--paper-2);border-bottom:1px solid var(--line);overflow:hidden;position:relative}
+.product-card-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .4s cubic-bezier(0.2,0.7,0.2,1)}
+.product-card:hover .product-card-thumb img{transform:scale(1.02)}
+.product-card-body{padding:24px 26px 26px;display:flex;flex-direction:column;gap:12px;flex:1}
+.product-card.no-thumb{padding:28px 26px;gap:14px}
 .product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,85,61,0.4),transparent);opacity:0;transition:opacity .3s}
 .product-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-2);border-color:rgba(200,85,61,0.2)}
 .product-card:hover::before{opacity:1}
@@ -409,19 +427,24 @@ img{display:block;max-width:100%}
 <section class="hero" id="top">
   <div class="hero-bg"></div>
   <div class="hero-watermark">BRIDGE</div>
-  <div class="hero-inner">
-    <div class="hero-eyebrow" data-reveal>BRIDGE — A Small Medical Studio</div>
-    <h1 class="hero-h" data-reveal data-reveal-delay="1">
-      現場の<span class="em quote nowrap">面倒くさい</span>を<span class="nowrap">自分ごと</span>として<span class="em nowrap">解く</span>。
-    </h1>
-    <p class="hero-sub" data-reveal data-reveal-delay="2">
-      理学療法士がひとりで作る、医療の道具屋です。現場の小さな課題から、軽いプロダクトを毎日つくっています。触った現場のためだけに設計します。
-    </p>
-    <div class="hero-meta" data-reveal data-reveal-delay="3">
-      <span>Established 2026</span>
-      <span>Tokyo / Remote</span>
-      <span>Solo Studio</span>
+  <div class="hero-text">
+    <div class="hero-inner">
+      <div class="hero-eyebrow" data-reveal>BRIDGE — A Small Medical Studio</div>
+      <h1 class="hero-h" data-reveal data-reveal-delay="1">
+        現場の<span class="em quote nowrap">面倒くさい</span>を<span class="nowrap">自分ごと</span>として<span class="em nowrap">解く</span>。
+      </h1>
+      <p class="hero-sub" data-reveal data-reveal-delay="2">
+        理学療法士がひとりで作る、医療の道具屋です。現場の小さな課題から、軽いプロダクトを毎日つくっています。触った現場のためだけに設計します。
+      </p>
+      <div class="hero-meta" data-reveal data-reveal-delay="3">
+        <span>Established 2026</span>
+        <span>Tokyo / Remote</span>
+        <span>Solo Studio</span>
+      </div>
     </div>
+  </div>
+  <div class="hero-visual">
+    <img src="images/hero.jpg" alt="木の机に置かれた手書きノート、朱の小箱、湯呑、ノートPC" loading="eager">
   </div>
   <div class="scroll-hint">SCROLL</div>
 </section>
@@ -504,62 +527,86 @@ img{display:block;max-width:100%}
   </div>
   <div class="products-grid" id="productsGrid">
     <a class="product-card" href="./rehaboard/index.html" target="_blank" data-reveal data-cat="medical,management">
-      <div class="product-card-num">PRODUCT 01</div>
-      <div class="product-card-name">RehaBoard<span class="jp">リハボード</span></div>
-      <div class="product-card-tagline">リハビリ部門の運営を、1画面で。月選択・期間切替・KPIカスタマイズ。</div>
-      <div class="product-card-tags"><span>ダッシュボード</span><span>PT別実績</span><span>朝礼サマリー</span></div>
-      <span class="product-card-link">詳しく見る →</span>
+      <div class="product-card-thumb"><img src="images/products/rehaboard.png" alt="RehaBoard ダッシュボード画面" loading="lazy"></div>
+      <div class="product-card-body">
+        <div class="product-card-num">PRODUCT 01</div>
+        <div class="product-card-name">RehaBoard<span class="jp">リハボード</span></div>
+        <div class="product-card-tagline">リハビリ部門の運営を、1画面で。月選択・期間切替・KPIカスタマイズ。</div>
+        <div class="product-card-tags"><span>ダッシュボード</span><span>PT別実績</span><span>朝礼サマリー</span></div>
+        <span class="product-card-link">詳しく見る →</span>
+      </div>
     </a>
     <a class="product-card" href="./medboard/index.html" target="_blank" data-reveal data-cat="medical,management">
-      <div class="product-card-num">PRODUCT 02</div>
-      <div class="product-card-name">MedBoard<span class="jp">メドボード</span></div>
-      <div class="product-card-tagline">外来クリニックの患者フローを、2施設横並びで。「異変に気づく」のが目的。</div>
-      <div class="product-card-tags"><span>2施設比較</span><span>入力6項目</span><span>異変アラート</span></div>
-      <span class="product-card-link">詳しく見る →</span>
+      <div class="product-card-thumb"><img src="images/products/medboard.png" alt="MedBoard ダッシュボード画面" loading="lazy"></div>
+      <div class="product-card-body">
+        <div class="product-card-num">PRODUCT 02</div>
+        <div class="product-card-name">MedBoard<span class="jp">メドボード</span></div>
+        <div class="product-card-tagline">外来クリニックの患者フローを、2施設横並びで。「異変に気づく」のが目的。</div>
+        <div class="product-card-tags"><span>2施設比較</span><span>入力6項目</span><span>異変アラート</span></div>
+        <span class="product-card-link">詳しく見る →</span>
+      </div>
     </a>
     <a class="product-card" href="./him-quiz/index.html" target="_blank" data-reveal data-cat="medical,learning">
-      <div class="product-card-num">PRODUCT 03</div>
-      <div class="product-card-name">HIM Quiz<span class="jp">診療情報管理士 模試</span></div>
-      <div class="product-card-tagline">全12章・360問。模擬試験モード・章別正答率・間違い蓄積まで。</div>
-      <div class="product-card-tags"><span>360問</span><span>模擬試験</span><span>復習機能</span></div>
-      <span class="product-card-link">詳しく見る →</span>
+      <div class="product-card-thumb"><img src="images/products/him-quiz.png" alt="HIM Quiz 学習画面" loading="lazy"></div>
+      <div class="product-card-body">
+        <div class="product-card-num">PRODUCT 03</div>
+        <div class="product-card-name">HIM Quiz<span class="jp">診療情報管理士 模試</span></div>
+        <div class="product-card-tagline">全12章・360問。模擬試験モード・章別正答率・間違い蓄積まで。</div>
+        <div class="product-card-tags"><span>360問</span><span>模擬試験</span><span>復習機能</span></div>
+        <span class="product-card-link">詳しく見る →</span>
+      </div>
     </a>
     <a class="product-card" href="./hire-board/index.html" target="_blank" data-reveal data-cat="management">
-      <div class="product-card-num">PRODUCT 04</div>
-      <div class="product-card-name">HireBoard<span class="jp">ハイヤーボード</span></div>
-      <div class="product-card-tagline">医療機関の採用をカンバンで。9紹介会社・職種別フィー自動計算。</div>
-      <div class="product-card-tags"><span>カンバン</span><span>9社管理</span><span>フィー自動計算</span></div>
-      <span class="product-card-link">詳しく見る →</span>
+      <div class="product-card-thumb"><img src="images/products/hireboard.png" alt="HireBoard カンバン画面" loading="lazy"></div>
+      <div class="product-card-body">
+        <div class="product-card-num">PRODUCT 04</div>
+        <div class="product-card-name">HireBoard<span class="jp">ハイヤーボード</span></div>
+        <div class="product-card-tagline">医療機関の採用をカンバンで。9紹介会社・職種別フィー自動計算。</div>
+        <div class="product-card-tags"><span>カンバン</span><span>9社管理</span><span>フィー自動計算</span></div>
+        <span class="product-card-link">詳しく見る →</span>
+      </div>
     </a>
     <a class="product-card" href="./study-board/index.html" target="_blank" data-reveal data-cat="learning">
-      <div class="product-card-num">PRODUCT 05</div>
-      <div class="product-card-name">StudyBoard<span class="jp">スタディボード</span></div>
-      <div class="product-card-tagline">複数科目を並行学習する社会人のための。ストリーク・ヒートマップ・バランス分析。</div>
-      <div class="product-card-tags"><span>ストリーク🔥</span><span>ヒートマップ</span><span>5秒記録</span></div>
-      <span class="product-card-link">詳しく見る →</span>
+      <div class="product-card-thumb"><img src="images/products/studyboard.png" alt="StudyBoard 学習ダッシュボード" loading="lazy"></div>
+      <div class="product-card-body">
+        <div class="product-card-num">PRODUCT 05</div>
+        <div class="product-card-name">StudyBoard<span class="jp">スタディボード</span></div>
+        <div class="product-card-tagline">複数科目を並行学習する社会人のための。ストリーク・ヒートマップ・バランス分析。</div>
+        <div class="product-card-tags"><span>ストリーク🔥</span><span>ヒートマップ</span><span>5秒記録</span></div>
+        <span class="product-card-link">詳しく見る →</span>
+      </div>
     </a>
     <a class="product-card" href="./consult-simulator/index.html" target="_blank" data-reveal data-cat="medical,management">
-      <div class="product-card-num">PRODUCT 06</div>
-      <div class="product-card-name">ConsultSim<span class="jp">コンサルトシム</span></div>
-      <div class="product-card-tagline">診察オペレーション設計シミュレーター。1診/2診 × 曜日カスタム × グループ同期。</div>
-      <div class="product-card-tags"><span>1診/2診</span><span>曜日カスタム</span><span>需給サマリー</span></div>
-      <span class="product-card-link">詳しく見る →</span>
+      <div class="product-card-thumb"><img src="images/products/consult-simulator.png" alt="ConsultSim 診察シミュレーター画面" loading="lazy"></div>
+      <div class="product-card-body">
+        <div class="product-card-num">PRODUCT 06</div>
+        <div class="product-card-name">ConsultSim<span class="jp">コンサルトシム</span></div>
+        <div class="product-card-tagline">診察オペレーション設計シミュレーター。1診/2診 × 曜日カスタム × グループ同期。</div>
+        <div class="product-card-tags"><span>1診/2診</span><span>曜日カスタム</span><span>需給サマリー</span></div>
+        <span class="product-card-link">詳しく見る →</span>
+      </div>
     </a>
     <a class="product-card" href="./english-trainer/index.html" target="_blank" data-reveal data-cat="learning">
-      <div class="product-card-num">PRODUCT 07</div>
-      <div class="product-card-name">Daily English<span class="jp">デイリーイングリッシュ</span></div>
-      <div class="product-card-tagline">瞬間英作文トレーナー。単語220・フレーズ135、4モード、通勤の合間に医療経営コンサル英語まで。</div>
-      <div class="product-card-tags"><span>4モード</span><span>音声読上</span><span>SRS間隔反復</span></div>
-      <span class="product-card-link">詳しく見る →</span>
+      <div class="product-card-thumb"><img src="images/products/english-trainer.png" alt="Daily English トレーナー画面" loading="lazy"></div>
+      <div class="product-card-body">
+        <div class="product-card-num">PRODUCT 07</div>
+        <div class="product-card-name">Daily English<span class="jp">デイリーイングリッシュ</span></div>
+        <div class="product-card-tagline">瞬間英作文トレーナー。単語220・フレーズ135、4モード、通勤の合間に医療経営コンサル英語まで。</div>
+        <div class="product-card-tags"><span>4モード</span><span>音声読上</span><span>SRS間隔反復</span></div>
+        <span class="product-card-link">詳しく見る →</span>
+      </div>
     </a>
     <a class="product-card" href="./interview-kit/index.html" target="_blank" data-reveal data-cat="medical,management">
-      <div class="product-card-num">PRODUCT 08</div>
-      <div class="product-card-name">InterviewKit<span class="jp">面接官の手帖</span></div>
-      <div class="product-card-tagline">医療機関の構造化面接ツール。職種×レベルで質問自動生成、事実と印象を分けて記録。</div>
-      <div class="product-card-tags"><span>職種×レベル</span><span>事実/印象 分離</span><span>印象偏向チェック</span></div>
-      <span class="product-card-link">詳しく見る →</span>
+      <div class="product-card-thumb"><img src="images/products/interview-kit.png" alt="InterviewKit 面接記録画面" loading="lazy"></div>
+      <div class="product-card-body">
+        <div class="product-card-num">PRODUCT 08</div>
+        <div class="product-card-name">InterviewKit<span class="jp">面接官の手帖</span></div>
+        <div class="product-card-tagline">医療機関の構造化面接ツール。職種×レベルで質問自動生成、事実と印象を分けて記録。</div>
+        <div class="product-card-tags"><span>職種×レベル</span><span>事実/印象 分離</span><span>印象偏向チェック</span></div>
+        <span class="product-card-link">詳しく見る →</span>
+      </div>
     </a>
-    <a class="product-card" href="https://bridge-med.github.io/bridge-lp/" target="_blank" data-reveal data-cat="management">
+    <a class="product-card no-thumb" href="https://bridge-med.github.io/bridge-lp/" target="_blank" data-reveal data-cat="management">
       <div class="product-card-num">PRODUCT 09</div>
       <div class="product-card-name">BRIDGE LP<span class="jp">この場所</span></div>
       <div class="product-card-tagline">会社紹介ページ。あなたが今いる場所も、BRIDGEのプロダクトの1つです。</div>
