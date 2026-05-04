@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-05-04T16:22:53+00:00",
-  "updated_jst": "2026-05-05T01:22+09:00",
+  "updated_at": "2026-05-04T16:38:56+00:00",
+  "updated_jst": "2026-05-05T01:38+09:00",
   "sources": {
     "mhlw": "厚生労働省 新着情報 RSS",
+    "news": "NHK ニュース RSS (政治 / 経済 / 国際)",
     "papers_mgmt": "PubMed efetch (Healthcare Management / Health Policy / Public Health, last 60d)",
     "papers_med": "PubMed efetch (rehabilitation / pharmacology / neurology, last 60d)",
     "arxiv": "arXiv API (cs.AI / cs.CL / cs.LG, latest)",
-    "market": "Stooq CSV (Nikkei / TOPIX / FX / SP500 / NASDAQ / US10Y)",
     "tech": "ITmedia News RSS",
     "wiki": "Wikipedia REST API (Today in History, en)"
   },
@@ -72,14 +72,116 @@
       "lang": "ja"
     }
   ],
+  "news": [
+    {
+      "title": "大西洋航行のクルーズ船で3人死亡 ハンタウイルス感染か WHO",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114651000",
+      "source": "NHK 国際",
+      "category": "国際",
+      "pubDate": "2026-05-04T22:09:33+09:00",
+      "date": "2026-05-04",
+      "body": "WHO＝世界保健機関は、大西洋を航行しているクルーズ船で、「ハンタウイルス」への感染が疑われる事例が複数発生し、3人が死亡したと発表しました。ハンタウイルスの人から人への感染はまれで、公衆へのリスクは…",
+      "lang": "ja"
+    },
+    {
+      "title": "モスクワ 無人機攻撃で被害 プーチン政権 式典前に警戒強化か",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114631000",
+      "source": "NHK 国際",
+      "category": "国際",
+      "pubDate": "2026-05-04T22:01:10+09:00",
+      "date": "2026-05-04",
+      "body": "ロシアの首都モスクワで、4日にかけて、ウクライナの無人機による攻撃があり、高層アパートに被害が出ました。モスクワでは、第2次世界大戦でナチス・ドイツに勝利したことを祝う式典の準備が進められており、プー…",
+      "lang": "ja"
+    },
+    {
+      "title": "小泉防衛相 インドネシア国防相と会談 装備協力で作業チーム",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114461000",
+      "source": "NHK 政治",
+      "category": "政治",
+      "pubDate": "2026-05-04T21:51:15+09:00",
+      "date": "2026-05-04",
+      "body": "小泉防衛大臣は、訪問先のインドネシアでシャフリ国防相と会談し、日本が殺傷能力のある「武器」の輸出を原則可能としたことを受けて、作業チームを設けて防衛装備や技術分野の協力の具体化を図ることで一致しました…",
+      "lang": "ja"
+    },
+    {
+      "title": "高市首相 補正予算案の編成 「すぐさま必要な状況と考えず」",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114521000",
+      "source": "NHK 政治",
+      "category": "政治",
+      "pubDate": "2026-05-04T19:07:37+09:00",
+      "date": "2026-05-04",
+      "body": "中東情勢をめぐり、高市総理大臣は、今年度予算の予備費が活用できるとして現時点では補正予算案の編成が必要な状況ではないという認識を重ねて示したうえで、経済への影響を注視しながら適切に判断する考えを強調し…",
+      "lang": "ja"
+    },
+    {
+      "title": "ホルムズ海峡 米が船舶通過支援 イラン“接近・侵入なら攻撃”",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114261000",
+      "source": "NHK 国際",
+      "category": "国際",
+      "pubDate": "2026-05-04T18:58:12+09:00",
+      "date": "2026-05-04",
+      "body": "イラン情勢をめぐり、アメリカのトランプ大統領はペルシャ湾内に足止めされている船舶を誘導し、ホルムズ海峡を通過させるための取り組みを4日から開始すると表明しました。一方、イランの中央司令部の司令官はアメ…",
+      "lang": "ja"
+    },
+    {
+      "title": "日豪首脳会談 経済安保で共同宣言発表 安保協力強化で一致",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114361000",
+      "source": "NHK 政治",
+      "category": "政治",
+      "pubDate": "2026-05-04T18:31:59+09:00",
+      "date": "2026-05-04",
+      "body": "高市総理大臣はオーストラリアのアルバニージー首相と首脳会談を行いエネルギーや食料などのサプライチェーンの強化に向けた連携を柱とした経済安全保障協力の指針となる共同宣言を発表したほか、安全保障協力をいっ…",
+      "lang": "ja"
+    },
+    {
+      "title": "日豪首脳会談 経済安保で共同宣言発表 安保協力強化で一致",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114361000",
+      "source": "NHK 国際",
+      "category": "国際",
+      "pubDate": "2026-05-04T18:31:59+09:00",
+      "date": "2026-05-04",
+      "body": "高市総理大臣はオーストラリアのアルバニージー首相と首脳会談を行いエネルギーや食料などのサプライチェーンの強化に向けた連携を柱とした経済安全保障協力の指針となる共同宣言を発表したほか、安全保障協力をいっ…",
+      "lang": "ja"
+    },
+    {
+      "title": "米比合同軍事演習で陸自の「水陸機動団」が実弾射撃訓練",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114491000",
+      "source": "NHK 国際",
+      "category": "国際",
+      "pubDate": "2026-05-04T18:20:48+09:00",
+      "date": "2026-05-04",
+      "body": "フィリピンとアメリカの合同軍事演習に初めて本格的に参加している日本の自衛隊の部隊が4日、南シナ海に面したフィリピン北部の海岸で実弾射撃訓練を行いました。",
+      "lang": "ja"
+    },
+    {
+      "title": "急速に円高進む 一時1ドル155円台に 再び市場介入との見方も",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114421000",
+      "source": "NHK 経済",
+      "category": "経済",
+      "pubDate": "2026-05-04T18:04:14+09:00",
+      "date": "2026-05-04",
+      "body": "4日の外国為替市場では、午後に入って急速に円高が進む場面があり、円相場は一時、1ドル＝155円台後半まで値上がりしました。市場関係者からは政府・日銀による市場介入が再び行われたのではないかとの見方も出…",
+      "lang": "ja"
+    },
+    {
+      "title": "急速に円高進む 一時1ドル155円台に 再び市場介入との見方も",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114421000",
+      "source": "NHK 国際",
+      "category": "国際",
+      "pubDate": "2026-05-04T18:04:14+09:00",
+      "date": "2026-05-04",
+      "body": "4日の外国為替市場では、午後に入って急速に円高が進む場面があり、円相場は一時、1ドル＝155円台後半まで値上がりしました。市場関係者からは政府・日銀による市場介入が再び行われたのではないかとの見方も出…",
+      "lang": "ja"
+    }
+  ],
   "papers_mgmt": [
     {
       "title": "Quality and Reliability of Semaglutide-Related Short Videos on TikTok and Bilibili.",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42077173/",
       "source": "American journal of health promotion : AJHP",
       "authors": "Zeng J et al.",
-      "pubDate": "2026-May-04",
-      "date": "2026-May-0",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
       "body": "PurposeThe rapid growth of semaglutide use for weight loss has been accompanied by a proliferation of patient-shared experiences and non-evidence-based claims on video platforms. This unchecked information environment poses significant risks to public health, including potential self-medication and misunderstanding of treatment risks, underscoring the urgent need to evaluate the quality of semaglutide-related video content to safeguard digital health literacy. This study assesses the quality, reliability, and user engagement of semaglutide-related short videos on TikTok and Bilibili.ApproachThis cross-sectional study analyzed the top 100 semaglutide-related videos from TikTok and Bilibili,…",
       "lang": "en",
       "pmid": "42077173",
@@ -90,8 +192,8 @@
       "url": "https://pubmed.ncbi.nlm.nih.gov/42077129/",
       "source": "Internal medicine journal",
       "authors": "Savoric T et al.",
-      "pubDate": "2026-May-04",
-      "date": "2026-May-0",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
       "body": "BACKGROUND: Psychological distress is highly prevalent among patients in intensive care units (ICUs), yet current management remains predominantly pharmacological and often insufficient to address emotional and cognitive wellbeing. Virtual reality (VR) is emerging as a potential non-pharmacological adjunct for stress and anxiety reduction in critical care. AIMS: To explore ICU professionals' perspectives on the design, feasibility and clinical integration of a gamified, art-based VR prototype intended to support psychological wellbeing and reduce stress and anxiety in ICU patients. METHODS: Qualitative study using a semi-structured focus group and thematic analysis. INTERVENTIONS: Seven ICU…",
       "lang": "en",
       "pmid": "42077129",
@@ -102,8 +204,8 @@
       "url": "https://pubmed.ncbi.nlm.nih.gov/42077108/",
       "source": "American journal of health promotion : AJHP",
       "authors": "Buro AW et al.",
-      "pubDate": "2026-May-04",
-      "date": "2026-May-0",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
       "body": "BackgroundSocial media platforms offer scalable opportunities for youth-focused health behavior interventions, but their commercial design, data extraction practices, and algorithmic content delivery raise ethical, legal, and equity-related concerns.MethodsThis commentary examines how these platform features may introduce unintended risks for youth participants, including surveillance, screen time-related harms, and digital exclusion.ResultsKey risks include (1) data collection and surveillance practices that may undermine privacy and informed consent; (2) engagement-driven platform features that may increase screen time exposure, amplify exposure to harmful ot conflicting content, and cont…",
       "lang": "en",
       "pmid": "42077108",
@@ -114,23 +216,11 @@
       "url": "https://pubmed.ncbi.nlm.nih.gov/42077081/",
       "source": "Hand (New York, N.Y.)",
       "authors": "Billig JI et al.",
-      "pubDate": "2026-May-04",
-      "date": "2026-May-0",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
       "body": "BACKGROUND: Hand trauma patients are more likely to be affected by social determinants of health (SDOH) that can adversely affect surgical outcomes. The introduction of z-codes reflecting SDOH has increased the ability to systematically capture SDOH, such as economic circumstances and social support. However, little is known about the uptake of z-codes for identifying SDOH and the characteristics of hand trauma patients with and without documented SDOH z-codes. METHODS: This analysis used 2015-2025 national data from EPIC Cosmos for patients undergoing common surgical procedures for hand trauma. We assessed for the presence of SDOH using z-codes and compared characteristics of patients with…",
       "lang": "en",
       "pmid": "42077081",
-      "topic": "医療経営/公衆衛生"
-    },
-    {
-      "title": "Later-Life Employment Transitions and Frailty: A Gendered Analysis Using Asymmetric Fixed-Effects Models.",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42077004/",
-      "source": "Research on aging",
-      "authors": "Nam N et al.",
-      "pubDate": "2026-May-04",
-      "date": "2026-May-0",
-      "body": "Later-life employment transitions have complex health implications, yet few studies examine the asymmetric effects of workforce entry and exit on frailty. Using seven waves of the Korean Longitudinal Study of Aging (KLoSA), this study analyzed 6,165 adults aged 65 and older to assess how employment transitions affect frailty and whether these effects differ by gender. Frailty was measured using a 41-item index, and asymmetric fixed effects models were applied to distinguish the health impacts of entering versus exiting the workforce. Gender-stratified models showed a positive association between employment and frailty only among women. Notably, asymmetric models revealed that exiting the wo…",
-      "lang": "en",
-      "pmid": "42077004",
       "topic": "医療経営/公衆衛生"
     }
   ],
@@ -140,8 +230,8 @@
       "url": "https://pubmed.ncbi.nlm.nih.gov/42077049/",
       "source": "Expert review of cardiovascular therapy",
       "authors": "Chiu SN et al.",
-      "pubDate": "2026-May-04",
-      "date": "2026-May-0",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
       "body": "INTRODUCTION: Sudden cardiac arrest (SCA) remains one of the most devastating complications of pediatric hypertrophic cardiomyopathy (HCM). Despite major advances in genetic diagnostics, cardiac imaging, and risk stratification strategies, the prevention of sudden cardiac death (SCD) in children and adolescents with HCM remains an unresolved clinical challenge. Contemporary guideline-based approaches and pediatric-specific risk models have improved decision-making regarding implantable cardioverter-defibrillator (ICD) implantation in diagnosed patients; however, these strategies are inherently limited by their reliance on an established HCM phenotype. A substantial proportion of pediatric p…",
       "lang": "en",
       "pmid": "42077049",
@@ -152,8 +242,8 @@
       "url": "https://pubmed.ncbi.nlm.nih.gov/42077006/",
       "source": "Disability and rehabilitation",
       "authors": "Klerkx ML et al.",
-      "pubDate": "2026-May-04",
-      "date": "2026-May-0",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
       "body": "PURPOSE: There is a lack of knowledge about reemployment for long-term sick-listed employees when returning to a previous job is not feasible. This study aims to understand the mechanisms and contextual factors that facilitate or hinder return to work with a new employer (RTW-NE) for sick-listed employees. METHODS: We conducted a realist review of peer-reviewed studies and gray literature from six databases. Data were extracted and synthesized to identify factors and to create context-mechanism-outcome (CMO) configurations to develop an explanatory framework, based on the Integrated Behavior Model and Stages of Change. RESULTS: 1,584 records were identified, 28 records met the inclusion cri…",
       "lang": "en",
       "pmid": "42077006",
@@ -164,8 +254,8 @@
       "url": "https://pubmed.ncbi.nlm.nih.gov/42076997/",
       "source": "Journal of liposome research",
       "authors": "Barik B et al.",
-      "pubDate": "2026-May-04",
-      "date": "2026-May-0",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
       "body": "Multifunctional lipid-based nanoparticles, like nanoliposomes (NLPs), effectively deliver therapeutic and diagnostic functions, with recent modifications to liposomes reducing toxicity to human cells. These NLPs and micelles enhance therapeutic efficacy through surface modifications, creating pH-sensitive, targeted, long-circulating systems. Process selection depends on the nanoparticle components' physicochemical properties, which influence formulations. This article explores engineered NLPs for the treatment of various diseases like fungal infection, breast cancer, and metabolic disorders, compares their properties, breakthroughs in ligand-targeted, stimuli-responsive, scalable NLP produc…",
       "lang": "en",
       "pmid": "42076997",
@@ -176,23 +266,11 @@
       "url": "https://pubmed.ncbi.nlm.nih.gov/42076936/",
       "source": "Movement disorders : official journal of the Movement Disorder Society",
       "authors": "Patwardhan A et al.",
-      "pubDate": "2026-May-04",
-      "date": "2026-May-0",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
       "body": "Idiopathic normal pressure hydrocephalus (iNPH) is a potentially reversible condition characterized by gait, cognitive, and urinary impairment and treated with cerebrospinal fluid shunting, yet post-shunt outcomes vary. Coexisting Alzheimer's disease (AD) pathology may contribute to this variability. This systematic review and meta-analysis investigated whether pre-shunt AD co-pathology influences post-shunt outcomes across distinct clinical domains and follow-up durations. Following PRISMA (Preferred Reporting Items for Systematic Reviews and Meta-Analyses) guidelines, PubMed, Embase, Scopus, and Web of Science were searched for studies assessing the impact of pre-shunt AD co-pathology on…",
       "lang": "en",
       "pmid": "42076936",
-      "topic": "リハ/薬理/神経"
-    },
-    {
-      "title": "The Effect of an 8-Week Cognitively Engaging Exercise Intervention on Conflict Inhibition in College Students With Depressive Symptoms: A Randomized Controlled Trial.",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42076908/",
-      "source": "Scandinavian journal of medicine & science in sports",
-      "authors": "Guo Z et al.",
-      "pubDate": "2026-May-01",
-      "date": "2026-May-0",
-      "body": "Individuals with depressive symptoms often exhibit deficits in executive function. This is especially true in advanced cognitive control tasks such as conflict inhibition. Specific manifestations include insufficient allocation of attentional resources and delayed responses. This study aimed to explore whether an 8 week cognitively engaging exercise has a continuous effect on improving the conflict inhibition of college students with depressive symptoms. It also aimed to reveal the underlying cognitive neural processing mechanisms. The study used the BDI-II depression symptom self-rating scale to recruit and screen 40 college students with scores greater than 13. These subjects were randoml…",
-      "lang": "en",
-      "pmid": "42076908",
       "topic": "リハ/薬理/神経"
     }
   ],
@@ -240,78 +318,8 @@
       "body": "Large language models are increasingly deployed as autonomous coding agents and have achieved remarkably strong performance on software engineering benchmarks. However, it is unclear whether such success transfers to computational scientific workflows, where tasks require not only strong coding ability, but also the ability to navigate complex, domain-specific procedures and to interpret results in the context of scientific claims. To address this question, we present AutoMat, a benchmark for evaluating LLM-based agents' ability to reproduce claims from computational materials science. AutoMat poses three interrelated challenges: recovering underspecified computational procedures, navigatin…",
       "lang": "en",
       "topic": "cs.SE"
-    },
-    {
-      "title": "Generating Statistical Charts with Validation-Driven LLM Workflows",
-      "url": "https://arxiv.org/abs/2605.00800v1",
-      "source": "arXiv cs.LG",
-      "authors": "Pavlin G. Poličar et al.",
-      "pubDate": "2026-05-01T17:39:00+00:00",
-      "date": "2026-05-01",
-      "body": "Generating diverse, readable statistical charts from tabular data remains challenging for LLMs, as many failures become apparent after rendering and are not detectable from data or code alone. Existing chart datasets also rarely provide fully aligned artifacts, such as executable code, dataset context, and question-answer pairs. We present a structured LLM-based workflow that decomposes chart generation into dataset screening, plot proposal, code synthesis, rendering, validation-driven refinement, description generation, and question-answer generation. By incorporating rendered-output validation, the workflow addresses visualization-specific failure modes such as readability and semantic mi…",
-      "lang": "en",
-      "topic": "cs.LG"
     }
   ],
-  "market": {
-    "updated": "2026-05-05T01:22+09:00",
-    "rows": [
-      {
-        "name": "日経平均",
-        "symbol": "^NKX",
-        "date": "2026-05-01",
-        "close": "59513.12",
-        "open": "59379.12",
-        "high": "59706.7",
-        "low": "59263.5"
-      },
-      {
-        "name": "TOPIX",
-        "symbol": "^TPX",
-        "date": "2026-05-01",
-        "close": "3728.73",
-        "open": "3718.74",
-        "high": "3741.19",
-        "low": "3691.63"
-      },
-      {
-        "name": "USDJPY",
-        "symbol": "USDJPY",
-        "date": "2026-05-04",
-        "close": "157.2095",
-        "open": "156.729",
-        "high": "157.3015",
-        "low": "155.7415"
-      },
-      {
-        "name": "EURJPY",
-        "symbol": "EURJPY",
-        "date": "2026-05-04",
-        "close": "183.87",
-        "open": "184.025",
-        "high": "184.387",
-        "low": "182.826"
-      },
-      {
-        "name": "S&P 500",
-        "symbol": "^SPX",
-        "date": "2026-05-04",
-        "close": "7197.7",
-        "open": "7230.1",
-        "high": "7244.3",
-        "low": "7177.7"
-      },
-      {
-        "name": "NASDAQ",
-        "symbol": "^NDQ",
-        "date": "2026-05-04",
-        "close": "25011.047",
-        "open": "25112.18",
-        "high": "25210.117",
-        "low": "24920.666"
-      }
-    ]
-  },
   "tech": [
     {
       "title": "「insta360 GO Ultra」は夜にも強かった　画質とウェアラブル性のバランスがいいアクションカムを試す",

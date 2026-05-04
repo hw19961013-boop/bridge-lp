@@ -1,170 +1,399 @@
 {
-  "updated_at": "2026-05-04T15:34:44+00:00",
+  "updated_at": "2026-05-04T16:39:15+00:00",
+  "updated_jst": "2026-05-05T01:39+09:00",
   "sources": {
-    "medical": "Google News RSS (診療報酬 / 医療経営 / 医療政策)",
-    "economy": "Google News RSS (日経新聞 / 日経平均 / 日銀)",
-    "papers": "PubMed E-utilities (rehabilitation / pharmacology / neurology / healthcare management / public health, last 30 days)"
+    "mhlw": "厚生労働省 新着情報 RSS",
+    "news": "NHK ニュース RSS (政治 / 経済 / 国際)",
+    "papers_mgmt": "PubMed efetch (Healthcare Management / Health Policy / Public Health, last 60d)",
+    "papers_med": "PubMed efetch (rehabilitation / pharmacology / neurology, last 60d)",
+    "arxiv": "arXiv API (cs.AI / cs.CL / cs.LG, latest)",
+    "tech": "ITmedia News RSS",
+    "wiki": "Wikipedia REST API (Today in History, en)"
   },
-  "medical": [
+  "mhlw": [
     {
-      "title": "多様化するオンライン診療、適正な推進を",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE4wQmZrQlVJR1hLclFqR0FIa3RKNHdFRk01dDZYZjJvbzNQejVxR0F3VE1YRmVBZGhEcV84S0J5d3dhRHR6QmJ0RtIBTkFVX3lxTE01T2VJeENGc09SLTUzeS1aMHR5R0M5Q3h6ZWNySU1TdjVyRnpIbTNUa21UU2tpNF9KUWxDWko2RFJDT3FlQzJOUVhJSmVoQQ?oc=5",
-      "source": "MEDIFAX web",
-      "pubDate": "2026-05-01T20:00:00+00:00",
+      "title": "戦没者慰霊事業のお知らせ（令和８年５月実施分）",
+      "url": "https://www.mhlw.go.jp/stf/newpage_72907.html",
+      "source": "厚生労働省",
+      "category": "",
+      "pubDate": "2026-05-01T14:00:00+09:00",
       "date": "2026-05-01",
-      "excerpt": "多様化するオンライン診療、適正な推進を MEDIFAX web"
+      "body": "",
+      "lang": "ja"
     },
     {
-      "title": "医療政策に活用する際の落とし穴 オバマケア「再入院予防プログラム」から学ぶべきこと",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQUFVYbENmdVYtRTlydVVqSGQ0eWNnTG1MblZYVk5VVVNwbUprMm9icEYyb29KdExPSkJyMWw3YlRfWExnVHcxbVZnZkpodU5Cb0I5NWZTY0hNOVZIYzhxeVcyMTNiMzZGVHNsTTVod0JMdkhmbWxTTUJkcTlLaENYTEF5Uy1UQ3RCdTloUl9TNA?oc=5",
-      "source": "読売新聞",
-      "pubDate": "2026-05-01T07:00:00+00:00",
+      "title": "第34回特定石綿被害建設業務労働者等認定審査会専門委員会　開催案内",
+      "url": "https://www.mhlw.go.jp/stf/newpage_72893.html",
+      "source": "厚生労働省",
+      "category": "",
+      "pubDate": "2026-05-01T14:00:00+09:00",
       "date": "2026-05-01",
-      "excerpt": "医療政策に活用する際の落とし穴 オバマケア「再入院予防プログラム」から学ぶべきこと 読売新聞"
+      "body": "",
+      "lang": "ja"
     },
     {
-      "title": "【診療報酬改定】「施設基準届出チェックリスト」公開 ー 厚労省 - PT-OT-ST.NET",
-      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5Qa2FEX1VLT2tDbFF3Szg1WkNWY2NVV2loWDg1bmRveWIyV0t3amR1OHEyLXJuaUJjN1lOT0Z0eUI4eFNzVWNCdmxLcEVGUW9YU3F5aTRudFJqczFNS0hsRnZ3aw?oc=5",
-      "source": "PT-OT-ST.NET",
-      "pubDate": "2026-04-30T04:58:23+00:00",
-      "date": "2026-04-30",
-      "excerpt": "【診療報酬改定】「施設基準届出チェックリスト」公開 ー 厚労省 PT-OT-ST.NET"
+      "title": "令和８年度第２回「石綿に係る疾病の業務上外に関する検討会」を開催します",
+      "url": "https://www.mhlw.go.jp/stf/newpage_72704.html",
+      "source": "厚生労働省",
+      "category": "",
+      "pubDate": "2026-05-01T14:00:00+09:00",
+      "date": "2026-05-01",
+      "body": "",
+      "lang": "ja"
     },
     {
-      "title": "6割超の開業医が2026年度診療報酬改定を不安視",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBpUjEya2dBX2JlM1hGNmhWV3EwdmVFZHNFSHkzX2I4NldDRWFYVzdndm5nTTZMZGZpV0NSSmNsTmUzQl9QTENPQ3ZLMjhfTkFOOHQzRTdXRFJMZFJfajNPUkVla0I4Z01tMGc?oc=5",
-      "source": "PR TIMES",
-      "pubDate": "2026-04-30T04:00:02+00:00",
-      "date": "2026-04-30",
-      "excerpt": "6割超の開業医が2026年度診療報酬改定を不安視 PR TIMES"
+      "title": "第1回 医療関係職種の安定的な養成・確保に関する検討会：開催案内",
+      "url": "https://www.mhlw.go.jp/stf/newpage_73004.html",
+      "source": "厚生労働省",
+      "category": "",
+      "pubDate": "2026-05-01T12:30:00+09:00",
+      "date": "2026-05-01",
+      "body": "",
+      "lang": "ja"
     },
     {
-      "title": "【識者の眼】「診療報酬改定と人口減少が進む地域での医療」小野 剛",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1tbGo1ejZHUktzdFV4bUhscmJFLTZPUnJOOXNYZHhocTZTd0FIVlZGMGViUHNGWWhMTFBHd0k1QU95Y2hYQmNOX3F0VEhNN0wwZU1iUFl1c1lJY0FLVWlIdA?oc=5",
-      "source": "日本医事新報社",
-      "pubDate": "2026-04-30T01:05:45+00:00",
-      "date": "2026-04-30",
-      "excerpt": "【識者の眼】「診療報酬改定と人口減少が進む地域での医療」小野 剛 日本医事新報社"
+      "title": "第92回労働政策審議会勤労者生活分科会中小企業退職金共済部会議事録",
+      "url": "https://www.mhlw.go.jp/stf/newpage_72532.html",
+      "source": "厚生労働省",
+      "category": "",
+      "pubDate": "2026-05-01T12:00:00+09:00",
+      "date": "2026-05-01",
+      "body": "",
+      "lang": "ja"
     },
     {
-      "title": "NEWS 一般病棟用看護必要度の救急患者応需係数の算出方法などを解説―26年度改定疑義解釈",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBoYnFGeUY3MDJPWEx1LV9YS3I1SE4ybEI5TDZfYWdBRGtWVkh2MS1vOGJaRFpmSFJBZmlkRkhfMmRwLVlaZVpxbzJtM3k4eEFFNzFUV3Y3NHhfSzU5RG9fXw?oc=5",
-      "source": "日本医事新報社",
-      "pubDate": "2026-04-30T00:40:45+00:00",
-      "date": "2026-04-30",
-      "excerpt": "NEWS 一般病棟用看護必要度の救急患者応需係数の算出方法などを解説―26年度改定疑義解釈 日本医事新報社"
+      "title": "資格・試験情報",
+      "url": "https://www.mhlw.go.jp/kouseiroudoushou/shikaku_shiken/index.html",
+      "source": "厚生労働省",
+      "category": "",
+      "pubDate": "2026-05-01T11:00:00+09:00",
+      "date": "2026-05-01",
+      "body": "",
+      "lang": "ja"
     }
   ],
-  "economy": [
+  "news": [
     {
-      "title": "マクドナルドハウス無償化 子どもと家族、闘病を支援",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1ZazJsVWk2VHBjVUFjU1doNmZnNWRXQXVSOERjUUJHTTl1ZTBXVXpOdGctVkdWZ1lPNm85WWl1QjdRR1lBSzJRS2g2LXNSY1JXc18xdWt2ZHE2U0NTWGFQWkZyb2RaeGtXaXRTZQ?oc=5",
-      "source": "日本経済新聞",
-      "pubDate": "2026-05-04T10:17:39+00:00",
+      "title": "大西洋航行のクルーズ船で3人死亡 ハンタウイルス感染か WHO",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114651000",
+      "source": "NHK 国際",
+      "category": "国際",
+      "pubDate": "2026-05-04T22:09:33+09:00",
       "date": "2026-05-04",
-      "excerpt": "マクドナルドハウス無償化 子どもと家族、闘病を支援 日本経済新聞"
+      "body": "WHO＝世界保健機関は、大西洋を航行しているクルーズ船で、「ハンタウイルス」への感染が疑われる事例が複数発生し、3人が死亡したと発表しました。ハンタウイルスの人から人への感染はまれで、公衆へのリスクは…",
+      "lang": "ja"
     },
     {
-      "title": "シンガポールとNZ、生活必需品で世界初の供給網協定",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE80dVhvaGF2bDAtbXRtN1ZaeGhZeGQtcm1ieGs4eXV5SFJHTGRMS21LWFZVWG5ZNFl5TUlYN1NEZFJDSXlPMmZrbHJYZWExbmdrTFhleGV1aTlmellNempuRTR2bXdUcXNfVXI3VQ?oc=5",
-      "source": "日本経済新聞",
-      "pubDate": "2026-05-04T10:16:28+00:00",
+      "title": "モスクワ 無人機攻撃で被害 プーチン政権 式典前に警戒強化か",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114631000",
+      "source": "NHK 国際",
+      "category": "国際",
+      "pubDate": "2026-05-04T22:01:10+09:00",
       "date": "2026-05-04",
-      "excerpt": "シンガポールとNZ、生活必需品で世界初の供給網協定 日本経済新聞"
+      "body": "ロシアの首都モスクワで、4日にかけて、ウクライナの無人機による攻撃があり、高層アパートに被害が出ました。モスクワでは、第2次世界大戦でナチス・ドイツに勝利したことを祝う式典の準備が進められており、プー…",
+      "lang": "ja"
     },
     {
-      "title": "［社説］暮らし支える物資の供給網を強く",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9aQjhtTThEMTJOZlE0ak5JcTlLOTVlUWVqLVljYUFWT1ZpMm5jSUN5UTljMjhnbGxCUXNWV1NoeThHNXFmV2xFUmlEdDlYT0MxR0xpLUhuclJsaDZtUUU5X0tROFhlNzJfemhNWQ?oc=5",
-      "source": "日本経済新聞",
-      "pubDate": "2026-05-04T10:00:00+00:00",
+      "title": "小泉防衛相 インドネシア国防相と会談 装備協力で作業チーム",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114461000",
+      "source": "NHK 政治",
+      "category": "政治",
+      "pubDate": "2026-05-04T21:51:15+09:00",
       "date": "2026-05-04",
-      "excerpt": "［社説］暮らし支える物資の供給網を強く 日本経済新聞"
+      "body": "小泉防衛大臣は、訪問先のインドネシアでシャフリ国防相と会談し、日本が殺傷能力のある「武器」の輸出を原則可能としたことを受けて、作業チームを設けて防衛装備や技術分野の協力の具体化を図ることで一致しました…",
+      "lang": "ja"
     },
     {
-      "title": "円相場 一時急激に円高進む 政府・日銀による為替介入は?",
-      "url": "https://news.google.com/rss/articles/CBMiggNBVV95cUxQUlJySUEzeTZKb1dISlA0SUU4NjJPYjc1R3BlR3hVMW9FUzY5eGJYQ3c4aHZjM0JrSFZ2REoweVptVHdSbHBLb1pBNkhZMXhqWHBrS3BHNlphYlR6eFN0UGdwbHR3MGJERzZXVUduV3ViVVVUVm10VFhWb012YnVsUnNFdkpfYTF2MFRZVHdGUXhCS0dzSlBlUEFJOUFpaXZNM1g2NV83YVVNVWF4U0JpVGlEV0FFUktIV3FvSkNSM3NHeFB0eG1COG9YQWpVbGJMNHFKSVdGMmhjcXB2WXRyelh5QmxSbUJGS0NGdElERGg5S3psWm8waEZxWGVIclpEMVlZMW1icEhXU0tzWVE3aXVfQ1Qwd2d5R09rNHU5TWtJakhyQkRHNjJtSnU0bUJERkVkck1JV1BsNWpaRjI2Y2EzVmxLanFZVWF6YnVmaWhlWmp6OEFNYm9PalNwUVh5SDFGaUlZS3JoalhLYjRQNnlJTmtlZzlyV0o5ZmtSRFdUUQ?oc=5",
-      "source": "MSN",
-      "pubDate": "2026-05-04T09:58:22+00:00",
+      "title": "高市首相 補正予算案の編成 「すぐさま必要な状況と考えず」",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114521000",
+      "source": "NHK 政治",
+      "category": "政治",
+      "pubDate": "2026-05-04T19:07:37+09:00",
       "date": "2026-05-04",
-      "excerpt": "円相場 一時急激に円高進む 政府・日銀による為替介入は? MSN"
+      "body": "中東情勢をめぐり、高市総理大臣は、今年度予算の予備費が活用できるとして現時点では補正予算案の編成が必要な状況ではないという認識を重ねて示したうえで、経済への影響を注視しながら適切に判断する考えを強調し…",
+      "lang": "ja"
     },
     {
-      "title": "相場展望5月$日号　米国株: S&P・ナスダックは最高値更新も、決算発表終盤後の動向注視　日本株: 日経平均上昇を牽引したハイテク株の2極化が目立ち始めた | チバテレ＋プラス",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5PcU5PWWNqcDZwNHI3alcwUkRpNXVoLTg0MEcwbHhPLUZkSGdNYjkyOVMzTW9xd3plUHJNSUpOQ3VsalU2SkZhaHpaZWJKNDNLR0xWdjktRTdJeGlGSUdz0gFkQVVfeXFMTWNycHZBa05yTmFUS3U5aEFyZHFZT21WX0VrUnAzck02QzJYZ1JFZzZ1dy0tNkNQR1RDVzNYSXRhWGY3a1ZCVHN1X0QyODlOVE1RU3Bhd3VPTjMtcjdTRFRPN0NDZA?oc=5",
-      "source": "千葉テレビ放送",
-      "pubDate": "2026-05-04T09:27:20+00:00",
+      "title": "ホルムズ海峡 米が船舶通過支援 イラン“接近・侵入なら攻撃”",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114261000",
+      "source": "NHK 国際",
+      "category": "国際",
+      "pubDate": "2026-05-04T18:58:12+09:00",
       "date": "2026-05-04",
-      "excerpt": "相場展望5月$日号 米国株: S&P・ナスダックは最高値更新も、決算発表終盤後の動向注視 日本株: 日経平均上昇を牽引したハイテク株の2極化が目立ち始めた | チバテレ＋プラス…"
+      "body": "イラン情勢をめぐり、アメリカのトランプ大統領はペルシャ湾内に足止めされている船舶を誘導し、ホルムズ海峡を通過させるための取り組みを4日から開始すると表明しました。一方、イランの中央司令部の司令官はアメ…",
+      "lang": "ja"
     },
     {
-      "title": "京都・先斗町の「鴨川をどり」が前夜祭 187回目の公演",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1YaXMxektlWmYtSEVXRWdyckg5VU9wcVhvX0FtQ3VYTDRPQVp3eW9qNm9oUmJsa1dWNlhULTI2SFRIOGF5ZEZJekRTcHJua0tfNmtSb005RU1xZ0RTc01GRnNBOS00d09wSTFoSA?oc=5",
-      "source": "日本経済新聞",
-      "pubDate": "2026-05-04T09:24:54+00:00",
+      "title": "日豪首脳会談 経済安保で共同宣言発表 安保協力強化で一致",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114361000",
+      "source": "NHK 政治",
+      "category": "政治",
+      "pubDate": "2026-05-04T18:31:59+09:00",
       "date": "2026-05-04",
-      "excerpt": "京都・先斗町の「鴨川をどり」が前夜祭 187回目の公演 日本経済新聞"
+      "body": "高市総理大臣はオーストラリアのアルバニージー首相と首脳会談を行いエネルギーや食料などのサプライチェーンの強化に向けた連携を柱とした経済安全保障協力の指針となる共同宣言を発表したほか、安全保障協力をいっ…",
+      "lang": "ja"
+    },
+    {
+      "title": "日豪首脳会談 経済安保で共同宣言発表 安保協力強化で一致",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114361000",
+      "source": "NHK 国際",
+      "category": "国際",
+      "pubDate": "2026-05-04T18:31:59+09:00",
+      "date": "2026-05-04",
+      "body": "高市総理大臣はオーストラリアのアルバニージー首相と首脳会談を行いエネルギーや食料などのサプライチェーンの強化に向けた連携を柱とした経済安全保障協力の指針となる共同宣言を発表したほか、安全保障協力をいっ…",
+      "lang": "ja"
+    },
+    {
+      "title": "米比合同軍事演習で陸自の「水陸機動団」が実弾射撃訓練",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114491000",
+      "source": "NHK 国際",
+      "category": "国際",
+      "pubDate": "2026-05-04T18:20:48+09:00",
+      "date": "2026-05-04",
+      "body": "フィリピンとアメリカの合同軍事演習に初めて本格的に参加している日本の自衛隊の部隊が4日、南シナ海に面したフィリピン北部の海岸で実弾射撃訓練を行いました。",
+      "lang": "ja"
+    },
+    {
+      "title": "急速に円高進む 一時1ドル155円台に 再び市場介入との見方も",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114421000",
+      "source": "NHK 経済",
+      "category": "経済",
+      "pubDate": "2026-05-04T18:04:14+09:00",
+      "date": "2026-05-04",
+      "body": "4日の外国為替市場では、午後に入って急速に円高が進む場面があり、円相場は一時、1ドル＝155円台後半まで値上がりしました。市場関係者からは政府・日銀による市場介入が再び行われたのではないかとの見方も出…",
+      "lang": "ja"
+    },
+    {
+      "title": "急速に円高進む 一時1ドル155円台に 再び市場介入との見方も",
+      "url": "https://news.web.nhk/newsweb/na/na-k10015114421000",
+      "source": "NHK 国際",
+      "category": "国際",
+      "pubDate": "2026-05-04T18:04:14+09:00",
+      "date": "2026-05-04",
+      "body": "4日の外国為替市場では、午後に入って急速に円高が進む場面があり、円相場は一時、1ドル＝155円台後半まで値上がりしました。市場関係者からは政府・日銀による市場介入が再び行われたのではないかとの見方も出…",
+      "lang": "ja"
     }
   ],
-  "papers": [
+  "papers_mgmt": [
     {
-      "title": "Opening new doors: a realist review on return to work with a new employer for sick-listed employees.",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42077006/",
-      "source": "Disability and rehabilitation",
-      "authors": "Klerkx ML et al.",
-      "pubDate": "2026/05/04 00:00",
-      "date": "2026/05/04",
-      "pmid": "42077006",
-      "topic": "rehabilitation"
+      "title": "Quality and Reliability of Semaglutide-Related Short Videos on TikTok and Bilibili.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42077173/",
+      "source": "American journal of health promotion : AJHP",
+      "authors": "Zeng J et al.",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
+      "body": "PurposeThe rapid growth of semaglutide use for weight loss has been accompanied by a proliferation of patient-shared experiences and non-evidence-based claims on video platforms. This unchecked information environment poses significant risks to public health, including potential self-medication and misunderstanding of treatment risks, underscoring the urgent need to evaluate the quality of semaglutide-related video content to safeguard digital health literacy. This study assesses the quality, reliability, and user engagement of semaglutide-related short videos on TikTok and Bilibili.ApproachThis cross-sectional study analyzed the top 100 semaglutide-related videos from TikTok and Bilibili,…",
+      "lang": "en",
+      "pmid": "42077173",
+      "topic": "医療経営/公衆衛生"
     },
+    {
+      "title": "Exploring virtual reality for stress and anxiety management in intensive care settings: perspectives from intensive care professionals.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42077129/",
+      "source": "Internal medicine journal",
+      "authors": "Savoric T et al.",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
+      "body": "BACKGROUND: Psychological distress is highly prevalent among patients in intensive care units (ICUs), yet current management remains predominantly pharmacological and often insufficient to address emotional and cognitive wellbeing. Virtual reality (VR) is emerging as a potential non-pharmacological adjunct for stress and anxiety reduction in critical care. AIMS: To explore ICU professionals' perspectives on the design, feasibility and clinical integration of a gamified, art-based VR prototype intended to support psychological wellbeing and reduce stress and anxiety in ICU patients. METHODS: Qualitative study using a semi-structured focus group and thematic analysis. INTERVENTIONS: Seven ICU…",
+      "lang": "en",
+      "pmid": "42077129",
+      "topic": "医療経営/公衆衛生"
+    },
+    {
+      "title": "Rethinking Social Media in Youth Health Promotion: Navigating Ethics, Equity, and Algorithmic Risk.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42077108/",
+      "source": "American journal of health promotion : AJHP",
+      "authors": "Buro AW et al.",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
+      "body": "BackgroundSocial media platforms offer scalable opportunities for youth-focused health behavior interventions, but their commercial design, data extraction practices, and algorithmic content delivery raise ethical, legal, and equity-related concerns.MethodsThis commentary examines how these platform features may introduce unintended risks for youth participants, including surveillance, screen time-related harms, and digital exclusion.ResultsKey risks include (1) data collection and surveillance practices that may undermine privacy and informed consent; (2) engagement-driven platform features that may increase screen time exposure, amplify exposure to harmful ot conflicting content, and cont…",
+      "lang": "en",
+      "pmid": "42077108",
+      "topic": "医療経営/公衆衛生"
+    },
+    {
+      "title": "Use of Social Determinants of Health Z-Codes in Hand Trauma Patients.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42077081/",
+      "source": "Hand (New York, N.Y.)",
+      "authors": "Billig JI et al.",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
+      "body": "BACKGROUND: Hand trauma patients are more likely to be affected by social determinants of health (SDOH) that can adversely affect surgical outcomes. The introduction of z-codes reflecting SDOH has increased the ability to systematically capture SDOH, such as economic circumstances and social support. However, little is known about the uptake of z-codes for identifying SDOH and the characteristics of hand trauma patients with and without documented SDOH z-codes. METHODS: This analysis used 2015-2025 national data from EPIC Cosmos for patients undergoing common surgical procedures for hand trauma. We assessed for the presence of SDOH using z-codes and compared characteristics of patients with…",
+      "lang": "en",
+      "pmid": "42077081",
+      "topic": "医療経営/公衆衛生"
+    }
+  ],
+  "papers_med": [
     {
       "title": "Getting ahead of sudden cardiac arrest in pediatric hypertrophic cardiomyopathy patients.",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42077049/",
       "source": "Expert review of cardiovascular therapy",
       "authors": "Chiu SN et al.",
-      "pubDate": "2026/05/04 00:00",
-      "date": "2026/05/04",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
+      "body": "INTRODUCTION: Sudden cardiac arrest (SCA) remains one of the most devastating complications of pediatric hypertrophic cardiomyopathy (HCM). Despite major advances in genetic diagnostics, cardiac imaging, and risk stratification strategies, the prevention of sudden cardiac death (SCD) in children and adolescents with HCM remains an unresolved clinical challenge. Contemporary guideline-based approaches and pediatric-specific risk models have improved decision-making regarding implantable cardioverter-defibrillator (ICD) implantation in diagnosed patients; however, these strategies are inherently limited by their reliance on an established HCM phenotype. A substantial proportion of pediatric p…",
+      "lang": "en",
       "pmid": "42077049",
-      "topic": "pharmacology"
+      "topic": "リハ/薬理/神経"
+    },
+    {
+      "title": "Opening new doors: a realist review on return to work with a new employer for sick-listed employees.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42077006/",
+      "source": "Disability and rehabilitation",
+      "authors": "Klerkx ML et al.",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
+      "body": "PURPOSE: There is a lack of knowledge about reemployment for long-term sick-listed employees when returning to a previous job is not feasible. This study aims to understand the mechanisms and contextual factors that facilitate or hinder return to work with a new employer (RTW-NE) for sick-listed employees. METHODS: We conducted a realist review of peer-reviewed studies and gray literature from six databases. Data were extracted and synthesized to identify factors and to create context-mechanism-outcome (CMO) configurations to develop an explanatory framework, based on the Integrated Behavior Model and Stages of Change. RESULTS: 1,584 records were identified, 28 records met the inclusion cri…",
+      "lang": "en",
+      "pmid": "42077006",
+      "topic": "リハ/薬理/神経"
     },
     {
       "title": "Nanoliposomes based drug delivery for the treatment of various types of cancers: current trends and future perspectives.",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42076997/",
       "source": "Journal of liposome research",
       "authors": "Barik B et al.",
-      "pubDate": "2026/05/04 00:00",
-      "date": "2026/05/04",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
+      "body": "Multifunctional lipid-based nanoparticles, like nanoliposomes (NLPs), effectively deliver therapeutic and diagnostic functions, with recent modifications to liposomes reducing toxicity to human cells. These NLPs and micelles enhance therapeutic efficacy through surface modifications, creating pH-sensitive, targeted, long-circulating systems. Process selection depends on the nanoparticle components' physicochemical properties, which influence formulations. This article explores engineered NLPs for the treatment of various diseases like fungal infection, breast cancer, and metabolic disorders, compares their properties, breakthroughs in ligand-targeted, stimuli-responsive, scalable NLP produc…",
+      "lang": "en",
       "pmid": "42076997",
-      "topic": "pharmacology"
+      "topic": "リハ/薬理/神経"
     },
     {
       "title": "Impact of Alzheimer's Disease Co-Pathology on Shunt Outcomes in Idiopathic Normal Pressure Hydrocephalus: A Systematic Review and Meta-Analysis.",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42076936/",
       "source": "Movement disorders : official journal of the Movement Disorder Society",
       "authors": "Patwardhan A et al.",
-      "pubDate": "2026/05/04 00:00",
-      "date": "2026/05/04",
+      "pubDate": "2026-05-04",
+      "date": "2026-05-04",
+      "body": "Idiopathic normal pressure hydrocephalus (iNPH) is a potentially reversible condition characterized by gait, cognitive, and urinary impairment and treated with cerebrospinal fluid shunting, yet post-shunt outcomes vary. Coexisting Alzheimer's disease (AD) pathology may contribute to this variability. This systematic review and meta-analysis investigated whether pre-shunt AD co-pathology influences post-shunt outcomes across distinct clinical domains and follow-up durations. Following PRISMA (Preferred Reporting Items for Systematic Reviews and Meta-Analyses) guidelines, PubMed, Embase, Scopus, and Web of Science were searched for studies assessing the impact of pre-shunt AD co-pathology on…",
+      "lang": "en",
       "pmid": "42076936",
-      "topic": "neurology"
+      "topic": "リハ/薬理/神経"
+    }
+  ],
+  "arxiv": [
+    {
+      "title": "HyCOP: Hybrid Composition Operators for Interpretable Learning of PDEs",
+      "url": "https://arxiv.org/abs/2605.00820v1",
+      "source": "arXiv cs.CE",
+      "authors": "Jinpai Zhao et al.",
+      "pubDate": "2026-05-01T17:57:48+00:00",
+      "date": "2026-05-01",
+      "body": "We introduce HyCOP, a modular framework that learns parametric PDE solution operators by composing simple modules (advection, diffusion, learned closures, boundary handling) in a query-conditioned way. Rather than learning a monolithic map, HyCOP learns a policy over short programs - which module to apply and for how long - conditioned on regime features and state statistics. Modules may be numerical sub-solvers or learned components, enabling hybrid surrogates evaluated at arbitrary query times without autoregressive rollout. Across diverse PDE benchmarks, HyCOP produces interpretable programs, delivers order-of-magnitude OOD improvements over monolithic neural operators, and supports modu…",
+      "lang": "en",
+      "topic": "cs.CE"
     },
     {
-      "title": "Addressing Undernutrition in Older Adults with Plant-Based Products.",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42077151/",
-      "source": "The Proceedings of the Nutrition Society",
-      "authors": "Horner KM et al.",
-      "pubDate": "2026/05/04 00:00",
-      "date": "2026/05/04",
-      "pmid": "42077151",
-      "topic": "public health"
+      "title": "When LLMs Stop Following Steps: A Diagnostic Study of Procedural Execution in Language Models",
+      "url": "https://arxiv.org/abs/2605.00817v1",
+      "source": "arXiv cs.CL",
+      "authors": "Sailesh Panda et al.",
+      "pubDate": "2026-05-01T17:55:47+00:00",
+      "date": "2026-05-01",
+      "body": "Large language models (LLMs) often achieve strong performance on reasoning benchmarks, but final-answer accuracy alone does not show whether they faithfully execute the procedure specified in a prompt. We study this question through a controlled diagnostic benchmark for procedural execution, where models are given a step-wise arithmetic algorithm and two numeric inputs, and must return the final computed value. The benchmark uses simple arithmetic operations but increases complexity through algorithm length and look-back dependencies over intermediate variables. Across 14 models and 55 datasets, average first-answer accuracy drops from 61% on 5-step procedures to 20% on 95-step procedures.…",
+      "lang": "en",
+      "topic": "cs.CL"
     },
     {
-      "title": "The environmental impact of diet in Latin American populations: a systematic review with meta-analysis.",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42077150/",
-      "source": "Public health nutrition",
-      "authors": "Araya-Bastias C et al.",
-      "pubDate": "2026/05/04 00:00",
-      "date": "2026/05/04",
-      "pmid": "42077150",
-      "topic": "public health"
+      "title": "Persistent Visual Memory: Sustaining Perception for Deep Generation in LVLMs",
+      "url": "https://arxiv.org/abs/2605.00814v1",
+      "source": "arXiv cs.CV",
+      "authors": "Siyuan Huang et al.",
+      "pubDate": "2026-05-01T17:54:37+00:00",
+      "date": "2026-05-01",
+      "body": "While autoregressive Large Vision-Language Models (LVLMs) demonstrate remarkable proficiency in multimodal tasks, they face a \"Visual Signal Dilution\" phenomenon, where the accumulation of textual history expands the attention partition function, causing visual attention to decay inversely with generated sequence length. To counteract this, we propose Persistent Visual Memory (PVM), a lightweight learnable module designed to ensure sustained, on-demand visual perception. Integrated as a parallel branch alongside the Feed-Forward Network (FFN) in LVLMs, PVM establishes a distance-agnostic retrieval pathway that directly provides visual embeddings for precise visual perception, thereby struct…",
+      "lang": "en",
+      "topic": "cs.CV"
+    },
+    {
+      "title": "Can Coding Agents Reproduce Findings in Computational Materials Science?",
+      "url": "https://arxiv.org/abs/2605.00803v1",
+      "source": "arXiv cs.SE",
+      "authors": "Ziyang Huang et al.",
+      "pubDate": "2026-05-01T17:42:12+00:00",
+      "date": "2026-05-01",
+      "body": "Large language models are increasingly deployed as autonomous coding agents and have achieved remarkably strong performance on software engineering benchmarks. However, it is unclear whether such success transfers to computational scientific workflows, where tasks require not only strong coding ability, but also the ability to navigate complex, domain-specific procedures and to interpret results in the context of scientific claims. To address this question, we present AutoMat, a benchmark for evaluating LLM-based agents' ability to reproduce claims from computational materials science. AutoMat poses three interrelated challenges: recovering underspecified computational procedures, navigatin…",
+      "lang": "en",
+      "topic": "cs.SE"
+    }
+  ],
+  "tech": [
+    {
+      "title": "「insta360 GO Ultra」は夜にも強かった　画質とウェアラブル性のバランスがいいアクションカムを試す",
+      "url": "https://www.itmedia.co.jp/news/articles/2605/04/news032.html",
+      "source": "ITmedia NEWS",
+      "pubDate": "2026-05-04T18:11:00+09:00",
+      "date": "2026-05-04",
+      "body": "どのカメラよりも気軽にウェアラブルできて、ハンズフリー撮影も楽々なアクションカメラだが、小さいためにバッテリーの持ちや動画性能に限界があった。そこを解消すべく登場したのが「insta360 GO Ultra」だ。",
+      "lang": "ja"
+    },
+    {
+      "title": "【全話まとめ】漫画「15日後、データセンター業務のリアルを知るヤマダくん」",
+      "url": "https://www.itmedia.co.jp/news/articles/2604/07/news013.html",
+      "source": "ITmedia NEWS",
+      "pubDate": "2026-05-04T10:00:00+09:00",
+      "date": "2026-05-04",
+      "body": "データセンターで働く人々の様子を4コマ漫画で紹介するコンテンツ「15日後、データセンター業務のリアルを知るヤマダくん」。連載時点では1日に1記事ずつ公開していましたが、本記事ではその全エピソードをまとめて掲載します。",
+      "lang": "ja"
+    },
+    {
+      "title": "マリオ好きにはたまらないけど映画としては……？ マリオ新作映画を見てマンガ家が首を傾げた理由",
+      "url": "https://www.itmedia.co.jp/news/articles/2605/03/news023.html",
+      "source": "ITmedia NEWS",
+      "pubDate": "2026-05-03T07:14:00+09:00",
+      "date": "2026-05-03",
+      "body": "24日に公開された映画「ザ・スーパーマリオギャラクシー・ムービー」の国内興行収入が、公開3日で16億109万3600円を記録しました。ボクも大満足で劇場を後にした、と言いたかったのですが……なぜかそれほど満足感がありませんでした。",
+      "lang": "ja"
+    },
+    {
+      "title": "山善の“水冷服”にみる体温を下げる仕組みの進化　そして毎年起こる「売り切れ問題」",
+      "url": "https://www.itmedia.co.jp/news/articles/2605/02/news033.html",
+      "source": "ITmedia NEWS",
+      "pubDate": "2026-05-02T14:00:00+09:00",
+      "date": "2026-05-02",
+      "body": "山善から主に屋外で作業をする人に向けた猛暑対策ウェア「DIRECT COOL ProPLUS 水路式」と「Mizu fit」が発表されました。脇を冷やす設計が強化されるなど様々な改善が施されていて、完成度の高さを感じます。",
+      "lang": "ja"
+    }
+  ],
+  "wiki": [
+    {
+      "title": "2023: The World Health Organization declares the end of the COVID-19 pandemic as a glo",
+      "url": "https://en.wikipedia.org/wiki/World_Health_Organization",
+      "source": "Wikipedia (Today in History)",
+      "date": "2026-05-05",
+      "body": "The World Health Organization declares the end of the COVID-19 pandemic as a global health emergency.  —  The World Health Organization (WHO) is a specialized agency of the United Nations (UN) which coordinates responses to international public health issues and emergencies. It is headquartered in Geneva, Switzerland, and has six regional offices and 150 field offices worldwide. Only sovereign states are eligible to join, and it is the largest intergovernmental health organization at the intern…",
+      "lang": "en",
+      "year": 2023
+    },
+    {
+      "title": "2010: Mass protests in Greece erupt in response to austerity measures imposed by the g",
+      "url": "https://en.wikipedia.org/wiki/Anti-austerity_movement_in_Greece",
+      "source": "Wikipedia (Today in History)",
+      "date": "2026-05-05",
+      "body": "Mass protests in Greece erupt in response to austerity measures imposed by the government as a result of the Greek government-debt crisis.  —  The anti-austerity movement in Greece involved a series of demonstrations and general strikes that took place across the country. The events, which began on 5 May 2010, were provoked by plans to cut public spending and raise taxes as austerity measures in exchange for a €110 billion bail-out, aimed at solving the Greek government-debt crisis. Three peopl…",
+      "lang": "en",
+      "year": 2010
+    },
+    {
+      "title": "2007: Kenya Airways Flight 507 crashes after takeoff from Douala International Airport",
+      "url": "https://en.wikipedia.org/wiki/Kenya_Airways_Flight_507",
+      "source": "Wikipedia (Today in History)",
+      "date": "2026-05-05",
+      "body": "Kenya Airways Flight 507 crashes after takeoff from Douala International Airport in Douala, Cameroon, killing all 114 aboard, making it the deadliest aircraft disaster in Cameroon.  —  Kenya Airways Flight 507 was a scheduled international passenger service between Abidjan, Ivory Coast, and Nairobi, Kenya with a stopover in Douala, Cameroon, operated by Kenya Airways. On 5 May 2007, the Boeing 737-800 aircraft serving the flight crashed immediately after takeoff from Douala International Airpor…",
+      "lang": "en",
+      "year": 2007
+    },
+    {
+      "title": "2006: The government of Sudan signs an accord with the Sudan Liberation Army.",
+      "url": "https://en.wikipedia.org/wiki/Sudan",
+      "source": "Wikipedia (Today in History)",
+      "date": "2026-05-05",
+      "body": "The government of Sudan signs an accord with the Sudan Liberation Army.  —  Sudan, officially the Republic of the Sudan, is a country in Northeast Africa. It borders the Central African Republic to the southwest, Chad to the west, Libya to the northwest, Egypt to the north, the Red Sea to the east, Eritrea and Ethiopia to the southeast, and South Sudan to the south. Sudan has a population of 51.8 million people as of 2025 and occupies 1,886,068 square kilometres, making it Africa's third-larges…",
+      "lang": "en",
+      "year": 2006
     }
   ]
 }

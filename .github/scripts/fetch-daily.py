@@ -303,61 +303,54 @@ def fetch_arxiv(categories: list[str], total: int) -> list[dict]:
 
 
 # ============================================================
-# 5. 経済の数字 (Stooq CSV)
+# 5. NHK ニュース (政治 + 経済)
+#    description に本文冒頭が入っているので、その一面で理解できる
 # ============================================================
-STOOQ_TICKERS = [
-    ('日経平均',     '^nkx'),
-    ('TOPIX',       '^tpx'),
-    ('USDJPY',      'usdjpy'),
-    ('EURJPY',      'eurjpy'),
-    ('S&P 500',     '^spx'),
-    ('NASDAQ',      '^ndq'),
-    ('米10年金利',   '10usy.b'),
+NHK_FEEDS = [
+    ('政治', 'https://www.nhk.or.jp/rss/news/cat4.xml'),
+    ('経済', 'https://www.nhk.or.jp/rss/news/cat5.xml'),
+    ('国際', 'https://www.nhk.or.jp/rss/news/cat6.xml'),
 ]
 
 
-def fetch_stooq_quote(symbol: str) -> dict | None:
-    url = f'https://stooq.com/q/l/?s={symbol}&f=sd2t2ohlcv&h&e=csv'
+def fetch_nhk(category_label: str, url: str, limit: int) -> list[dict]:
     try:
-        text = http_get(url)
-        lines = [l for l in text.strip().splitlines() if l]
-        if len(lines) < 2:
-            return None
-        header = [h.strip().lower() for h in lines[0].split(',')]
-        cols = lines[1].split(',')
-        row = dict(zip(header, cols))
-        close = row.get('close', '')
-        if close in ('', 'N/D'):
-            return None
-        return {
-            'date': row.get('date', ''),
-            'close': close,
-            'open': row.get('open', ''),
-            'high': row.get('high', ''),
-            'low': row.get('low', ''),
-        }
+        xml_text = http_get(url)
+        root = ET.fromstring(xml_text)
     except Exception as e:
-        print(f'[stooq {symbol}] {e}')
-        return None
-
-
-def fetch_market() -> dict:
-    out = {'updated': datetime.now(JST).isoformat(timespec='minutes'), 'rows': []}
-    for name, sym in STOOQ_TICKERS:
-        q = fetch_stooq_quote(sym)
-        if not q:
-            continue
-        out['rows'].append({
-            'name': name,
-            'symbol': sym.upper(),
-            'date': q['date'],
-            'close': q['close'],
-            'open': q['open'],
-            'high': q['high'],
-            'low': q['low'],
+        print(f'[nhk {category_label}] {e}')
+        return []
+    items = []
+    channel = root.find('channel')
+    if channel is None:
+        return items
+    for it in channel.findall('item')[:limit]:
+        title = (it.findtext('title') or '').strip()
+        link = (it.findtext('link') or '').strip()
+        pub = (it.findtext('pubDate') or '').strip()
+        desc = strip_html(it.findtext('description') or '')
+        iso, ymd = parse_rfc822(pub) if ',' in pub else parse_iso(pub)
+        items.append({
+            'title': title,
+            'url': link,
+            'source': f'NHK {category_label}',
+            'category': category_label,
+            'pubDate': iso,
+            'date': ymd,
+            'body': truncate(desc, 350),
+            'lang': 'ja',
         })
-        time.sleep(0.2)
-    return out
+    return items
+
+
+def fetch_news() -> list[dict]:
+    """NHK の政治・経済・国際を統合。新しい順で最大10件"""
+    all_items: list[dict] = []
+    for label, url in NHK_FEEDS:
+        all_items.extend(fetch_nhk(label, url, limit=6))
+        time.sleep(0.3)
+    all_items.sort(key=lambda x: x['pubDate'], reverse=True)
+    return all_items[:10]
 
 
 # ============================================================
@@ -442,12 +435,15 @@ def main(out_path: str, archive_dir: str | None = None) -> None:
     print('--- 厚労省 ---')
     mhlw = fetch_mhlw(limit=6)
 
+    print('--- 政治経済ニュース (NHK) ---')
+    news = fetch_news()
+
     print('--- PubMed (経営/公衆衛生) ---')
     papers_mgmt = fetch_pubmed_topic(
         '医療経営/公衆衛生',
         '("Healthcare Management" OR "Health Policy" OR "Health Economics" OR "public health"[mh]) '
         'AND (Review[pt] OR "Journal Article"[pt])',
-        limit=5,
+        limit=4,
     )
 
     print('--- PubMed (リハ/薬理/神経) ---')
@@ -455,14 +451,11 @@ def main(out_path: str, archive_dir: str | None = None) -> None:
         'リハ/薬理/神経',
         '(rehabilitation OR pharmacology OR neurology) '
         'AND ("Clinical Trial"[pt] OR "Randomized Controlled Trial"[pt] OR Review[pt])',
-        limit=5,
+        limit=4,
     )
 
     print('--- arXiv (AI/CS) ---')
-    arxiv_papers = fetch_arxiv(['cs.AI', 'cs.CL', 'cs.LG'], total=5)
-
-    print('--- 経済 ---')
-    market = fetch_market()
+    arxiv_papers = fetch_arxiv(['cs.AI', 'cs.CL', 'cs.LG'], total=4)
 
     print('--- ITmedia ---')
     tech = fetch_itmedia(limit=4)
@@ -475,18 +468,18 @@ def main(out_path: str, archive_dir: str | None = None) -> None:
         'updated_jst': datetime.now(JST).isoformat(timespec='minutes'),
         'sources': {
             'mhlw':         '厚生労働省 新着情報 RSS',
+            'news':         'NHK ニュース RSS (政治 / 経済 / 国際)',
             'papers_mgmt':  'PubMed efetch (Healthcare Management / Health Policy / Public Health, last 60d)',
             'papers_med':   'PubMed efetch (rehabilitation / pharmacology / neurology, last 60d)',
             'arxiv':        'arXiv API (cs.AI / cs.CL / cs.LG, latest)',
-            'market':       'Stooq CSV (Nikkei / TOPIX / FX / SP500 / NASDAQ / US10Y)',
             'tech':         'ITmedia News RSS',
             'wiki':         'Wikipedia REST API (Today in History, en)',
         },
         'mhlw':         mhlw,
+        'news':         news,
         'papers_mgmt':  papers_mgmt,
         'papers_med':   papers_med,
         'arxiv':        arxiv_papers,
-        'market':       market,
         'tech':         tech,
         'wiki':         wiki,
     }
@@ -532,9 +525,9 @@ def main(out_path: str, archive_dir: str | None = None) -> None:
         )
 
     counts = (
-        f'mhlw {len(mhlw)} / pmgr {len(papers_mgmt)} / pmed {len(papers_med)} / '
-        f'arxiv {len(arxiv_papers)} / market {len(market.get("rows", []))} / '
-        f'tech {len(tech)} / wiki {len(wiki)}'
+        f'mhlw {len(mhlw)} / news {len(news)} / '
+        f'pmgr {len(papers_mgmt)} / pmed {len(papers_med)} / '
+        f'arxiv {len(arxiv_papers)} / tech {len(tech)} / wiki {len(wiki)}'
     )
     print(f'wrote {out_path} ({counts})')
 

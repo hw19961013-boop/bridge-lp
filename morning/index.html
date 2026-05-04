@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>朝の手帖 — BRIDGE</title>
-<meta name="description" content="医療経営・診療報酬・論文・経済・テック・今日のできごとを毎日まとめて読む、BRIDGE 内製のパーソナルダッシュボード。">
+<meta name="description" content="政治経済・医療政策・論文(医療経営/リハ/AI)・テック・今日のできごとを毎日まとめて読む、BRIDGE 内製のパーソナルダッシュボード。">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -129,16 +129,14 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
 
 <main>
 
-  <!-- 経済の数字 -->
-  <section class="section" id="sec-market">
+  <!-- 政治経済 -->
+  <section class="section" id="sec-news">
     <div class="section-head">
-      <div class="section-h"><span class="num">01</span>経済の数字</div>
-      <span class="section-tag">Market</span>
+      <div class="section-h"><span class="num">01</span>政治経済</div>
+      <span class="section-tag">NHK · Politics & Economy</span>
     </div>
-    <p class="section-desc">日経・TOPIX・主要為替・米国指数・10年金利。直近営業日の終値（出典: Stooq）。</p>
-    <div class="market" id="marketBox">
-      <div class="empty">読込中…</div>
-    </div>
+    <p class="section-desc">NHK ニュース（政治・経済・国際）から最新10件。本文の冒頭が読めます。</p>
+    <div id="newsList"><div class="empty">読込中…</div></div>
   </section>
 
   <!-- 医療政策 -->
@@ -147,7 +145,7 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
       <div class="section-h"><span class="num">02</span>医療政策・通達</div>
       <span class="section-tag">Healthcare Policy</span>
     </div>
-    <p class="section-desc">厚生労働省の新着情報。通達・告示・検討会案内など。タイトルから本文ページへ。</p>
+    <p class="section-desc">厚生労働省の新着情報。通達・告示・検討会案内など。本文は省側 RSS に含まれないためタイトルのみ。</p>
     <div id="mhlwList"><div class="empty">読込中…</div></div>
   </section>
 
@@ -157,7 +155,7 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
       <div class="section-h"><span class="num">03</span>論文・医療経営/公衆衛生</div>
       <span class="section-tag">PubMed · Health Policy</span>
     </div>
-    <p class="section-desc">直近60日の Healthcare Management / Health Policy / Public Health 関連の論文。abstract 全文（英語）。Chrome/Edge なら右クリックで日本語訳に。</p>
+    <p class="section-desc">直近60日の Healthcare Management / Health Policy / Public Health 関連 4件。abstract 全文（英語）。Chrome/Edge なら右クリックで日本語訳に。</p>
     <div id="pmgrList"><div class="empty">読込中…</div></div>
   </section>
 
@@ -167,7 +165,7 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
       <div class="section-h"><span class="num">04</span>論文・リハ/薬理/神経</div>
       <span class="section-tag">PubMed · Clinical</span>
     </div>
-    <p class="section-desc">直近60日の rehabilitation / pharmacology / neurology 系。臨床試験 / RCT / レビュー優先。</p>
+    <p class="section-desc">直近60日の rehabilitation / pharmacology / neurology 4件。臨床試験 / RCT / レビュー優先。</p>
     <div id="pmedList"><div class="empty">読込中…</div></div>
   </section>
 
@@ -177,7 +175,7 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
       <div class="section-h"><span class="num">05</span>AI・最新研究</div>
       <span class="section-tag">arXiv · AI/CS</span>
     </div>
-    <p class="section-desc">arXiv の cs.AI / cs.CL / cs.LG カテゴリの最新プレプリント。</p>
+    <p class="section-desc">arXiv の cs.AI / cs.CL / cs.LG カテゴリの最新プレプリント 4件。</p>
     <div id="arxivList"><div class="empty">読込中…</div></div>
   </section>
 
@@ -204,7 +202,7 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
 </main>
 
 <footer class="foot">
-  ソース: 厚労省 RSS, PubMed E-utilities, arXiv API, Stooq CSV, ITmedia RSS, Wikipedia REST API
+  ソース: NHK RSS, 厚労省 RSS, PubMed E-utilities, arXiv API, ITmedia RSS, Wikipedia REST API
   · 自動更新は <a href="https://github.com/bridge-med/bridge-lp/actions/workflows/refresh-daily.yml" target="_blank">GitHub Actions (refresh-daily)</a>
   · <a href="../index.html">BRIDGE に戻る</a>
 </footer>
@@ -225,7 +223,7 @@ function fmtDate(s){
 }
 
 function srcCls(category){
-  return ({eco:'indigo', pmgr:'moegi', pmed:'moegi', arxiv:'taisha', wiki:'taisha'})[category] || '';
+  return ({news:'indigo', pmgr:'moegi', pmed:'moegi', arxiv:'taisha', wiki:'taisha'})[category] || '';
 }
 
 function renderItem(it, kind){
@@ -258,34 +256,6 @@ function renderEmpty(msg){
   return `<div class="empty">${esc(msg)}</div>`;
 }
 
-function renderMarket(market){
-  const rows = market && market.rows || [];
-  if (rows.length === 0) return renderEmpty('取得できませんでした');
-  const tr = rows.map(r => `
-    <tr>
-      <td class="name">${esc(r.name)}</td>
-      <td class="sym">${esc(r.symbol)}</td>
-      <td class="r">${esc(r.close)}</td>
-      <td class="r" style="color:var(--ink-3);font-weight:500">${esc(r.high || '-')} / ${esc(r.low || '-')}</td>
-    </tr>
-  `).join('');
-  const updated = market.updated ? esc(market.updated.replace('T',' ').slice(0,16)) : '';
-  return `
-    <table>
-      <thead>
-        <tr>
-          <th>銘柄</th>
-          <th>シンボル</th>
-          <th class="r">直近終値</th>
-          <th class="r">高値 / 安値</th>
-        </tr>
-      </thead>
-      <tbody>${tr}</tbody>
-    </table>
-    <div class="market-foot">最終更新: ${updated} JST  ·  Source: Stooq</div>
-  `;
-}
-
 function fillList(id, items, kind){
   const el = document.getElementById(id);
   if (!items || items.length === 0){
@@ -315,7 +285,7 @@ function updateUpdatedLabel(data){
 
 function render(data){
   updateUpdatedLabel(data);
-  document.getElementById('marketBox').innerHTML = renderMarket(data.market);
+  fillList('newsList',  data.news,        'news');
   fillList('mhlwList',  data.mhlw,        'mhlw');
   fillList('pmgrList',  data.papers_mgmt, 'pmgr');
   fillList('pmedList',  data.papers_med,  'pmed');
@@ -348,7 +318,7 @@ async function init(){
     render(await loadFeed(FEED_URL));
   } catch (e) {
     document.getElementById('updatedAt').textContent = '読込失敗';
-    ['marketBox','mhlwList','pmgrList','pmedList','arxivList','techList','wikiList'].forEach(id => {
+    ['newsList','mhlwList','pmgrList','pmedList','arxivList','techList','wikiList'].forEach(id => {
       document.getElementById(id).innerHTML = renderEmpty('feed.json を読み込めませんでした');
     });
   }
