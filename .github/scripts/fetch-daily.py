@@ -664,9 +664,21 @@ def main(out_path: str, archive_dir: str | None = None) -> None:
         (arxiv_papers, 'arxiv',        INTRO_PAPER),
         (wiki,         'wiki',         INTRO_WIKI),
     ]
-    for items, label, intro in sections:
-        add_summaries_batch(items, api_key, cache, label, intro)
-        time.sleep(6)  # セクション間 6秒スリープ(RPM 余裕を持って)
+    # 各セクションの間に十分な間隔(15秒)を空ける。
+    # Gemini Free Flash-Lite は短時間の連続リクエストを 429 で弾くことがあるため。
+    for i, (items, label, intro) in enumerate(sections):
+        if i > 0 and api_key:
+            time.sleep(15)
+        added = add_summaries_batch(items, api_key, cache, label, intro)
+        # 429 で失敗した場合は次のセクションまで長めに待つ
+        if api_key and added == 0 and any(it.get('url') for it in items) \
+                and any(not it.get('summary') for it in items):
+            print(f'[gemini batch {label}] backoff 45s')
+            time.sleep(45)
+            # 1回だけリトライ
+            added = add_summaries_batch(items, api_key, cache, label, intro)
+            if added:
+                print(f'[gemini batch {label}] retry success: {added}')
     if api_key:
         save_summary_cache(cache)
 
