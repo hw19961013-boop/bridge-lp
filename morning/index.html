@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>朝の読み物 — BRIDGE</title>
-<meta name="description" content="医療経営・診療報酬・経済・最新論文の毎日のダイジェスト。BRIDGE 内製のパーソナルダッシュボード。">
+<title>朝の手帖 — BRIDGE</title>
+<meta name="description" content="医療経営・診療報酬・論文・経済・テック・今日のできごとを毎日まとめて読む、BRIDGE 内製のパーソナルダッシュボード。">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,151 +24,233 @@
   --serif-en:'Fraunces',serif;
   --sans-en:'Inter',sans-serif;
   --mono:'JetBrains Mono',monospace;
-  --max:1280px;
+  --max-text:780px;
   --pad-x:clamp(20px,5vw,64px);
 }
 html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-body{font-family:var(--sans-jp);background:var(--paper);color:var(--ink);line-height:1.7;font-feature-settings:"palt" 1}
+body{font-family:var(--sans-jp);background:var(--paper);color:var(--ink);line-height:1.75;font-feature-settings:"palt" 1}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:200;opacity:0.025;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");mix-blend-mode:multiply}
 a{color:inherit;text-decoration:none}
 
 /* ===== nav ===== */
-.nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:18px var(--pad-x);background:rgba(250,250,247,0.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px var(--pad-x);background:rgba(250,250,247,0.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-logo{font:700 14px/1 var(--serif-en);letter-spacing:0.18em;color:var(--ink);display:inline-flex;gap:8px;align-items:baseline}
 .nav-logo .dot{color:var(--vermilion)}
 .nav-logo .small{font:600 10px/1 var(--sans-jp);color:var(--ink-3);letter-spacing:0.1em}
+.nav-controls{display:flex;align-items:center;gap:14px;font:500 11px/1 var(--mono);color:var(--ink-3)}
+.nav-controls select{font:500 11px/1.4 var(--mono);color:var(--ink-2);background:var(--paper);border:1px solid var(--line);padding:5px 8px;border-radius:2px;cursor:pointer}
+.nav-controls .updated{font-size:10px}
 .nav-back{font:600 11px/1 var(--sans-en);letter-spacing:0.1em;color:var(--ink-3);text-transform:uppercase;transition:color .2s}
 .nav-back:hover{color:var(--vermilion)}
 
 /* ===== head ===== */
-.page-head{padding:64px var(--pad-x) 32px;max-width:var(--max);margin:0 auto}
-.page-eyebrow{font:700 10px/1 var(--sans-en);letter-spacing:0.22em;color:var(--vermilion);text-transform:uppercase;margin-bottom:16px;display:inline-flex;align-items:center;gap:10px}
+.page-head{padding:48px var(--pad-x) 28px;max-width:var(--max-text);margin:0 auto}
+.page-eyebrow{font:700 10px/1 var(--sans-en);letter-spacing:0.22em;color:var(--vermilion);text-transform:uppercase;margin-bottom:14px;display:inline-flex;align-items:center;gap:10px}
 .page-eyebrow::before{content:'';width:24px;height:1px;background:var(--vermilion)}
-.page-h1{font:900 clamp(28px,4vw,44px)/1.25 var(--serif-jp);letter-spacing:-0.02em}
+.page-h1{font:900 clamp(28px,4vw,42px)/1.25 var(--serif-jp);letter-spacing:-0.02em}
 .page-h1 .em{font-family:var(--serif-en);font-style:italic;color:var(--vermilion)}
-.page-sub{font:500 12px/1.85 var(--sans-jp);color:var(--ink-3);max-width:560px;margin-top:14px}
-.page-meta{font:500 10px/1 var(--mono);color:var(--ink-3);letter-spacing:0.06em;margin-top:18px;display:flex;gap:18px;flex-wrap:wrap}
-.page-meta strong{color:var(--ink-2);font-weight:700}
+.page-sub{font:500 12px/1.85 var(--sans-jp);color:var(--ink-3);margin-top:14px}
 
-/* ===== grid ===== */
-.dash{padding:0 var(--pad-x) 80px;max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:36px;align-items:start}
-@media(max-width:980px){.dash{grid-template-columns:1fr;gap:48px}}
+/* ===== section ===== */
+main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
+.section{margin-top:56px}
+.section-head{padding-bottom:14px;margin-bottom:18px;border-bottom:2px solid var(--ink);display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.section-h{font:900 22px/1.2 var(--serif-jp);letter-spacing:-0.01em}
+.section-h .num{font:900 italic 14px/1 var(--serif-en);color:var(--vermilion);margin-right:10px}
+.section-tag{font:700 9px/1 var(--sans-en);letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3)}
+.section-desc{font:500 11px/1.7 var(--sans-jp);color:var(--ink-3);margin-bottom:22px}
 
-.col{display:flex;flex-direction:column}
-.col-head{padding-bottom:14px;margin-bottom:14px;border-bottom:2px solid var(--ink);display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.col-h{font:900 18px/1.2 var(--serif-jp);letter-spacing:-0.01em}
-.col-h .num{font:900 italic 14px/1 var(--serif-en);color:var(--vermilion);margin-right:8px}
-.col-tag{font:700 9px/1 var(--sans-en);letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3)}
-
-.col-body{display:flex;flex-direction:column;gap:0}
-.item{padding:14px 0;border-bottom:1px dashed var(--line);display:block;transition:background .15s}
-.item:hover{background:var(--paper-2)}
+/* ===== item card ===== */
+.item{padding:22px 0 24px;border-bottom:1px dashed var(--line);display:block}
 .item:last-child{border-bottom:none}
-.item-meta{font:500 10px/1.4 var(--mono);color:var(--ink-3);letter-spacing:0.04em;margin-bottom:5px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.item-meta{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;font:500 10px/1.4 var(--mono);color:var(--ink-3);letter-spacing:0.04em;margin-bottom:8px}
+.item-meta .date{color:var(--ink-2);font-weight:600}
 .item-meta .src{color:var(--vermilion);font-weight:600}
 .item-meta .src.indigo{color:var(--indigo)}
 .item-meta .src.moegi{color:var(--moegi-deep)}
-.item-title{font:700 13px/1.7 var(--serif-jp);color:var(--ink);letter-spacing:-0.005em}
-.item:hover .item-title{color:var(--vermilion)}
-.item-excerpt{font:500 11px/1.7 var(--sans-jp);color:var(--ink-3);margin-top:5px}
-.item-author{font:500 10px/1 var(--mono);color:var(--ink-3);margin-top:5px;letter-spacing:0.04em}
+.item-meta .src.taisha{color:var(--taisha-deep)}
+.item-meta .badge{padding:2px 7px;background:var(--paper-2);border:1px solid var(--line);border-radius:2px;font:600 9px/1.3 var(--sans-jp);color:var(--ink-2);letter-spacing:0.02em}
+.item-title{font:700 16px/1.6 var(--serif-jp);color:var(--ink);letter-spacing:-0.005em;margin-bottom:10px}
+.item-title.en{font-family:var(--serif-en);font-weight:700;letter-spacing:-0.01em;line-height:1.4}
+.item-body{font:400 13px/1.95 var(--sans-jp);color:var(--ink-2)}
+.item-body.en{font-family:var(--sans-en);font-size:13px;line-height:1.85;color:var(--ink-2)}
+.item-author{font:500 11px/1.4 var(--mono);color:var(--ink-3);margin-top:8px;letter-spacing:0.02em}
+.item-link{display:inline-block;margin-top:12px;font:600 11px/1 var(--sans-en);letter-spacing:0.08em;text-transform:uppercase;color:var(--vermilion);border-bottom:1px solid var(--vermilion);padding-bottom:2px;transition:color .15s,border-color .15s}
+.item-link:hover{color:var(--vermilion-deep);border-color:var(--vermilion-deep)}
+.item-link::after{content:'  →'}
 
-.col-foot{margin-top:18px;font:500 10px/1.4 var(--mono);color:var(--ink-3);letter-spacing:0.06em}
+/* ===== market table ===== */
+.market{margin-top:18px;background:var(--paper);border:1px solid var(--line)}
+.market table{width:100%;border-collapse:collapse;font:500 12px/1.5 var(--mono)}
+.market th{font:700 10px/1 var(--sans-en);letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3);padding:10px 12px;text-align:left;background:var(--paper-2);border-bottom:1px solid var(--line)}
+.market th.r{text-align:right}
+.market td{padding:10px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.market td:last-child{border-bottom:none}
+.market td.r{text-align:right;font-weight:600}
+.market td.name{font-family:var(--sans-jp);font-weight:600;color:var(--ink)}
+.market td.sym{color:var(--ink-3);font-size:10px}
+.market tr:last-child td{border-bottom:none}
+.market-foot{padding:8px 12px;font:500 10px/1.4 var(--mono);color:var(--ink-3);background:var(--paper-2);border-top:1px solid var(--line)}
 
-.empty{font:500 12px/1.7 var(--sans-jp);color:var(--ink-3);font-style:italic;padding:24px 0}
+/* ===== empty / loading ===== */
+.empty{padding:24px 0;font:500 12px/1.7 var(--sans-jp);color:var(--ink-3);font-style:italic}
 
 /* ===== footer ===== */
-.foot{padding:32px var(--pad-x) 48px;border-top:1px solid var(--line);text-align:center;font:500 11px/1.6 var(--sans-jp);color:var(--ink-3)}
-.foot a{color:var(--vermilion);border-bottom:1px solid currentColor;padding-bottom:1px;margin:0 8px}
+.foot{padding:32px var(--pad-x) 48px;border-top:1px solid var(--line);text-align:center;font:500 11px/1.6 var(--sans-jp);color:var(--ink-3);max-width:var(--max-text);margin:0 auto}
+.foot a{color:var(--vermilion);border-bottom:1px solid currentColor;padding-bottom:1px;margin:0 6px}
+
+@media(max-width:600px){
+  .page-head{padding-top:32px}
+  .nav-controls{gap:8px}
+  .nav-controls .updated{display:none}
+  .market table{font-size:11px}
+  .market th, .market td{padding:8px 10px}
+}
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <a href="../index.html" class="nav-logo">BRIDGE<span class="dot">.</span><span class="small">朝の読み物</span></a>
-  <a href="../index.html" class="nav-back">← BRIDGE</a>
+  <a href="../index.html" class="nav-logo">BRIDGE<span class="dot">.</span><span class="small">朝の手帖</span></a>
+  <div class="nav-controls">
+    <span class="updated" id="updatedAt">読込中…</span>
+    <select id="snapshotSelect" aria-label="アーカイブを選ぶ">
+      <option value="">最新</option>
+    </select>
+    <a href="../index.html" class="nav-back">← BRIDGE</a>
+  </div>
 </nav>
 
 <header class="page-head">
   <div class="page-eyebrow">Daily Watch</div>
   <h1 class="page-h1">今日、<span class="em">何を読むか。</span></h1>
-  <p class="page-sub">医療経営・診療報酬・経済・最新論文。橋本本人が毎朝目を通すための個人ダッシュボード。LP の延長として、ここから外部の一次情報へ飛びます。</p>
-  <div class="page-meta">
-    <span>更新: <strong id="updatedAt">読込中…</strong></span>
-    <span>朝 7:00 / 夜 19:00 (JST) 自動更新</span>
-  </div>
+  <p class="page-sub">医療政策・論文・AI研究・経済・テック・今日のできごと。橋本本人が毎日目を通すための個人ダッシュボード。各項目はクリック前提ではなく、この一面で読み切れるよう本文を載せています。英語項目はブラウザの自動翻訳で日本語化できます（Chrome/Edge は右クリック → 日本語に翻訳）。</p>
 </header>
 
-<main class="dash">
+<main>
 
-  <section class="col">
-    <div class="col-head">
-      <div class="col-h"><span class="num">01</span>医療</div>
-      <span class="col-tag">Healthcare</span>
+  <!-- 経済の数字 -->
+  <section class="section" id="sec-market">
+    <div class="section-head">
+      <div class="section-h"><span class="num">01</span>経済の数字</div>
+      <span class="section-tag">Market</span>
     </div>
-    <div class="col-body" id="medList">
+    <p class="section-desc">日経・TOPIX・主要為替・米国指数・10年金利。直近営業日の終値（出典: Stooq）。</p>
+    <div class="market" id="marketBox">
       <div class="empty">読込中…</div>
     </div>
-    <div class="col-foot" id="medFoot">診療報酬 / 医療経営 / 医療政策</div>
   </section>
 
-  <section class="col">
-    <div class="col-head">
-      <div class="col-h"><span class="num">02</span>経済</div>
-      <span class="col-tag">Economy</span>
+  <!-- 医療政策 -->
+  <section class="section" id="sec-mhlw">
+    <div class="section-head">
+      <div class="section-h"><span class="num">02</span>医療政策・通達</div>
+      <span class="section-tag">Healthcare Policy</span>
     </div>
-    <div class="col-body" id="ecoList">
-      <div class="empty">読込中…</div>
-    </div>
-    <div class="col-foot" id="ecoFoot">日経新聞 / 日経平均 / 日銀</div>
+    <p class="section-desc">厚生労働省の新着情報。通達・告示・検討会案内など。タイトルから本文ページへ。</p>
+    <div id="mhlwList"><div class="empty">読込中…</div></div>
   </section>
 
-  <section class="col">
-    <div class="col-head">
-      <div class="col-h"><span class="num">03</span>論文</div>
-      <span class="col-tag">Papers</span>
+  <!-- 論文: 医療経営・公衆衛生 -->
+  <section class="section" id="sec-pmgr">
+    <div class="section-head">
+      <div class="section-h"><span class="num">03</span>論文・医療経営/公衆衛生</div>
+      <span class="section-tag">PubMed · Health Policy</span>
     </div>
-    <div class="col-body" id="papList">
-      <div class="empty">読込中…</div>
+    <p class="section-desc">直近60日の Healthcare Management / Health Policy / Public Health 関連の論文。abstract 全文（英語）。Chrome/Edge なら右クリックで日本語訳に。</p>
+    <div id="pmgrList"><div class="empty">読込中…</div></div>
+  </section>
+
+  <!-- 論文: リハ・薬理・神経 -->
+  <section class="section" id="sec-pmed">
+    <div class="section-head">
+      <div class="section-h"><span class="num">04</span>論文・リハ/薬理/神経</div>
+      <span class="section-tag">PubMed · Clinical</span>
     </div>
-    <div class="col-foot" id="papFoot">PubMed 最新（リハ / 薬理 / 神経 / 公衆衛生 / 医療経営）</div>
+    <p class="section-desc">直近60日の rehabilitation / pharmacology / neurology 系。臨床試験 / RCT / レビュー優先。</p>
+    <div id="pmedList"><div class="empty">読込中…</div></div>
+  </section>
+
+  <!-- AI 研究 -->
+  <section class="section" id="sec-arxiv">
+    <div class="section-head">
+      <div class="section-h"><span class="num">05</span>AI・最新研究</div>
+      <span class="section-tag">arXiv · AI/CS</span>
+    </div>
+    <p class="section-desc">arXiv の cs.AI / cs.CL / cs.LG カテゴリの最新プレプリント。</p>
+    <div id="arxivList"><div class="empty">読込中…</div></div>
+  </section>
+
+  <!-- テック -->
+  <section class="section" id="sec-tech">
+    <div class="section-head">
+      <div class="section-h"><span class="num">06</span>テック</div>
+      <span class="section-tag">ITmedia NEWS</span>
+    </div>
+    <p class="section-desc">ITmedia ニュース速報の最新4本。</p>
+    <div id="techList"><div class="empty">読込中…</div></div>
+  </section>
+
+  <!-- 今日のできごと -->
+  <section class="section" id="sec-wiki">
+    <div class="section-head">
+      <div class="section-h"><span class="num">07</span>今日のできごと</div>
+      <span class="section-tag">Wikipedia · On This Day</span>
+    </div>
+    <p class="section-desc">同じ日付の歴史上のできごと（Wikipedia 英語版より）。新しい順に4件。</p>
+    <div id="wikiList"><div class="empty">読込中…</div></div>
   </section>
 
 </main>
 
 <footer class="foot">
-  ソース: Google News RSS, PubMed E-utilities · 自動更新は GitHub Actions(<a href="https://github.com/bridge-med/bridge-lp/actions/workflows/refresh-daily.yml" target="_blank">refresh-daily</a>)
+  ソース: 厚労省 RSS, PubMed E-utilities, arXiv API, Stooq CSV, ITmedia RSS, Wikipedia REST API
+  · 自動更新は <a href="https://github.com/bridge-med/bridge-lp/actions/workflows/refresh-daily.yml" target="_blank">GitHub Actions (refresh-daily)</a>
   · <a href="../index.html">BRIDGE に戻る</a>
 </footer>
 
 <script>
 const FEED_URL = '../daily/feed.json';
+const ARCHIVE_INDEX_URL = '../daily/archive/index.json';
+const ARCHIVE_BASE = '../daily/archive/';
 
 function esc(s){
   return String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
-function fmtDate(iso){
-  if (!iso) return '';
-  // 'YYYY-MM-DD' のまま使える
-  return iso.length >= 10 ? iso.slice(0, 10) : iso;
+function fmtDate(s){
+  if (!s) return '';
+  if (s.length >= 10) return s.slice(0, 10);
+  return s;
+}
+
+function srcCls(category){
+  return ({eco:'indigo', pmgr:'moegi', pmed:'moegi', arxiv:'taisha', wiki:'taisha'})[category] || '';
 }
 
 function renderItem(it, kind){
-  const srcCls = kind === 'eco' ? 'indigo' : kind === 'pap' ? 'moegi' : '';
+  const isEn = it.lang === 'en';
+  const cls = srcCls(kind);
   const meta = [
-    `<span>${esc(fmtDate(it.date))}</span>`,
-    it.source ? `<span class="src ${srcCls}">${esc(it.source)}</span>` : ''
+    `<span class="date">${esc(fmtDate(it.date))}</span>`,
+    it.source ? `<span class="src ${cls}">${esc(it.source)}</span>` : '',
+    it.category ? `<span class="badge">${esc(it.category)}</span>` : '',
+    it.topic ? `<span class="badge">${esc(it.topic)}</span>` : '',
+    (kind === 'wiki' && it.year) ? `<span class="badge">${esc(String(it.year))}</span>` : '',
   ].filter(Boolean).join('');
-  const author = it.authors ? `<div class="item-author">${esc(it.authors)}</div>` : '';
-  const excerpt = it.excerpt ? `<div class="item-excerpt">${esc(it.excerpt)}</div>` : '';
+  const author = it.authors ? `<div class="item-author"${isEn ? ' lang="en"':''}>${esc(it.authors)}</div>` : '';
+  const body = it.body
+    ? `<div class="item-body${isEn ? ' en':''}"${isEn ? ' lang="en"':''}>${esc(it.body)}</div>`
+    : '';
+  const link = it.url ? `<a class="item-link" href="${esc(it.url)}" target="_blank" rel="noopener">全文を読む</a>` : '';
   return `
-    <a class="item" href="${esc(it.url)}" target="_blank" rel="noopener">
+    <div class="item">
       <div class="item-meta">${meta}</div>
-      <div class="item-title">${esc(it.title)}</div>
+      <div class="item-title${isEn ? ' en':''}"${isEn ? ' lang="en"':''}>${esc(it.title)}</div>
+      ${body}
       ${author}
-      ${excerpt}
-    </a>
+      ${link}
+    </div>
   `;
 }
 
@@ -176,40 +258,103 @@ function renderEmpty(msg){
   return `<div class="empty">${esc(msg)}</div>`;
 }
 
-(async () => {
+function renderMarket(market){
+  const rows = market && market.rows || [];
+  if (rows.length === 0) return renderEmpty('取得できませんでした');
+  const tr = rows.map(r => `
+    <tr>
+      <td class="name">${esc(r.name)}</td>
+      <td class="sym">${esc(r.symbol)}</td>
+      <td class="r">${esc(r.close)}</td>
+      <td class="r" style="color:var(--ink-3);font-weight:500">${esc(r.high || '-')} / ${esc(r.low || '-')}</td>
+    </tr>
+  `).join('');
+  const updated = market.updated ? esc(market.updated.replace('T',' ').slice(0,16)) : '';
+  return `
+    <table>
+      <thead>
+        <tr>
+          <th>銘柄</th>
+          <th>シンボル</th>
+          <th class="r">直近終値</th>
+          <th class="r">高値 / 安値</th>
+        </tr>
+      </thead>
+      <tbody>${tr}</tbody>
+    </table>
+    <div class="market-foot">最終更新: ${updated} JST  ·  Source: Stooq</div>
+  `;
+}
+
+function fillList(id, items, kind){
+  const el = document.getElementById(id);
+  if (!items || items.length === 0){
+    el.innerHTML = renderEmpty('今日は取得できなかった項目です');
+    return;
+  }
+  el.innerHTML = items.map(it => renderItem(it, kind)).join('');
+}
+
+async function loadFeed(url){
+  const res = await fetch(url, { cache: 'no-cache' });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return await res.json();
+}
+
+function updateUpdatedLabel(data){
+  const el = document.getElementById('updatedAt');
   try {
-    const res = await fetch(FEED_URL, { cache: 'no-cache' });
-    if (!res.ok) throw new Error('fetch failed: ' + res.status);
-    const data = await res.json();
+    const d = new Date(data.updated_at);
+    el.textContent = '更新: ' + d.toLocaleString('ja-JP', {
+      month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', timeZone:'Asia/Tokyo'
+    }) + ' JST';
+  } catch (_) {
+    el.textContent = '更新: ' + (data.updated_jst || '-');
+  }
+}
 
-    // 更新時刻を JST で表示
-    const updated = new Date(data.updated_at);
-    const opts = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' };
-    document.getElementById('updatedAt').textContent =
-      updated.toLocaleString('ja-JP', opts) + ' JST';
+function render(data){
+  updateUpdatedLabel(data);
+  document.getElementById('marketBox').innerHTML = renderMarket(data.market);
+  fillList('mhlwList',  data.mhlw,        'mhlw');
+  fillList('pmgrList',  data.papers_mgmt, 'pmgr');
+  fillList('pmedList',  data.papers_med,  'pmed');
+  fillList('arxivList', data.arxiv,       'arxiv');
+  fillList('techList',  data.tech,        'tech');
+  fillList('wikiList',  data.wiki,        'wiki');
+}
 
-    const fill = (id, items, kind) => {
-      const el = document.getElementById(id);
-      if (!items || items.length === 0) {
-        el.innerHTML = renderEmpty('今日は取得できなかった項目です');
-        return;
-      }
-      el.innerHTML = items.map(it => renderItem(it, kind)).join('');
-    };
-
-    fill('medList', data.medical, 'med');
-    fill('ecoList', data.economy, 'eco');
-    fill('papList', data.papers,  'pap');
-
+async function init(){
+  // archive 一覧を取りに行く(失敗しても続行)
+  try {
+    const idx = await loadFeed(ARCHIVE_INDEX_URL);
+    const sel = document.getElementById('snapshotSelect');
+    (idx.snapshots || []).forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s.file;
+      opt.textContent = s.label;
+      sel.appendChild(opt);
+    });
+    sel.addEventListener('change', async () => {
+      const url = sel.value ? (ARCHIVE_BASE + sel.value) : FEED_URL;
+      try { render(await loadFeed(url)); }
+      catch (e) { document.getElementById('updatedAt').textContent = '読込失敗'; }
+    });
   } catch (e) {
-    console.warn(e);
-    document.getElementById('updatedAt').textContent = '取得失敗';
-    ['medList', 'ecoList', 'papList'].forEach(id => {
-      document.getElementById(id).innerHTML =
-        renderEmpty('feed.json を読み込めませんでした');
+    console.warn('archive index 取得失敗:', e);
+  }
+
+  try {
+    render(await loadFeed(FEED_URL));
+  } catch (e) {
+    document.getElementById('updatedAt').textContent = '読込失敗';
+    ['marketBox','mhlwList','pmgrList','pmedList','arxivList','techList','wikiList'].forEach(id => {
+      document.getElementById(id).innerHTML = renderEmpty('feed.json を読み込めませんでした');
     });
   }
-})();
+}
+
+init();
 </script>
 
 </body>

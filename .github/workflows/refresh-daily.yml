@@ -10,8 +10,10 @@ name: Refresh Daily watch
 
 on:
   schedule:
-    - cron: '0 22 * * *'   # UTC 22:00 = JST 7:00
-    - cron: '0 10 * * *'   # UTC 10:00 = JST 19:00
+    - cron: '0 21 * * *'   # UTC 21:00 = JST  6:00
+    - cron: '0  3 * * *'   # UTC  3:00 = JST 12:00
+    - cron: '0  9 * * *'   # UTC  9:00 = JST 18:00
+    - cron: '0 14 * * *'   # UTC 14:00 = JST 23:00
   workflow_dispatch: {}     # 手動実行も許可
 
 permissions:
@@ -27,18 +29,18 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Fetch sources and build feed.json
+      - name: Fetch sources and build feed.json + archive snapshot
         run: |
-          python3 .github/scripts/fetch-daily.py daily/feed.json
+          python3 .github/scripts/fetch-daily.py daily/feed.json daily/archive
 
       - name: Commit if changed
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add daily/feed.json
+          git add daily/feed.json daily/archive/
           if git diff --staged --quiet; then
             echo 'no changes'
           else
-            git commit -m "chore(daily): refresh feed.json"
+            git commit -m "chore(daily): refresh feed.json + archive"
             git push
           fi
