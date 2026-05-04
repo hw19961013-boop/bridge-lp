@@ -78,7 +78,8 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
 .item-summary{margin-top:6px;padding:14px 16px;background:var(--paper-2);border-left:3px solid var(--moegi);border-radius:0 2px 2px 0;font:500 13px/1.95 var(--sans-jp);color:var(--ink-2);position:relative}
 .item-summary::before{content:'AI 要約';position:absolute;top:-8px;left:14px;background:var(--moegi-deep);color:#fff;font:700 9px/1 var(--sans-en);letter-spacing:0.16em;padding:4px 8px;border-radius:2px}
 .item-body-orig{margin-top:10px;font:400 11px/1.7 var(--sans-jp);color:var(--ink-3)}
-.item-body-orig::before{content:'元の冒頭文: ';color:var(--ink-4);font-weight:600}
+.item-body-orig.en{font-family:var(--sans-en);font-size:11px;line-height:1.7}
+.item-body-orig::before{content:'原文: ';color:var(--ink-4);font-weight:600}
 .item-link{display:inline-block;margin-top:12px;font:600 11px/1 var(--sans-en);letter-spacing:0.08em;text-transform:uppercase;color:var(--vermilion);border-bottom:1px solid var(--vermilion);padding-bottom:2px;transition:color .15s,border-color .15s}
 .item-link:hover{color:var(--vermilion-deep);border-color:var(--vermilion-deep)}
 .item-link::after{content:'  →'}
@@ -159,7 +160,7 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
       <div class="section-h"><span class="num">03</span>論文・医療経営/公衆衛生</div>
       <span class="section-tag">PubMed · Health Policy</span>
     </div>
-    <p class="section-desc">直近60日の Healthcare Management / Health Policy / Public Health 関連 4件。abstract 全文（英語）。Chrome/Edge なら右クリックで日本語訳に。</p>
+    <p class="section-desc">直近60日の Healthcare Management / Health Policy / Public Health 関連3件。<strong>AI が原文 abstract を 250-300字 の日本語に要約</strong>、原文は下に保持。</p>
     <div id="pmgrList"><div class="empty">読込中…</div></div>
   </section>
 
@@ -169,7 +170,7 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
       <div class="section-h"><span class="num">04</span>論文・リハ/薬理/神経</div>
       <span class="section-tag">PubMed · Clinical</span>
     </div>
-    <p class="section-desc">直近60日の rehabilitation / pharmacology / neurology 4件。臨床試験 / RCT / レビュー優先。</p>
+    <p class="section-desc">直近60日の rehabilitation / pharmacology / neurology 3件。臨床試験 / RCT / レビュー優先。AI 和訳要約付き。</p>
     <div id="pmedList"><div class="empty">読込中…</div></div>
   </section>
 
@@ -179,7 +180,7 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
       <div class="section-h"><span class="num">05</span>AI・最新研究</div>
       <span class="section-tag">arXiv · AI/CS</span>
     </div>
-    <p class="section-desc">arXiv の cs.AI / cs.CL / cs.LG カテゴリの最新プレプリント 4件。</p>
+    <p class="section-desc">arXiv の cs.AI / cs.CL / cs.LG カテゴリの最新プレプリント 3件。AI 和訳要約付き。</p>
     <div id="arxivList"><div class="empty">読込中…</div></div>
   </section>
 
@@ -199,7 +200,7 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
       <div class="section-h"><span class="num">07</span>今日のできごと</div>
       <span class="section-tag">Wikipedia · On This Day</span>
     </div>
-    <p class="section-desc">同じ日付の歴史上のできごと（Wikipedia 英語版より）。新しい順に4件。</p>
+    <p class="section-desc">同じ日付の歴史上のできごと（Wikipedia 英語版より）。新しい順に4件。AI 和訳要約付き。</p>
     <div id="wikiList"><div class="empty">読込中…</div></div>
   </section>
 
@@ -241,12 +242,14 @@ function renderItem(it, kind){
     (kind === 'wiki' && it.year) ? `<span class="badge">${esc(String(it.year))}</span>` : '',
   ].filter(Boolean).join('');
   const author = it.authors ? `<div class="item-author"${isEn ? ' lang="en"':''}>${esc(it.authors)}</div>` : '';
-  // summary が付いていれば優先表示。元の冒頭文は小さく添える
+  // summary が付いていれば優先表示。原文は小さく添える
   let bodyBlock;
   if (it.summary) {
+    const origCls = isEn ? ' en' : '';
+    const origLang = isEn ? ' lang="en"' : '';
     bodyBlock = `
       <div class="item-summary">${esc(it.summary)}</div>
-      ${it.body ? `<div class="item-body-orig">${esc(it.body)}</div>` : ''}
+      ${it.body ? `<div class="item-body-orig${origCls}"${origLang}>${esc(it.body)}</div>` : ''}
     `;
   } else if (it.body) {
     bodyBlock = `<div class="item-body${isEn ? ' en':''}"${isEn ? ' lang="en"':''}>${esc(it.body)}</div>`;

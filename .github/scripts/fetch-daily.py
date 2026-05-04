@@ -517,7 +517,37 @@ def summarize_news(title: str, body: str, category: str) -> str:
 """
 
 
-def add_summaries(items: list[dict], api_key: str, cache: dict, label: str) -> int:
+def summarize_paper(title: str, abstract: str, journal: str = '') -> str:
+    return f"""以下の英語論文の抄録(abstract)を、日本語で 250〜300字 の要約にしてください。
+読み手は医療従事者または研究者で、専門用語に親しみがあります。
+
+要件:
+- 研究の問い・対象・方法・主要な結果・含意 をできるだけ含める
+- 原文に書かれていないことは書かない(数値・固有名詞は原文どおりに)
+- 専門用語は無理に和訳せず英語表記のまま残しても良い
+- 改行なしの1段落、250〜300字
+
+ジャーナル: {journal or '-'}
+タイトル: {title}
+Abstract:
+{abstract}
+"""
+
+
+def summarize_wiki(year, title: str, body: str) -> str:
+    return f"""以下は Wikipedia 英語版「Today in History」の項目です。
+日本語で 180〜240字 の要約にしてください。
+日本人読者にとって馴染みの薄い人名・地名・組織には簡単な補足を入れて構いません。
+ただし元の情報にないことは書かないでください。
+
+年: {year}
+タイトル: {title}
+本文: {body}
+"""
+
+
+def add_summaries(items: list[dict], api_key: str, cache: dict, label: str,
+                  prompt_builder=None) -> int:
     """items の各記事に summary を付ける。戻り値: 新規呼び出し数。
     Gemini Free Flash-Lite は 15 RPM = 4 秒に1回が上限なので、
     安全側で5秒スリープ。429 が出たら30秒待って1回だけリトライ"""
@@ -536,11 +566,14 @@ def add_summaries(items: list[dict], api_key: str, cache: dict, label: str) -> i
         if url in cache:
             it['summary'] = cache[url]
             continue
-        prompt = summarize_news(
-            it.get('title', ''),
-            it.get('body', '') or '(本文なし)',
-            it.get('category', ''),
-        )
+        if prompt_builder:
+            prompt = prompt_builder(it)
+        else:
+            prompt = summarize_news(
+                it.get('title', ''),
+                it.get('body', '') or '(本文なし)',
+                it.get('category', ''),
+            )
         summary = call_gemini(prompt, api_key)
         if summary is None:
             # 429 か API エラー。長めに待って1回だけリトライ
@@ -597,18 +630,27 @@ def main(out_path: str, archive_dir: str | None = None) -> None:
     print('--- Wikipedia 今日のできごと ---')
     wiki = fetch_wiki_onthisday(limit=4)
 
-    # AI 要約(news / tech)。GEMINI_API_KEY が無い時はスキップ
+    # AI 要約。GEMINI_API_KEY が無い時はスキップ。
+    # 英語ソース(papers / arxiv / wiki) は和訳を兼ねた要約。
     print('--- Gemini 要約 ---')
     api_key = (os.environ.get('GEMINI_API_KEY') or '').strip()
     cache = load_summary_cache()
+
+    paper_prompt = lambda it: summarize_paper(it.get('title',''), it.get('body',''), it.get('source',''))
+    wiki_prompt = lambda it: summarize_wiki(it.get('year',''), it.get('title',''), it.get('body',''))
+
     if api_key:
-        add_summaries(news, api_key, cache, 'news')
-        add_summaries(tech, api_key, cache, 'tech')
+        add_summaries(news,        api_key, cache, 'news')
+        add_summaries(tech,        api_key, cache, 'tech')
+        add_summaries(papers_mgmt, api_key, cache, 'pmgr',  paper_prompt)
+        add_summaries(papers_med,  api_key, cache, 'pmed',  paper_prompt)
+        add_summaries(arxiv_papers,api_key, cache, 'arxiv', paper_prompt)
+        add_summaries(wiki,        api_key, cache, 'wiki',  wiki_prompt)
         save_summary_cache(cache)
     else:
         print('GEMINI_API_KEY not set; using existing cache only')
-        add_summaries(news, '', cache, 'news')
-        add_summaries(tech, '', cache, 'tech')
+        for items in (news, tech, papers_mgmt, papers_med, arxiv_papers, wiki):
+            add_summaries(items, '', cache, 'cache-only')
 
     out = {
         'updated_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
