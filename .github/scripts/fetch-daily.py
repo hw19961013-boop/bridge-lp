@@ -576,20 +576,20 @@ def add_summaries(items: list[dict], api_key: str, cache: dict, label: str,
             )
         summary = call_gemini(prompt, api_key)
         if summary is None:
-            # 429 か API エラー。長めに待って1回だけリトライ
+            # 429 か API エラー。1分間は完全に空けてリトライ
             consecutive_429 += 1
             if consecutive_429 >= 3:
                 print(f'[gemini {label}] 連続失敗、以降スキップ')
                 break
-            print(f'[gemini {label}] retry after 30s')
-            time.sleep(30)
+            print(f'[gemini {label}] retry after 65s')
+            time.sleep(65)
             summary = call_gemini(prompt, api_key)
         if summary:
             consecutive_429 = 0
             it['summary'] = summary
             cache[url] = summary
             new_calls += 1
-        time.sleep(5)  # 15 RPM (= 4s) より少し緩く
+        time.sleep(8)  # 大きめに待つ。RPM だけでなく TPM/burst も考慮
     if new_calls:
         print(f'[gemini {label}] {new_calls} new summaries')
     return new_calls
