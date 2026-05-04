@@ -524,43 +524,40 @@ def call_gemini(prompt: str, api_key: str, json_schema: dict | None = None,
 # バッチ要約: 1リクエストで N件まとめて処理
 BATCH_SCHEMA = {
     'type': 'array',
-    'items': {
-        'type': 'object',
-        'properties': {
-            'url': {'type': 'string'},
-            'summary': {'type': 'string'},
-        },
-        'required': ['url', 'summary'],
-    },
+    'items': {'type': 'string'},
 }
 
 
-def batch_summarize(items: list[dict], api_key: str, intro: str, label: str) -> dict:
-    """items のリストを 1 リクエストで要約。戻り値: {url: summary}"""
+def batch_summarize(items: list[dict], api_key: str, intro: str, label: str) -> list[str]:
+    """items のリストを 1 リクエストで要約。戻り値: items と同じ順の summary リスト"""
     if not items or not api_key:
-        return {}
+        return []
     bullets = []
     for i, it in enumerate(items, 1):
-        url = it.get('url', '')
         title = it.get('title', '')
         body = it.get('body', '') or '(本文なし)'
-        bullets.append(f'--- 項目 {i} ---\nURL: {url}\nタイトル: {title}\n本文: {body}')
+        bullets.append(f'### 項目 {i}\nタイトル: {title}\n本文: {body}')
     full = intro + '\n\n' + '\n\n'.join(bullets) + (
-        '\n\n各項目について {"url": "...", "summary": "..."} の形式で JSON 配列を返してください。'
-        ' summary は要件に沿った日本語要約。url は項目の URL を正確にコピーしてください。'
+        f'\n\n上記 {len(items)} 件について、それぞれの日本語要約を JSON 配列で返してください。'
+        ' 配列の要素は要約文字列のみ(URLやインデックスは不要)。'
+        f' 配列の長さは必ず {len(items)} で、項目 1 から順に対応すること。'
     )
     text = call_gemini(full, api_key, json_schema=BATCH_SCHEMA, max_output_tokens=12000)
     if not text:
-        print(f'[gemini batch {label}] failed')
-        return {}
+        print(f'[gemini batch {label}] failed (empty response)')
+        return []
     try:
         result = json.loads(text)
-        out = {r['url']: r['summary'] for r in result if r.get('url') and r.get('summary')}
-        print(f'[gemini batch {label}] {len(out)}/{len(items)} summarized')
-        return out
+        if not isinstance(result, list):
+            print(f'[gemini batch {label}] not a list')
+            return []
+        summaries = [s if isinstance(s, str) else '' for s in result]
+        ok_count = sum(1 for s in summaries if s)
+        print(f'[gemini batch {label}] {ok_count}/{len(items)} summarized')
+        return summaries
     except Exception as e:
         print(f'[gemini batch {label}] parse failed: {e}; preview: {text[:200]}')
-        return {}
+        return []
 
 
 INTRO_NEWS = """あなたは日本語ニュースの要約者です。
@@ -604,10 +601,9 @@ def add_summaries_batch(items: list[dict], api_key: str, cache: dict,
     new_items = [it for it in items if it.get('url') and not it.get('summary')]
     if not new_items:
         return 0
-    result = batch_summarize(new_items, api_key, intro, label)
+    summaries = batch_summarize(new_items, api_key, intro, label)
     n = 0
-    for it in new_items:
-        s = result.get(it['url'])
+    for it, s in zip(new_items, summaries):
         if s:
             it['summary'] = s
             cache[it['url']] = s
