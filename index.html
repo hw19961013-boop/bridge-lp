@@ -668,7 +668,8 @@ img{display:block;max-width:100%}
       開発の過程・現場で気づいたこと・思考の軌跡を、Note に書き残しています。<span class="nowrap">プロダクトの背景は、ここを読むと一番伝わります。</span>
     </p>
   </div>
-  <div class="notes-grid">
+  <!-- フォールバック: feed.json が取得できない時の表示。JS で上書きされる -->
+  <div class="notes-grid" id="notesGrid">
     <a class="note-card" href="https://note.com/prime_duck4944" target="_blank" data-reveal>
       <div class="note-card-meta">
         <span>2026-04-26</span>
@@ -993,6 +994,39 @@ document.querySelectorAll('.products-tab').forEach(tab => {
     });
   });
 });
+
+// ===== Notes: 動的フィード読み込み =====
+// notes/feed.json は GitHub Actions(.github/workflows/refresh-notes.yml)が
+// 6時間ごとに note.com の RSS から再生成して commit する。
+// 取得失敗時は静的なフォールバックカードがそのまま表示される。
+(async () => {
+  const grid = document.getElementById('notesGrid');
+  if (!grid) return;
+  try {
+    const res = await fetch('notes/feed.json', { cache: 'no-cache' });
+    if (!res.ok) return;
+    const data = await res.json();
+    const items = (data.items || []).slice(0, 3);
+    if (items.length === 0) return;
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    grid.innerHTML = items.map((it, i) => `
+      <a class="note-card" href="${esc(it.url)}" target="_blank" rel="noopener" data-reveal${i ? ` data-reveal-delay="${i}"` : ''}>
+        <div class="note-card-meta">
+          <span>${esc(it.date)}</span>
+          <span class="note-tag">Note</span>
+        </div>
+        <h3 class="note-card-h">${esc(it.title)}</h3>
+        <p class="note-card-excerpt">${esc(it.excerpt)}</p>
+        <span class="note-card-link">続きを読む →</span>
+      </a>
+    `).join('');
+    // 入れ替えた要素を reveal observer に再登録
+    grid.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+  } catch (e) {
+    // フォールバック表示のまま
+    console.warn('feed.json 読込失敗:', e);
+  }
+})();
 
 // ===== Reveal on scroll =====
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{threshold:0.12});

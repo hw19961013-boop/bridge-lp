@@ -1,0 +1,43 @@
+name: Refresh Note feed
+
+# 6 時間ごとに note.com の RSS を取得し、LP 表示用の JSON を更新する。
+# JSON に差分があるときだけ commit & push(自動デプロイは GitHub Pages 任せ)。
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # UTC: 0,6,12,18 → JST: 9,15,21,3
+  workflow_dispatch: {}      # 手動実行も許可
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch RSS
+        run: |
+          mkdir -p /tmp/rss
+          curl -sSL --fail --max-time 20 \
+            -H 'User-Agent: bridge-lp-feed-refresher (+https://github.com/bridge-med/bridge-lp)' \
+            'https://note.com/prime_duck4944/rss' \
+            -o /tmp/rss/note.xml
+          test -s /tmp/rss/note.xml
+
+      - name: Parse to JSON
+        run: |
+          python3 .github/scripts/rss-to-json.py /tmp/rss/note.xml notes/feed.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add notes/feed.json
+          if git diff --staged --quiet; then
+            echo 'no changes'
+          else
+            git commit -m "chore(notes): refresh feed.json"
+            git push
+          fi
