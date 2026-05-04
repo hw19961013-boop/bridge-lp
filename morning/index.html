@@ -144,14 +144,14 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
     <div id="newsList"><div class="empty">読込中…</div></div>
   </section>
 
-  <!-- 医療政策 -->
-  <section class="section" id="sec-mhlw">
+  <!-- 医療・科学 -->
+  <section class="section" id="sec-medical">
     <div class="section-head">
-      <div class="section-h"><span class="num">02</span>医療政策・通達</div>
-      <span class="section-tag">Healthcare Policy</span>
+      <div class="section-h"><span class="num">02</span>医療・科学</div>
+      <span class="section-tag">NHK · Health & Science</span>
     </div>
-    <p class="section-desc">厚生労働省の新着情報。通達・告示・検討会案内など。本文は省側 RSS に含まれないためタイトルのみ。</p>
-    <div id="mhlwList"><div class="empty">読込中…</div></div>
+    <p class="section-desc">NHK ニュース「科学・医療」カテゴリの最新8件。AI 要約付き。</p>
+    <div id="medicalList"><div class="empty">読込中…</div></div>
   </section>
 
   <!-- 論文: 医療経営・公衆衛生 -->
@@ -228,7 +228,7 @@ function fmtDate(s){
 }
 
 function srcCls(category){
-  return ({news:'indigo', pmgr:'moegi', pmed:'moegi', arxiv:'taisha', wiki:'taisha'})[category] || '';
+  return ({news:'indigo', medical:'indigo', pmgr:'moegi', pmed:'moegi', arxiv:'taisha', wiki:'taisha'})[category] || '';
 }
 
 function renderItem(it, kind){
@@ -301,13 +301,13 @@ function updateUpdatedLabel(data){
 
 function render(data){
   updateUpdatedLabel(data);
-  fillList('newsList',  data.news,        'news');
-  fillList('mhlwList',  data.mhlw,        'mhlw');
-  fillList('pmgrList',  data.papers_mgmt, 'pmgr');
-  fillList('pmedList',  data.papers_med,  'pmed');
-  fillList('arxivList', data.arxiv,       'arxiv');
-  fillList('techList',  data.tech,        'tech');
-  fillList('wikiList',  data.wiki,        'wiki');
+  fillList('newsList',    data.news,         'news');
+  fillList('medicalList', data.medical_news, 'medical');
+  fillList('pmgrList',    data.papers_mgmt,  'pmgr');
+  fillList('pmedList',    data.papers_med,   'pmed');
+  fillList('arxivList',   data.arxiv,        'arxiv');
+  fillList('techList',    data.tech,         'tech');
+  fillList('wikiList',    data.wiki,         'wiki');
 }
 
 async function init(){
@@ -334,7 +334,7 @@ async function init(){
     render(await loadFeed(FEED_URL));
   } catch (e) {
     document.getElementById('updatedAt').textContent = '読込失敗';
-    ['newsList','mhlwList','pmgrList','pmedList','arxivList','techList','wikiList'].forEach(id => {
+    ['newsList','medicalList','pmgrList','pmedList','arxivList','techList','wikiList'].forEach(id => {
       document.getElementById(id).innerHTML = renderEmpty('feed.json を読み込めませんでした');
     });
   }

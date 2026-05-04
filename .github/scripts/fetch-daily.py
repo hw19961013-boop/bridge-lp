@@ -147,13 +147,15 @@ def fetch_mhlw(limit: int = 6) -> list[dict]:
 # 3. PubMed (論文・abstract 本文)
 # ============================================================
 def pubmed_search(term: str, retmax: int = 5) -> list[str]:
+    """esearch を XML モードで叩く(JSON モードは NCBI 側で壊れた応答を返すことがある)"""
     url = (
         'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi'
-        '?db=pubmed&retmode=json&sort=date'
+        '?db=pubmed&retmode=xml&sort=date'
         f'&term={urllib.parse.quote(term)}&retmax={retmax}'
     )
     try:
-        return json.loads(http_get(url)).get('esearchresult', {}).get('idlist', [])
+        root = ET.fromstring(http_get(url))
+        return [el.text for el in root.findall('.//IdList/Id') if el.text]
     except Exception as e:
         print(f'[pubmed search] {term}: {e}')
         return []
@@ -307,10 +309,13 @@ def fetch_arxiv(categories: list[str], total: int) -> list[dict]:
 # 5. NHK ニュース (政治 + 経済)
 #    description に本文冒頭が入っているので、その一面で理解できる
 # ============================================================
-NHK_FEEDS = [
+NHK_FEEDS_NEWS = [
     ('政治', 'https://www.nhk.or.jp/rss/news/cat4.xml'),
     ('経済', 'https://www.nhk.or.jp/rss/news/cat5.xml'),
     ('国際', 'https://www.nhk.or.jp/rss/news/cat6.xml'),
+]
+NHK_FEEDS_MEDICAL = [
+    ('科学・医療', 'https://www.nhk.or.jp/rss/news/cat3.xml'),
 ]
 
 
@@ -347,11 +352,21 @@ def fetch_nhk(category_label: str, url: str, limit: int) -> list[dict]:
 def fetch_news() -> list[dict]:
     """NHK の政治・経済・国際を統合。新しい順で最大15件"""
     all_items: list[dict] = []
-    for label, url in NHK_FEEDS:
+    for label, url in NHK_FEEDS_NEWS:
         all_items.extend(fetch_nhk(label, url, limit=8))
         time.sleep(0.3)
     all_items.sort(key=lambda x: x['pubDate'], reverse=True)
     return all_items[:15]
+
+
+def fetch_medical_news() -> list[dict]:
+    """NHK 科学・医療カテゴリ。最大8件"""
+    all_items: list[dict] = []
+    for label, url in NHK_FEEDS_MEDICAL:
+        all_items.extend(fetch_nhk(label, url, limit=10))
+        time.sleep(0.3)
+    all_items.sort(key=lambda x: x['pubDate'], reverse=True)
+    return all_items[:8]
 
 
 # ============================================================
@@ -463,14 +478,20 @@ def save_summary_cache(cache: dict) -> None:
     )
 
 
-def call_gemini(prompt: str, api_key: str) -> str | None:
-    """Gemini に prompt を投げて応答テキストを返す。失敗時 None"""
+def call_gemini(prompt: str, api_key: str, json_schema: dict | None = None,
+                max_output_tokens: int = 8000) -> str | None:
+    """Gemini に prompt を投げて応答テキストを返す。失敗時 None。
+    json_schema を渡すと structured output mode で JSON を返す"""
+    gen_cfg: dict = {
+        'temperature': 0.2,
+        'maxOutputTokens': max_output_tokens,
+    }
+    if json_schema:
+        gen_cfg['responseMimeType'] = 'application/json'
+        gen_cfg['responseSchema'] = json_schema
     body = {
         'contents': [{'parts': [{'text': prompt}]}],
-        'generationConfig': {
-            'temperature': 0.2,
-            'maxOutputTokens': 600,
-        },
+        'generationConfig': gen_cfg,
     }
     req = urllib.request.Request(
         f'{GEMINI_ENDPOINT}?key={api_key}',
@@ -482,7 +503,7 @@ def call_gemini(prompt: str, api_key: str) -> str | None:
         method='POST',
     )
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
+        with urllib.request.urlopen(req, timeout=60) as r:
             data = json.loads(r.read().decode('utf-8'))
         candidates = data.get('candidates', [])
         if not candidates:
@@ -500,110 +521,109 @@ def call_gemini(prompt: str, api_key: str) -> str | None:
         return None
 
 
-def summarize_news(title: str, body: str, category: str) -> str:
-    return f"""あなたは日本語ニュースの要約者です。
-以下のニュースのタイトルと冒頭文から、社会人ビジネスパーソン向けに
-200〜260字の日本語要約を1段落で作成してください。
-
-要件:
-- 元の情報より大きく踏み込まず、不確かな箇所は「とされている」など曖昧表現にする
-- タイトル/冒頭に出ていない数字や固有名詞は出さない
-- 「〜について報じている」のようなメタ的表現は使わず、内容そのものを書く
-- 改行なしの1段落、200〜260字程度
-
-カテゴリ: {category or '一般'}
-タイトル: {title}
-冒頭文: {body}
-"""
+# バッチ要約: 1リクエストで N件まとめて処理
+BATCH_SCHEMA = {
+    'type': 'array',
+    'items': {
+        'type': 'object',
+        'properties': {
+            'url': {'type': 'string'},
+            'summary': {'type': 'string'},
+        },
+        'required': ['url', 'summary'],
+    },
+}
 
 
-def summarize_paper(title: str, abstract: str, journal: str = '') -> str:
-    return f"""以下の英語論文の抄録(abstract)を、日本語で 250〜300字 の要約にしてください。
-読み手は医療従事者または研究者で、専門用語に親しみがあります。
-
-要件:
-- 研究の問い・対象・方法・主要な結果・含意 をできるだけ含める
-- 原文に書かれていないことは書かない(数値・固有名詞は原文どおりに)
-- 専門用語は無理に和訳せず英語表記のまま残しても良い
-- 改行なしの1段落、250〜300字
-
-ジャーナル: {journal or '-'}
-タイトル: {title}
-Abstract:
-{abstract}
-"""
-
-
-def summarize_wiki(year, title: str, body: str) -> str:
-    return f"""以下は Wikipedia 英語版「Today in History」の項目です。
-日本語で 180〜240字 の要約にしてください。
-日本人読者にとって馴染みの薄い人名・地名・組織には簡単な補足を入れて構いません。
-ただし元の情報にないことは書かないでください。
-
-年: {year}
-タイトル: {title}
-本文: {body}
-"""
-
-
-def add_summaries(items: list[dict], api_key: str, cache: dict, label: str,
-                  prompt_builder=None) -> int:
-    """items の各記事に summary を付ける。戻り値: 新規呼び出し数。
-    Gemini Free Flash-Lite は 15 RPM = 4 秒に1回が上限なので、
-    安全側で5秒スリープ。429 が出たら30秒待って1回だけリトライ"""
-    if not api_key:
-        for it in items:
-            cached = cache.get(it.get('url', ''))
-            if cached:
-                it['summary'] = cached
-        return 0
-    new_calls = 0
-    consecutive_429 = 0
-    for it in items:
+def batch_summarize(items: list[dict], api_key: str, intro: str, label: str) -> dict:
+    """items のリストを 1 リクエストで要約。戻り値: {url: summary}"""
+    if not items or not api_key:
+        return {}
+    bullets = []
+    for i, it in enumerate(items, 1):
         url = it.get('url', '')
-        if not url:
-            continue
-        if url in cache:
-            it['summary'] = cache[url]
-            continue
-        if prompt_builder:
-            prompt = prompt_builder(it)
-        else:
-            prompt = summarize_news(
-                it.get('title', ''),
-                it.get('body', '') or '(本文なし)',
-                it.get('category', ''),
-            )
-        summary = call_gemini(prompt, api_key)
-        if summary is None:
-            # 429 か API エラー。1分間は完全に空けてリトライ
-            consecutive_429 += 1
-            if consecutive_429 >= 3:
-                print(f'[gemini {label}] 連続失敗、以降スキップ')
-                break
-            print(f'[gemini {label}] retry after 65s')
-            time.sleep(65)
-            summary = call_gemini(prompt, api_key)
-        if summary:
-            consecutive_429 = 0
-            it['summary'] = summary
-            cache[url] = summary
-            new_calls += 1
-        time.sleep(8)  # 大きめに待つ。RPM だけでなく TPM/burst も考慮
-    if new_calls:
-        print(f'[gemini {label}] {new_calls} new summaries')
-    return new_calls
+        title = it.get('title', '')
+        body = it.get('body', '') or '(本文なし)'
+        bullets.append(f'--- 項目 {i} ---\nURL: {url}\nタイトル: {title}\n本文: {body}')
+    full = intro + '\n\n' + '\n\n'.join(bullets) + (
+        '\n\n各項目について {"url": "...", "summary": "..."} の形式で JSON 配列を返してください。'
+        ' summary は要件に沿った日本語要約。url は項目の URL を正確にコピーしてください。'
+    )
+    text = call_gemini(full, api_key, json_schema=BATCH_SCHEMA, max_output_tokens=12000)
+    if not text:
+        print(f'[gemini batch {label}] failed')
+        return {}
+    try:
+        result = json.loads(text)
+        out = {r['url']: r['summary'] for r in result if r.get('url') and r.get('summary')}
+        print(f'[gemini batch {label}] {len(out)}/{len(items)} summarized')
+        return out
+    except Exception as e:
+        print(f'[gemini batch {label}] parse failed: {e}; preview: {text[:200]}')
+        return {}
+
+
+INTRO_NEWS = """あなたは日本語ニュースの要約者です。
+社会人ビジネスパーソン向けに、各ニュースを 200〜260字 の日本語1段落で要約してください。
+
+要件:
+- 元の情報より踏み込まず、不確かな箇所は「とされている」など曖昧表現にする
+- タイトル/冒頭に出ていない数字や固有名詞は付け加えない
+- 「〜について報じている」のようなメタ的表現は使わない
+- 改行なしの1段落"""
+
+INTRO_PAPER = """あなたは英語論文の要約者です。
+医療従事者・研究者向けに、各論文の abstract を 250〜300字 の日本語1段落で要約してください。
+
+要件:
+- 研究の問い・対象・方法・主要な結果・含意をできる範囲で含める
+- 原文に書かれていないことは書かない(数値・固有名詞は原文どおりに)
+- 専門用語は無理に和訳せず英語表記でも良い
+- 改行なしの1段落"""
+
+INTRO_WIKI = """あなたは Wikipedia 英語版「Today in History」の要約者です。
+各エピソードを 180〜240字 の日本語1段落で要約してください。
+
+要件:
+- 日本人読者にとって馴染みの薄い人名・地名・組織には簡単な補足を入れても良い
+- ただし元の情報にないことは書かない
+- 改行なしの1段落"""
+
+
+def add_summaries_batch(items: list[dict], api_key: str, cache: dict,
+                         label: str, intro: str) -> int:
+    """items のうち未要約のものをまとめて要約(1 API call)。
+    戻り値: 新たに付加した summary 数"""
+    # cache から復元
+    for it in items:
+        u = it.get('url', '')
+        if u and u in cache:
+            it['summary'] = cache[u]
+    if not api_key:
+        return 0
+    new_items = [it for it in items if it.get('url') and not it.get('summary')]
+    if not new_items:
+        return 0
+    result = batch_summarize(new_items, api_key, intro, label)
+    n = 0
+    for it in new_items:
+        s = result.get(it['url'])
+        if s:
+            it['summary'] = s
+            cache[it['url']] = s
+            n += 1
+    return n
 
 
 # ============================================================
 # main
 # ============================================================
 def main(out_path: str, archive_dir: str | None = None) -> None:
-    print('--- 厚労省 ---')
-    mhlw = fetch_mhlw(limit=6)
-
-    print('--- 政治経済ニュース (NHK) ---')
+    print('--- 政治経済ニュース (NHK 政治/経済/国際) ---')
     news = fetch_news()
+
+    print('--- 医療・科学ニュース (NHK 科学・医療) ---')
+    medical_news = fetch_medical_news()
 
     print('--- PubMed (経営/公衆衛生) ---')
     papers_mgmt = fetch_pubmed_topic(
@@ -630,42 +650,44 @@ def main(out_path: str, archive_dir: str | None = None) -> None:
     print('--- Wikipedia 今日のできごと ---')
     wiki = fetch_wiki_onthisday(limit=4)
 
-    # AI 要約。GEMINI_API_KEY が無い時はスキップ。
-    # 英語ソース(papers / arxiv / wiki) は和訳を兼ねた要約。
+    # AI 要約をバッチ処理(1セクション=1リクエスト)。
+    # キャッシュにあれば再呼び出ししない。GEMINI_API_KEY が無い時は cache のみ。
     print('--- Gemini 要約 ---')
     api_key = (os.environ.get('GEMINI_API_KEY') or '').strip()
     cache = load_summary_cache()
 
-    paper_prompt = lambda it: summarize_paper(it.get('title',''), it.get('body',''), it.get('source',''))
-    wiki_prompt = lambda it: summarize_wiki(it.get('year',''), it.get('title',''), it.get('body',''))
-
-    if api_key:
-        add_summaries(news,        api_key, cache, 'news')
-        add_summaries(tech,        api_key, cache, 'tech')
-        add_summaries(papers_mgmt, api_key, cache, 'pmgr',  paper_prompt)
-        add_summaries(papers_med,  api_key, cache, 'pmed',  paper_prompt)
-        add_summaries(arxiv_papers,api_key, cache, 'arxiv', paper_prompt)
-        add_summaries(wiki,        api_key, cache, 'wiki',  wiki_prompt)
-        save_summary_cache(cache)
-    else:
+    if not api_key:
         print('GEMINI_API_KEY not set; using existing cache only')
-        for items in (news, tech, papers_mgmt, papers_med, arxiv_papers, wiki):
-            add_summaries(items, '', cache, 'cache-only')
+
+    sections = [
+        (news,         'news',         INTRO_NEWS),
+        (medical_news, 'medical',      INTRO_NEWS),
+        (tech,         'tech',         INTRO_NEWS),
+        (papers_mgmt,  'papers_mgmt',  INTRO_PAPER),
+        (papers_med,   'papers_med',   INTRO_PAPER),
+        (arxiv_papers, 'arxiv',        INTRO_PAPER),
+        (wiki,         'wiki',         INTRO_WIKI),
+    ]
+    for items, label, intro in sections:
+        add_summaries_batch(items, api_key, cache, label, intro)
+        time.sleep(6)  # セクション間 6秒スリープ(RPM 余裕を持って)
+    if api_key:
+        save_summary_cache(cache)
 
     out = {
         'updated_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
         'updated_jst': datetime.now(JST).isoformat(timespec='minutes'),
         'sources': {
-            'mhlw':         '厚生労働省 新着情報 RSS',
             'news':         'NHK ニュース RSS (政治 / 経済 / 国際)',
+            'medical_news': 'NHK ニュース RSS (科学・医療)',
             'papers_mgmt':  'PubMed efetch (Healthcare Management / Health Policy / Public Health, last 60d)',
             'papers_med':   'PubMed efetch (rehabilitation / pharmacology / neurology, last 60d)',
             'arxiv':        'arXiv API (cs.AI / cs.CL / cs.LG, latest)',
             'tech':         'ITmedia News RSS',
             'wiki':         'Wikipedia REST API (Today in History, en)',
         },
-        'mhlw':         mhlw,
         'news':         news,
+        'medical_news': medical_news,
         'papers_mgmt':  papers_mgmt,
         'papers_med':   papers_med,
         'arxiv':        arxiv_papers,
@@ -714,7 +736,7 @@ def main(out_path: str, archive_dir: str | None = None) -> None:
         )
 
     counts = (
-        f'mhlw {len(mhlw)} / news {len(news)} / '
+        f'news {len(news)} / med_news {len(medical_news)} / '
         f'pmgr {len(papers_mgmt)} / pmed {len(papers_med)} / '
         f'arxiv {len(arxiv_papers)} / tech {len(tech)} / wiki {len(wiki)}'
     )
