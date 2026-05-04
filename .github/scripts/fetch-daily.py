@@ -518,15 +518,17 @@ def summarize_news(title: str, body: str, category: str) -> str:
 
 
 def add_summaries(items: list[dict], api_key: str, cache: dict, label: str) -> int:
-    """items の各記事に summary を付ける。戻り値: 新規呼び出し数"""
+    """items の各記事に summary を付ける。戻り値: 新規呼び出し数。
+    Gemini Free Flash-Lite は 15 RPM = 4 秒に1回が上限なので、
+    安全側で5秒スリープ。429 が出たら30秒待って1回だけリトライ"""
     if not api_key:
-        # キーが無い時は cache のみ参照(再ビルド時の継続性のため)
         for it in items:
             cached = cache.get(it.get('url', ''))
             if cached:
                 it['summary'] = cached
         return 0
     new_calls = 0
+    consecutive_429 = 0
     for it in items:
         url = it.get('url', '')
         if not url:
@@ -534,18 +536,27 @@ def add_summaries(items: list[dict], api_key: str, cache: dict, label: str) -> i
         if url in cache:
             it['summary'] = cache[url]
             continue
-        # Gemini 呼び出し
         prompt = summarize_news(
             it.get('title', ''),
             it.get('body', '') or '(本文なし)',
             it.get('category', ''),
         )
         summary = call_gemini(prompt, api_key)
+        if summary is None:
+            # 429 か API エラー。長めに待って1回だけリトライ
+            consecutive_429 += 1
+            if consecutive_429 >= 3:
+                print(f'[gemini {label}] 連続失敗、以降スキップ')
+                break
+            print(f'[gemini {label}] retry after 30s')
+            time.sleep(30)
+            summary = call_gemini(prompt, api_key)
         if summary:
+            consecutive_429 = 0
             it['summary'] = summary
             cache[url] = summary
             new_calls += 1
-            time.sleep(0.5)  # rate limit に余裕
+        time.sleep(5)  # 15 RPM (= 4s) より少し緩く
     if new_calls:
         print(f'[gemini {label}] {new_calls} new summaries')
     return new_calls
