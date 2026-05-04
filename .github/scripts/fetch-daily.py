@@ -344,13 +344,13 @@ def fetch_nhk(category_label: str, url: str, limit: int) -> list[dict]:
 
 
 def fetch_news() -> list[dict]:
-    """NHK の政治・経済・国際を統合。新しい順で最大10件"""
+    """NHK の政治・経済・国際を統合。新しい順で最大15件"""
     all_items: list[dict] = []
     for label, url in NHK_FEEDS:
-        all_items.extend(fetch_nhk(label, url, limit=6))
+        all_items.extend(fetch_nhk(label, url, limit=8))
         time.sleep(0.3)
     all_items.sort(key=lambda x: x['pubDate'], reverse=True)
-    return all_items[:10]
+    return all_items[:15]
 
 
 # ============================================================
@@ -443,7 +443,7 @@ def main(out_path: str, archive_dir: str | None = None) -> None:
         '医療経営/公衆衛生',
         '("Healthcare Management" OR "Health Policy" OR "Health Economics" OR "public health"[mh]) '
         'AND (Review[pt] OR "Journal Article"[pt])',
-        limit=4,
+        limit=3,
     )
 
     print('--- PubMed (リハ/薬理/神経) ---')
@@ -451,11 +451,11 @@ def main(out_path: str, archive_dir: str | None = None) -> None:
         'リハ/薬理/神経',
         '(rehabilitation OR pharmacology OR neurology) '
         'AND ("Clinical Trial"[pt] OR "Randomized Controlled Trial"[pt] OR Review[pt])',
-        limit=4,
+        limit=3,
     )
 
     print('--- arXiv (AI/CS) ---')
-    arxiv_papers = fetch_arxiv(['cs.AI', 'cs.CL', 'cs.LG'], total=4)
+    arxiv_papers = fetch_arxiv(['cs.AI', 'cs.CL', 'cs.LG'], total=3)
 
     print('--- ITmedia ---')
     tech = fetch_itmedia(limit=4)
