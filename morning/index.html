@@ -75,6 +75,10 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
 .item-body{font:400 13px/1.95 var(--sans-jp);color:var(--ink-2)}
 .item-body.en{font-family:var(--sans-en);font-size:13px;line-height:1.85;color:var(--ink-2)}
 .item-author{font:500 11px/1.4 var(--mono);color:var(--ink-3);margin-top:8px;letter-spacing:0.02em}
+.item-summary{margin-top:6px;padding:14px 16px;background:var(--paper-2);border-left:3px solid var(--moegi);border-radius:0 2px 2px 0;font:500 13px/1.95 var(--sans-jp);color:var(--ink-2);position:relative}
+.item-summary::before{content:'AI 要約';position:absolute;top:-8px;left:14px;background:var(--moegi-deep);color:#fff;font:700 9px/1 var(--sans-en);letter-spacing:0.16em;padding:4px 8px;border-radius:2px}
+.item-body-orig{margin-top:10px;font:400 11px/1.7 var(--sans-jp);color:var(--ink-3)}
+.item-body-orig::before{content:'元の冒頭文: ';color:var(--ink-4);font-weight:600}
 .item-link{display:inline-block;margin-top:12px;font:600 11px/1 var(--sans-en);letter-spacing:0.08em;text-transform:uppercase;color:var(--vermilion);border-bottom:1px solid var(--vermilion);padding-bottom:2px;transition:color .15s,border-color .15s}
 .item-link:hover{color:var(--vermilion-deep);border-color:var(--vermilion-deep)}
 .item-link::after{content:'  →'}
@@ -237,15 +241,24 @@ function renderItem(it, kind){
     (kind === 'wiki' && it.year) ? `<span class="badge">${esc(String(it.year))}</span>` : '',
   ].filter(Boolean).join('');
   const author = it.authors ? `<div class="item-author"${isEn ? ' lang="en"':''}>${esc(it.authors)}</div>` : '';
-  const body = it.body
-    ? `<div class="item-body${isEn ? ' en':''}"${isEn ? ' lang="en"':''}>${esc(it.body)}</div>`
-    : '';
+  // summary が付いていれば優先表示。元の冒頭文は小さく添える
+  let bodyBlock;
+  if (it.summary) {
+    bodyBlock = `
+      <div class="item-summary">${esc(it.summary)}</div>
+      ${it.body ? `<div class="item-body-orig">${esc(it.body)}</div>` : ''}
+    `;
+  } else if (it.body) {
+    bodyBlock = `<div class="item-body${isEn ? ' en':''}"${isEn ? ' lang="en"':''}>${esc(it.body)}</div>`;
+  } else {
+    bodyBlock = '';
+  }
   const link = it.url ? `<a class="item-link" href="${esc(it.url)}" target="_blank" rel="noopener">全文を読む</a>` : '';
   return `
     <div class="item">
       <div class="item-meta">${meta}</div>
       <div class="item-title${isEn ? ' en':''}"${isEn ? ' lang="en"':''}>${esc(it.title)}</div>
-      ${body}
+      ${bodyBlock}
       ${author}
       ${link}
     </div>
