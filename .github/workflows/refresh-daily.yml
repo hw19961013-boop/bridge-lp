@@ -1,0 +1,44 @@
+name: Refresh Daily watch
+
+# 朝の読み物ダッシュボード (/morning) 用に、医療・経済・論文を取得して
+# daily/feed.json を更新する。
+# - 医療  : Google News RSS (診療報酬 / 医療経営 / 医療政策)
+# - 経済  : Google News RSS (site:nikkei.com / 日経平均 / 日銀)
+# - 論文  : PubMed E-utilities (rehabilitation / pharmacology / neurology /
+#                              healthcare management / public health, last 30 days)
+# 1日2回、朝(JST 7:00) と 夜(JST 19:00) に走らせる。
+
+on:
+  schedule:
+    - cron: '0 22 * * *'   # UTC 22:00 = JST 7:00
+    - cron: '0 10 * * *'   # UTC 10:00 = JST 19:00
+  workflow_dispatch: {}     # 手動実行も許可
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch sources and build feed.json
+        run: |
+          python3 .github/scripts/fetch-daily.py daily/feed.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add daily/feed.json
+          if git diff --staged --quiet; then
+            echo 'no changes'
+          else
+            git commit -m "chore(daily): refresh feed.json"
+            git push
+          fi

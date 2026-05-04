@@ -1,0 +1,170 @@
+{
+  "updated_at": "2026-05-04T15:30:01+00:00",
+  "sources": {
+    "medical": "Google News RSS (診療報酬 / 医療経営 / 医療政策)",
+    "economy": "Google News RSS (日経新聞 / 日経平均 / 日銀)",
+    "papers": "PubMed E-utilities (rehabilitation / pharmacology / neurology / healthcare management / public health, last 30 days)"
+  },
+  "medical": [
+    {
+      "title": "多様化するオンライン診療、適正な推進を",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE4wQmZrQlVJR1hLclFqR0FIa3RKNHdFRk01dDZYZjJvbzNQejVxR0F3VE1YRmVBZGhEcV84S0J5d3dhRHR6QmJ0RtIBTkFVX3lxTE01T2VJeENGc09SLTUzeS1aMHR5R0M5Q3h6ZWNySU1TdjVyRnpIbTNUa21UU2tpNF9KUWxDWko2RFJDT3FlQzJOUVhJSmVoQQ?oc=5",
+      "source": "MEDIFAX web",
+      "pubDate": "2026-05-01T20:00:00+00:00",
+      "date": "2026-05-01",
+      "excerpt": "多様化するオンライン診療、適正な推進を MEDIFAX web"
+    },
+    {
+      "title": "医療政策に活用する際の落とし穴 オバマケア「再入院予防プログラム」から学ぶべきこと",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQUFVYbENmdVYtRTlydVVqSGQ0eWNnTG1MblZYVk5VVVNwbUprMm9icEYyb29KdExPSkJyMWw3YlRfWExnVHcxbVZnZkpodU5Cb0I5NWZTY0hNOVZIYzhxeVcyMTNiMzZGVHNsTTVod0JMdkhmbWxTTUJkcTlLaENYTEF5Uy1UQ3RCdTloUl9TNA?oc=5",
+      "source": "読売新聞",
+      "pubDate": "2026-05-01T07:00:00+00:00",
+      "date": "2026-05-01",
+      "excerpt": "医療政策に活用する際の落とし穴 オバマケア「再入院予防プログラム」から学ぶべきこと 読売新聞"
+    },
+    {
+      "title": "【診療報酬改定】「施設基準届出チェックリスト」公開 ー 厚労省 - PT-OT-ST.NET",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5Qa2FEX1VLT2tDbFF3Szg1WkNWY2NVV2loWDg1bmRveWIyV0t3amR1OHEyLXJuaUJjN1lOT0Z0eUI4eFNzVWNCdmxLcEVGUW9YU3F5aTRudFJqczFNS0hsRnZ3aw?oc=5",
+      "source": "PT-OT-ST.NET",
+      "pubDate": "2026-04-30T04:58:23+00:00",
+      "date": "2026-04-30",
+      "excerpt": "【診療報酬改定】「施設基準届出チェックリスト」公開 ー 厚労省 PT-OT-ST.NET"
+    },
+    {
+      "title": "6割超の開業医が2026年度診療報酬改定を不安視",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBpUjEya2dBX2JlM1hGNmhWV3EwdmVFZHNFSHkzX2I4NldDRWFYVzdndm5nTTZMZGZpV0NSSmNsTmUzQl9QTENPQ3ZLMjhfTkFOOHQzRTdXRFJMZFJfajNPUkVla0I4Z01tMGc?oc=5",
+      "source": "PR TIMES",
+      "pubDate": "2026-04-30T04:00:02+00:00",
+      "date": "2026-04-30",
+      "excerpt": "6割超の開業医が2026年度診療報酬改定を不安視 PR TIMES"
+    },
+    {
+      "title": "【識者の眼】「診療報酬改定と人口減少が進む地域での医療」小野 剛",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1tbGo1ejZHUktzdFV4bUhscmJFLTZPUnJOOXNYZHhocTZTd0FIVlZGMGViUHNGWWhMTFBHd0k1QU95Y2hYQmNOX3F0VEhNN0wwZU1iUFl1c1lJY0FLVWlIdA?oc=5",
+      "source": "日本医事新報社",
+      "pubDate": "2026-04-30T01:05:45+00:00",
+      "date": "2026-04-30",
+      "excerpt": "【識者の眼】「診療報酬改定と人口減少が進む地域での医療」小野 剛 日本医事新報社"
+    },
+    {
+      "title": "NEWS 一般病棟用看護必要度の救急患者応需係数の算出方法などを解説―26年度改定疑義解釈",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBoYnFGeUY3MDJPWEx1LV9YS3I1SE4ybEI5TDZfYWdBRGtWVkh2MS1vOGJaRFpmSFJBZmlkRkhfMmRwLVlaZVpxbzJtM3k4eEFFNzFUV3Y3NHhfSzU5RG9fXw?oc=5",
+      "source": "日本医事新報社",
+      "pubDate": "2026-04-30T00:40:45+00:00",
+      "date": "2026-04-30",
+      "excerpt": "NEWS 一般病棟用看護必要度の救急患者応需係数の算出方法などを解説―26年度改定疑義解釈 日本医事新報社"
+    }
+  ],
+  "economy": [
+    {
+      "title": "マクドナルドハウス無償化 子どもと家族、闘病を支援",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1ZazJsVWk2VHBjVUFjU1doNmZnNWRXQXVSOERjUUJHTTl1ZTBXVXpOdGctVkdWZ1lPNm85WWl1QjdRR1lBSzJRS2g2LXNSY1JXc18xdWt2ZHE2U0NTWGFQWkZyb2RaeGtXaXRTZQ?oc=5",
+      "source": "日本経済新聞",
+      "pubDate": "2026-05-04T10:17:39+00:00",
+      "date": "2026-05-04",
+      "excerpt": "マクドナルドハウス無償化 子どもと家族、闘病を支援 日本経済新聞"
+    },
+    {
+      "title": "シンガポールとNZ、生活必需品で世界初の供給網協定",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE80dVhvaGF2bDAtbXRtN1ZaeGhZeGQtcm1ieGs4eXV5SFJHTGRMS21LWFZVWG5ZNFl5TUlYN1NEZFJDSXlPMmZrbHJYZWExbmdrTFhleGV1aTlmellNempuRTR2bXdUcXNfVXI3VQ?oc=5",
+      "source": "日本経済新聞",
+      "pubDate": "2026-05-04T10:16:28+00:00",
+      "date": "2026-05-04",
+      "excerpt": "シンガポールとNZ、生活必需品で世界初の供給網協定 日本経済新聞"
+    },
+    {
+      "title": "［社説］暮らし支える物資の供給網を強く",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9aQjhtTThEMTJOZlE0ak5JcTlLOTVlUWVqLVljYUFWT1ZpMm5jSUN5UTljMjhnbGxCUXNWV1NoeThHNXFmV2xFUmlEdDlYT0MxR0xpLUhuclJsaDZtUUU5X0tROFhlNzJfemhNWQ?oc=5",
+      "source": "日本経済新聞",
+      "pubDate": "2026-05-04T10:00:00+00:00",
+      "date": "2026-05-04",
+      "excerpt": "［社説］暮らし支える物資の供給網を強く 日本経済新聞"
+    },
+    {
+      "title": "円相場 一時急激に円高進む 政府・日銀による為替介入は?",
+      "url": "https://news.google.com/rss/articles/CBMiggNBVV95cUxQUlJySUEzeTZKb1dISlA0SUU4NjJPYjc1R3BlR3hVMW9FUzY5eGJYQ3c4aHZjM0JrSFZ2REoweVptVHdSbHBLb1pBNkhZMXhqWHBrS3BHNlphYlR6eFN0UGdwbHR3MGJERzZXVUduV3ViVVVUVm10VFhWb012YnVsUnNFdkpfYTF2MFRZVHdGUXhCS0dzSlBlUEFJOUFpaXZNM1g2NV83YVVNVWF4U0JpVGlEV0FFUktIV3FvSkNSM3NHeFB0eG1COG9YQWpVbGJMNHFKSVdGMmhjcXB2WXRyelh5QmxSbUJGS0NGdElERGg5S3psWm8waEZxWGVIclpEMVlZMW1icEhXU0tzWVE3aXVfQ1Qwd2d5R09rNHU5TWtJakhyQkRHNjJtSnU0bUJERkVkck1JV1BsNWpaRjI2Y2EzVmxLanFZVWF6YnVmaWhlWmp6OEFNYm9PalNwUVh5SDFGaUlZS3JoalhLYjRQNnlJTmtlZzlyV0o5ZmtSRFdUUQ?oc=5",
+      "source": "MSN",
+      "pubDate": "2026-05-04T09:58:22+00:00",
+      "date": "2026-05-04",
+      "excerpt": "円相場 一時急激に円高進む 政府・日銀による為替介入は? MSN"
+    },
+    {
+      "title": "京都・先斗町の「鴨川をどり」が前夜祭 187回目の公演",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1YaXMxektlWmYtSEVXRWdyckg5VU9wcVhvX0FtQ3VYTDRPQVp3eW9qNm9oUmJsa1dWNlhULTI2SFRIOGF5ZEZJekRTcHJua0tfNmtSb005RU1xZ0RTc01GRnNBOS00d09wSTFoSA?oc=5",
+      "source": "日本経済新聞",
+      "pubDate": "2026-05-04T09:24:54+00:00",
+      "date": "2026-05-04",
+      "excerpt": "京都・先斗町の「鴨川をどり」が前夜祭 187回目の公演 日本経済新聞"
+    },
+    {
+      "title": "アンソロピックのＡI｢Mythos｣登場、米がソフト欠陥の全件分析を断念 検知が急増",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFB4N3NaTDhUQUs5S3E5S0hHSFYxbjBlaGFvRFhUYl94TUtpWXE4ZjE0bzY3YTNQa3lkUVl2UnJZNE1JN1pCdWdaZXVhS1QyLU5POGYzR0ZtUG5mQW4wNVBuaFFBcW1DZWJvUjNkRg?oc=5",
+      "source": "日本経済新聞",
+      "pubDate": "2026-05-04T08:57:05+00:00",
+      "date": "2026-05-04",
+      "excerpt": "アンソロピックのＡI｢Mythos｣登場、米がソフト欠陥の全件分析を断念 検知が急増 日本経済新聞"
+    }
+  ],
+  "papers": [
+    {
+      "title": "Opening new doors: a realist review on return to work with a new employer for sick-listed employees.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42077006/",
+      "source": "Disability and rehabilitation",
+      "authors": "Klerkx ML et al.",
+      "pubDate": "2026/05/04 00:00",
+      "date": "2026/05/04",
+      "pmid": "42077006",
+      "topic": "rehabilitation"
+    },
+    {
+      "title": "Getting ahead of sudden cardiac arrest in pediatric hypertrophic cardiomyopathy patients.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42077049/",
+      "source": "Expert review of cardiovascular therapy",
+      "authors": "Chiu SN et al.",
+      "pubDate": "2026/05/04 00:00",
+      "date": "2026/05/04",
+      "pmid": "42077049",
+      "topic": "pharmacology"
+    },
+    {
+      "title": "Nanoliposomes based drug delivery for the treatment of various types of cancers: current trends and future perspectives.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42076997/",
+      "source": "Journal of liposome research",
+      "authors": "Barik B et al.",
+      "pubDate": "2026/05/04 00:00",
+      "date": "2026/05/04",
+      "pmid": "42076997",
+      "topic": "pharmacology"
+    },
+    {
+      "title": "Impact of Alzheimer's Disease Co-Pathology on Shunt Outcomes in Idiopathic Normal Pressure Hydrocephalus: A Systematic Review and Meta-Analysis.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42076936/",
+      "source": "Movement disorders : official journal of the Movement Disorder Society",
+      "authors": "Patwardhan A et al.",
+      "pubDate": "2026/05/04 00:00",
+      "date": "2026/05/04",
+      "pmid": "42076936",
+      "topic": "neurology"
+    },
+    {
+      "title": "Addressing Undernutrition in Older Adults with Plant-Based Products.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42077151/",
+      "source": "The Proceedings of the Nutrition Society",
+      "authors": "Horner KM et al.",
+      "pubDate": "2026/05/04 00:00",
+      "date": "2026/05/04",
+      "pmid": "42077151",
+      "topic": "public health"
+    },
+    {
+      "title": "The environmental impact of diet in Latin American populations: a systematic review with meta-analysis.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42077150/",
+      "source": "Public health nutrition",
+      "authors": "Araya-Bastias C et al.",
+      "pubDate": "2026/05/04 00:00",
+      "date": "2026/05/04",
+      "pmid": "42077150",
+      "topic": "public health"
+    }
+  ]
+}

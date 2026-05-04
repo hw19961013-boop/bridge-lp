@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>朝の読み物 — BRIDGE</title>
+<meta name="description" content="医療経営・診療報酬・経済・最新論文の毎日のダイジェスト。BRIDGE 内製のパーソナルダッシュボード。">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#FAFAF7;--paper-2:#F4F1E8;--paper-3:#EDE8DD;
+  --ink:#0A0A0F;--ink-2:#2A2A35;--ink-3:#6E6E78;--ink-4:#B8B5A8;
+  --line:rgba(10,10,15,0.08);--line-2:rgba(10,10,15,0.16);
+  --vermilion:#C8553D;--vermilion-deep:#A8442F;
+  --indigo:#1B4965;--indigo-deep:#0F2D44;
+  --moegi:#8A9A5B;--moegi-deep:#6B7A4F;
+  --taisha:#8B5A2B;--taisha-deep:#6B4420;
+  --serif-jp:'Noto Serif JP',serif;
+  --sans-jp:'Noto Sans JP',sans-serif;
+  --serif-en:'Fraunces',serif;
+  --sans-en:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --max:1280px;
+  --pad-x:clamp(20px,5vw,64px);
+}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:var(--sans-jp);background:var(--paper);color:var(--ink);line-height:1.7;font-feature-settings:"palt" 1}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:200;opacity:0.025;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");mix-blend-mode:multiply}
+a{color:inherit;text-decoration:none}
+
+/* ===== nav ===== */
+.nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:18px var(--pad-x);background:rgba(250,250,247,0.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-logo{font:700 14px/1 var(--serif-en);letter-spacing:0.18em;color:var(--ink);display:inline-flex;gap:8px;align-items:baseline}
+.nav-logo .dot{color:var(--vermilion)}
+.nav-logo .small{font:600 10px/1 var(--sans-jp);color:var(--ink-3);letter-spacing:0.1em}
+.nav-back{font:600 11px/1 var(--sans-en);letter-spacing:0.1em;color:var(--ink-3);text-transform:uppercase;transition:color .2s}
+.nav-back:hover{color:var(--vermilion)}
+
+/* ===== head ===== */
+.page-head{padding:64px var(--pad-x) 32px;max-width:var(--max);margin:0 auto}
+.page-eyebrow{font:700 10px/1 var(--sans-en);letter-spacing:0.22em;color:var(--vermilion);text-transform:uppercase;margin-bottom:16px;display:inline-flex;align-items:center;gap:10px}
+.page-eyebrow::before{content:'';width:24px;height:1px;background:var(--vermilion)}
+.page-h1{font:900 clamp(28px,4vw,44px)/1.25 var(--serif-jp);letter-spacing:-0.02em}
+.page-h1 .em{font-family:var(--serif-en);font-style:italic;color:var(--vermilion)}
+.page-sub{font:500 12px/1.85 var(--sans-jp);color:var(--ink-3);max-width:560px;margin-top:14px}
+.page-meta{font:500 10px/1 var(--mono);color:var(--ink-3);letter-spacing:0.06em;margin-top:18px;display:flex;gap:18px;flex-wrap:wrap}
+.page-meta strong{color:var(--ink-2);font-weight:700}
+
+/* ===== grid ===== */
+.dash{padding:0 var(--pad-x) 80px;max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:36px;align-items:start}
+@media(max-width:980px){.dash{grid-template-columns:1fr;gap:48px}}
+
+.col{display:flex;flex-direction:column}
+.col-head{padding-bottom:14px;margin-bottom:14px;border-bottom:2px solid var(--ink);display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.col-h{font:900 18px/1.2 var(--serif-jp);letter-spacing:-0.01em}
+.col-h .num{font:900 italic 14px/1 var(--serif-en);color:var(--vermilion);margin-right:8px}
+.col-tag{font:700 9px/1 var(--sans-en);letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3)}
+
+.col-body{display:flex;flex-direction:column;gap:0}
+.item{padding:14px 0;border-bottom:1px dashed var(--line);display:block;transition:background .15s}
+.item:hover{background:var(--paper-2)}
+.item:last-child{border-bottom:none}
+.item-meta{font:500 10px/1.4 var(--mono);color:var(--ink-3);letter-spacing:0.04em;margin-bottom:5px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.item-meta .src{color:var(--vermilion);font-weight:600}
+.item-meta .src.indigo{color:var(--indigo)}
+.item-meta .src.moegi{color:var(--moegi-deep)}
+.item-title{font:700 13px/1.7 var(--serif-jp);color:var(--ink);letter-spacing:-0.005em}
+.item:hover .item-title{color:var(--vermilion)}
+.item-excerpt{font:500 11px/1.7 var(--sans-jp);color:var(--ink-3);margin-top:5px}
+.item-author{font:500 10px/1 var(--mono);color:var(--ink-3);margin-top:5px;letter-spacing:0.04em}
+
+.col-foot{margin-top:18px;font:500 10px/1.4 var(--mono);color:var(--ink-3);letter-spacing:0.06em}
+
+.empty{font:500 12px/1.7 var(--sans-jp);color:var(--ink-3);font-style:italic;padding:24px 0}
+
+/* ===== footer ===== */
+.foot{padding:32px var(--pad-x) 48px;border-top:1px solid var(--line);text-align:center;font:500 11px/1.6 var(--sans-jp);color:var(--ink-3)}
+.foot a{color:var(--vermilion);border-bottom:1px solid currentColor;padding-bottom:1px;margin:0 8px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">BRIDGE<span class="dot">.</span><span class="small">朝の読み物</span></a>
+  <a href="../index.html" class="nav-back">← BRIDGE</a>
+</nav>
+
+<header class="page-head">
+  <div class="page-eyebrow">Daily Watch</div>
+  <h1 class="page-h1">今日、<span class="em">何を読むか。</span></h1>
+  <p class="page-sub">医療経営・診療報酬・経済・最新論文。橋本本人が毎朝目を通すための個人ダッシュボード。LP の延長として、ここから外部の一次情報へ飛びます。</p>
+  <div class="page-meta">
+    <span>更新: <strong id="updatedAt">読込中…</strong></span>
+    <span>朝 7:00 / 夜 19:00 (JST) 自動更新</span>
+  </div>
+</header>
+
+<main class="dash">
+
+  <section class="col">
+    <div class="col-head">
+      <div class="col-h"><span class="num">01</span>医療</div>
+      <span class="col-tag">Healthcare</span>
+    </div>
+    <div class="col-body" id="medList">
+      <div class="empty">読込中…</div>
+    </div>
+    <div class="col-foot" id="medFoot">診療報酬 / 医療経営 / 医療政策</div>
+  </section>
+
+  <section class="col">
+    <div class="col-head">
+      <div class="col-h"><span class="num">02</span>経済</div>
+      <span class="col-tag">Economy</span>
+    </div>
+    <div class="col-body" id="ecoList">
+      <div class="empty">読込中…</div>
+    </div>
+    <div class="col-foot" id="ecoFoot">日経新聞 / 日経平均 / 日銀</div>
+  </section>
+
+  <section class="col">
+    <div class="col-head">
+      <div class="col-h"><span class="num">03</span>論文</div>
+      <span class="col-tag">Papers</span>
+    </div>
+    <div class="col-body" id="papList">
+      <div class="empty">読込中…</div>
+    </div>
+    <div class="col-foot" id="papFoot">PubMed 最新（リハ / 薬理 / 神経 / 公衆衛生 / 医療経営）</div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  ソース: Google News RSS, PubMed E-utilities · 自動更新は GitHub Actions(<a href="https://github.com/bridge-med/bridge-lp/actions/workflows/refresh-daily.yml" target="_blank">refresh-daily</a>)
+  · <a href="../index.html">BRIDGE に戻る</a>
+</footer>
+
+<script>
+const FEED_URL = '../daily/feed.json';
+
+function esc(s){
+  return String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function fmtDate(iso){
+  if (!iso) return '';
+  // 'YYYY-MM-DD' のまま使える
+  return iso.length >= 10 ? iso.slice(0, 10) : iso;
+}
+
+function renderItem(it, kind){
+  const srcCls = kind === 'eco' ? 'indigo' : kind === 'pap' ? 'moegi' : '';
+  const meta = [
+    `<span>${esc(fmtDate(it.date))}</span>`,
+    it.source ? `<span class="src ${srcCls}">${esc(it.source)}</span>` : ''
+  ].filter(Boolean).join('');
+  const author = it.authors ? `<div class="item-author">${esc(it.authors)}</div>` : '';
+  const excerpt = it.excerpt ? `<div class="item-excerpt">${esc(it.excerpt)}</div>` : '';
+  return `
+    <a class="item" href="${esc(it.url)}" target="_blank" rel="noopener">
+      <div class="item-meta">${meta}</div>
+      <div class="item-title">${esc(it.title)}</div>
+      ${author}
+      ${excerpt}
+    </a>
+  `;
+}
+
+function renderEmpty(msg){
+  return `<div class="empty">${esc(msg)}</div>`;
+}
+
+(async () => {
+  try {
+    const res = await fetch(FEED_URL, { cache: 'no-cache' });
+    if (!res.ok) throw new Error('fetch failed: ' + res.status);
+    const data = await res.json();
+
+    // 更新時刻を JST で表示
+    const updated = new Date(data.updated_at);
+    const opts = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Tokyo' };
+    document.getElementById('updatedAt').textContent =
+      updated.toLocaleString('ja-JP', opts) + ' JST';
+
+    const fill = (id, items, kind) => {
+      const el = document.getElementById(id);
+      if (!items || items.length === 0) {
+        el.innerHTML = renderEmpty('今日は取得できなかった項目です');
+        return;
+      }
+      el.innerHTML = items.map(it => renderItem(it, kind)).join('');
+    };
+
+    fill('medList', data.medical, 'med');
+    fill('ecoList', data.economy, 'eco');
+    fill('papList', data.papers,  'pap');
+
+  } catch (e) {
+    console.warn(e);
+    document.getElementById('updatedAt').textContent = '取得失敗';
+    ['medList', 'ecoList', 'papList'].forEach(id => {
+      document.getElementById(id).innerHTML =
+        renderEmpty('feed.json を読み込めませんでした');
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
