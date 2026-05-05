@@ -1,8 +1,17 @@
 {
-  "updated_at": "2026-05-04T19:46:14+00:00",
+  "updated_at": "2026-05-05T03:25:01+00:00",
   "source": "https://note.com/prime_duck4944/rss",
   "count": 6,
   "items": [
+    {
+      "title": "100項目から12項目に絞った話 — 担当患者の申し送り設計",
+      "url": "https://note.com/prime_duck4944/n/n84ac9aa14c42",
+      "guid": "https://note.com/prime_duck4944/n/n84ac9aa14c42",
+      "pubDate": "2026-05-05T07:00:00+09:00",
+      "date": "2026-05-05",
+      "excerpt": "「あの患者さん、最近どう?」朝礼で、誰かが必ず聞きます。",
+      "thumbnail": "https://assets.st-note.com/production/uploads/images/272770665/rectangle_large_type_2_3b6d7cf79d9c68654ccbc166ccfe993c.png?width=800"
+    },
     {
       "title": "PMI で最初に作るのは、事業計画じゃない",
       "url": "https://note.com/prime_duck4944/n/n1fde348bc4b6",
@@ -47,15 +56,6 @@
       "date": "2026-04-29",
       "excerpt": "リハ部門の数字を、1 つのブラウザの中にまとめた道具を公開します。 RehaBoard / リハ運営ダッシュボード(Web版) ¥1,980(税込・買い切り) 触れます: https://bridge-med.gith…",
       "thumbnail": "https://assets.st-note.com/production/uploads/images/271357130/rectangle_large_type_2_3b0ff9ce9d48d3c896a0285102c5021c.png?width=800"
-    },
-    {
-      "title": "ブラウザ 1 枚で動く、医療現場の道具を作った話",
-      "url": "https://note.com/prime_duck4944/n/n679c298a3cd2",
-      "guid": "https://note.com/prime_duck4944/n/n679c298a3cd2",
-      "pubDate": "2026-04-29T12:34:59+09:00",
-      "date": "2026-04-29",
-      "excerpt": "このシリーズは、私が作っている「RehaBoard」というリハ運営の道具を、リリース前にどんなことを考えて作ってきたかを書き残す試みです。先週書いた「RehaBoard を作った理由」では、リハ部門で起きている「数字が…",
-      "thumbnail": "https://assets.st-note.com/production/uploads/images/271356371/rectangle_large_type_2_392686d4ac00053ce5fc2df8c62b9e5c.png?width=800"
     }
   ]
 }
