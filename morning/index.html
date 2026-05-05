@@ -29,35 +29,36 @@
   --pad-x:clamp(20px,5vw,64px);
 }
 html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-body{font-family:var(--sans-jp);background:var(--paper);color:var(--ink);line-height:1.75;font-feature-settings:"palt" 1}
+/* 朝の手帖 = 藍主役モード。LP(朱主役)と区別する */
+body{font-family:var(--sans-jp);background:var(--paper-2);color:var(--ink);line-height:1.75;font-feature-settings:"palt" 1}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:200;opacity:0.025;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");mix-blend-mode:multiply}
 a{color:inherit;text-decoration:none}
 
 /* ===== nav ===== */
-.nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px var(--pad-x);background:rgba(250,250,247,0.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px var(--pad-x);background:rgba(244,241,232,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line-2)}
 .nav-logo{font:700 14px/1 var(--serif-en);letter-spacing:0.18em;color:var(--ink);display:inline-flex;gap:8px;align-items:baseline}
-.nav-logo .dot{color:var(--vermilion)}
+.nav-logo .dot{color:var(--indigo)}
 .nav-logo .small{font:600 10px/1 var(--sans-jp);color:var(--ink-3);letter-spacing:0.1em}
 .nav-controls{display:flex;align-items:center;gap:14px;font:500 11px/1 var(--mono);color:var(--ink-3)}
 .nav-controls select{font:500 11px/1.4 var(--mono);color:var(--ink-2);background:var(--paper);border:1px solid var(--line);padding:5px 8px;border-radius:2px;cursor:pointer}
 .nav-controls .updated{font-size:10px}
 .nav-back{font:600 11px/1 var(--sans-en);letter-spacing:0.1em;color:var(--ink-3);text-transform:uppercase;transition:color .2s}
-.nav-back:hover{color:var(--vermilion)}
+.nav-back:hover{color:var(--indigo)}
 
 /* ===== head ===== */
 .page-head{padding:48px var(--pad-x) 28px;max-width:var(--max-narrow);margin:0 auto}
-.page-eyebrow{font:700 10px/1 var(--sans-en);letter-spacing:0.22em;color:var(--vermilion);text-transform:uppercase;margin-bottom:14px;display:inline-flex;align-items:center;gap:10px}
-.page-eyebrow::before{content:'';width:24px;height:1px;background:var(--vermilion)}
+.page-eyebrow{font:700 10px/1 var(--sans-en);letter-spacing:0.22em;color:var(--indigo);text-transform:uppercase;margin-bottom:14px;display:inline-flex;align-items:center;gap:10px}
+.page-eyebrow::before{content:'';width:24px;height:1px;background:var(--indigo)}
 .page-h1{font:900 clamp(28px,4vw,42px)/1.25 var(--serif-jp);letter-spacing:-0.02em}
-.page-h1 .em{font-family:var(--serif-en);font-style:italic;color:var(--vermilion)}
+.page-h1 .em{font-family:var(--serif-en);font-style:italic;color:var(--indigo)}
 .page-sub{font:500 12px/1.85 var(--sans-jp);color:var(--ink-3);margin-top:14px}
 
 /* ===== section ===== */
 main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
 .section{margin-top:56px}
-.section-head{padding-bottom:14px;margin-bottom:18px;border-bottom:2px solid var(--ink);display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.section-head{padding-bottom:14px;margin-bottom:18px;border-bottom:2px solid var(--indigo-deep);display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .section-h{font:900 22px/1.2 var(--serif-jp);letter-spacing:-0.01em}
-.section-h .num{font:900 italic 14px/1 var(--serif-en);color:var(--vermilion);margin-right:10px}
+.section-h .num{font:900 italic 14px/1 var(--serif-en);color:var(--indigo);margin-right:10px}
 .section-tag{font:700 9px/1 var(--sans-en);letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3)}
 .section-desc{font:500 11px/1.7 var(--sans-jp);color:var(--ink-3);margin-bottom:22px;max-width:var(--max-narrow)}
 
@@ -70,8 +71,8 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
 .item:hover{border-color:var(--ink-3)}
 .item-meta{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;font:500 10px/1.4 var(--mono);color:var(--ink-3);letter-spacing:0.04em;margin-bottom:8px}
 .item-meta .date{color:var(--ink-2);font-weight:600}
-.item-meta .src{color:var(--vermilion);font-weight:600}
-.item-meta .src.indigo{color:var(--indigo)}
+.item-meta .src{color:var(--indigo);font-weight:600}
+.item-meta .src.shu{color:var(--vermilion)}
 .item-meta .src.moegi{color:var(--moegi-deep)}
 .item-meta .src.taisha{color:var(--taisha-deep)}
 .item-meta .badge{padding:2px 7px;background:var(--paper-2);border:1px solid var(--line);border-radius:2px;font:600 9px/1.3 var(--sans-jp);color:var(--ink-2);letter-spacing:0.02em}
@@ -80,13 +81,15 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
 .item-body{font:400 13px/1.95 var(--sans-jp);color:var(--ink-2)}
 .item-body.en{font-family:var(--sans-en);font-size:13px;line-height:1.85;color:var(--ink-2)}
 .item-author{font:500 11px/1.4 var(--mono);color:var(--ink-3);margin-top:8px;letter-spacing:0.02em}
-.item-summary{margin-top:6px;padding:14px 16px;background:var(--paper-2);border-left:3px solid var(--moegi);border-radius:0 2px 2px 0;font:500 13px/1.95 var(--sans-jp);color:var(--ink-2);position:relative}
+.item-summary{margin-top:6px;padding:14px 16px;background:var(--paper-3);border-left:3px solid var(--moegi);border-radius:0 2px 2px 0;font:500 13px/1.95 var(--sans-jp);color:var(--ink-2);position:relative}
 .item-summary::before{content:'AI 要約';position:absolute;top:-8px;left:14px;background:var(--moegi-deep);color:#fff;font:700 9px/1 var(--sans-en);letter-spacing:0.16em;padding:4px 8px;border-radius:2px}
+.item-application{margin-top:18px;padding:14px 16px;background:rgba(200,85,61,0.06);border-left:3px solid var(--vermilion);border-radius:0 2px 2px 0;font:500 13px/1.95 var(--sans-jp);color:var(--ink-2);position:relative}
+.item-application::before{content:'現場応用案';position:absolute;top:-8px;left:14px;background:var(--vermilion-deep);color:#fff;font:700 9px/1 var(--sans-jp);letter-spacing:0.16em;padding:4px 8px;border-radius:2px}
 .item-body-orig{margin-top:10px;font:400 11px/1.7 var(--sans-jp);color:var(--ink-3)}
 .item-body-orig.en{font-family:var(--sans-en);font-size:11px;line-height:1.7}
 .item-body-orig::before{content:'原文: ';color:var(--ink-4);font-weight:600}
-.item-link{display:inline-block;margin-top:12px;font:600 11px/1 var(--sans-en);letter-spacing:0.08em;text-transform:uppercase;color:var(--vermilion);border-bottom:1px solid var(--vermilion);padding-bottom:2px;transition:color .15s,border-color .15s}
-.item-link:hover{color:var(--vermilion-deep);border-color:var(--vermilion-deep)}
+.item-link{display:inline-block;margin-top:12px;font:600 11px/1 var(--sans-en);letter-spacing:0.08em;text-transform:uppercase;color:var(--indigo);border-bottom:1px solid var(--indigo);padding-bottom:2px;transition:color .15s,border-color .15s}
+.item-link:hover{color:var(--indigo-deep);border-color:var(--indigo-deep)}
 .item-link::after{content:'  →'}
 
 /* ===== market table ===== */
@@ -107,7 +110,7 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
 
 /* ===== footer ===== */
 .foot{padding:32px var(--pad-x) 48px;border-top:1px solid var(--line);text-align:center;font:500 11px/1.6 var(--sans-jp);color:var(--ink-3);max-width:var(--max-narrow);margin:0 auto}
-.foot a{color:var(--vermilion);border-bottom:1px solid currentColor;padding-bottom:1px;margin:0 6px}
+.foot a{color:var(--indigo);border-bottom:1px solid currentColor;padding-bottom:1px;margin:0 6px}
 
 @media(max-width:600px){
   .page-head{padding-top:32px}
@@ -165,7 +168,7 @@ main{padding:0 var(--pad-x) 80px;max-width:var(--max-text);margin:0 auto}
       <div class="section-h"><span class="num">03</span>論文・医療経営/公衆衛生</div>
       <span class="section-tag">PubMed · Health Policy</span>
     </div>
-    <p class="section-desc">直近60日の Healthcare Management / Health Policy / Public Health 関連3件。<strong>AI が原文 abstract を 250-300字 の日本語に要約</strong>、原文は下に保持。</p>
+    <p class="section-desc">直近60日の Healthcare Management / Health Policy / Public Health 関連3件。<strong>AI 要約 + 中小医療機関への応用案</strong>付き。原文は下に保持。</p>
     <div id="pmgrList"><div class="empty">読込中…</div></div>
   </section>
 
@@ -233,7 +236,8 @@ function fmtDate(s){
 }
 
 function srcCls(category){
-  return ({news:'indigo', medical:'indigo', pmgr:'moegi', pmed:'moegi', arxiv:'taisha', wiki:'taisha'})[category] || '';
+  // 朝の手帖は藍がデフォルト。ニュース系は無印で藍、論文系は萌黄、英語系は代赭
+  return ({news:'', medical:'', pmgr:'moegi', pmed:'moegi', arxiv:'taisha', wiki:'taisha', tech:'shu'})[category] || '';
 }
 
 function renderItem(it, kind){
@@ -248,12 +252,16 @@ function renderItem(it, kind){
   ].filter(Boolean).join('');
   const author = it.authors ? `<div class="item-author"${isEn ? ' lang="en"':''}>${esc(it.authors)}</div>` : '';
   // summary が付いていれば優先表示。原文は小さく添える
+  // application(現場応用案) があれば summary の下に追加
   let bodyBlock;
   if (it.summary) {
     const origCls = isEn ? ' en' : '';
     const origLang = isEn ? ' lang="en"' : '';
+    const appBlock = it.application
+      ? `<div class="item-application">${esc(it.application)}</div>` : '';
     bodyBlock = `
       <div class="item-summary">${esc(it.summary)}</div>
+      ${appBlock}
       ${it.body ? `<div class="item-body-orig${origCls}"${origLang}>${esc(it.body)}</div>` : ''}
     `;
   } else if (it.body) {

@@ -635,6 +635,61 @@ def mega_batch_summarize(pending: list[tuple], api_key: str, cache: dict) -> int
         return 0
 
 
+def add_consult_ideas(items: list[dict], api_key: str, cache: dict) -> int:
+    """papers_mgmt の各論文について「中小医療機関への応用案」を Gemini で生成。
+    cache key には 'app:' プレフィックスをつけて summary と区別する。
+    """
+    # cache から復元
+    for it in items:
+        u = it.get('url', '')
+        if u and cache.get(f'app:{u}'):
+            it['application'] = cache[f'app:{u}']
+    if not api_key:
+        return 0
+    pending = [it for it in items if it.get('url') and not it.get('application')]
+    if not pending:
+        return 0
+    bullets = []
+    for i, it in enumerate(pending, 1):
+        bullets.append(
+            f'### 項目 {i}\nタイトル: {it.get("title","")}\n'
+            f'Abstract: {it.get("body","") or "(なし)"}'
+        )
+    prompt = (
+        'あなたは日本の医療経営コンサルタントです。'
+        '以下は健康経営/公衆衛生/ヘルスケアマネジメントに関する英語論文の抄録です。\n\n'
+        + '\n\n'.join(bullets)
+        + (
+            f'\n\n上記 {len(pending)} 件それぞれについて、'
+            '日本の中小医療機関(整形外科クリニック・リハビリ部門・在宅医療など)の'
+            '運営に応用できる気づきを 150〜220字 の日本語1段落で書いてください。\n'
+            '要件:\n'
+            '- 論文の内容を必ず根拠にする(原文に書かれていない数値や固有名詞は出さない)\n'
+            '- 「現場で何を動かせるか」を1つ含める(KPI設計・朝礼の問い・運用ルール変更など具体的に)\n'
+            '- 「とされている」など曖昧表現で論文と現場の橋渡しを示す\n'
+            '- 改行なしの1段落\n'
+            f'JSON 配列で {len(pending)} 件の応用案文字列を順番通りに返してください。'
+        )
+    )
+    text = call_gemini(prompt, api_key, json_schema=BATCH_SCHEMA, max_output_tokens=8000)
+    if not text:
+        print('[gemini consult] failed')
+        return 0
+    try:
+        result = json.loads(text)
+        n = 0
+        for it, app in zip(pending, result):
+            if isinstance(app, str) and app.strip():
+                it['application'] = app.strip()
+                cache[f'app:{it["url"]}'] = app.strip()
+                n += 1
+        print(f'[gemini consult] {n}/{len(pending)} ideas generated')
+        return n
+    except Exception as e:
+        print(f'[gemini consult] parse failed: {e}')
+        return 0
+
+
 def add_summaries_batch(items: list[dict], api_key: str, cache: dict,
                          label: str, intro: str) -> int:
     """items のうち未要約のものをまとめて要約(1 API call)。
@@ -730,9 +785,19 @@ def main(out_path: str, archive_dir: str | None = None) -> None:
     if api_key and pending:
         new_added = mega_batch_summarize(pending, api_key, cache)
         print(f'[gemini mega batch] {new_added}/{len(pending)} summarized')
-        save_summary_cache(cache)
     elif not pending:
-        print('[gemini] all items already cached')
+        print('[gemini] all summary items already cached')
+
+    # papers_mgmt の各論文に対して「中小医療機関への応用案」を生成
+    if api_key:
+        time.sleep(8)
+        add_consult_ideas(papers_mgmt, api_key, cache)
+    else:
+        # cache のみ復元
+        add_consult_ideas(papers_mgmt, '', cache)
+
+    if api_key:
+        save_summary_cache(cache)
 
     out = {
         'updated_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
