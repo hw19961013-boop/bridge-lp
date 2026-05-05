@@ -513,7 +513,7 @@ def call_gemini(prompt: str, api_key: str, json_schema: dict | None = None,
             return None
         return parts[0].get('text', '').strip()
     except urllib.error.HTTPError as e:
-        msg = e.read().decode('utf-8', errors='replace')[:200] if hasattr(e, 'read') else str(e)
+        msg = e.read().decode('utf-8', errors='replace') if hasattr(e, 'read') else str(e)
         print(f'[gemini] HTTP {e.code}: {msg}')
         return None
     except Exception as e:
