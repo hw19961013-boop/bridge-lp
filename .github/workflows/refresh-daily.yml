@@ -18,10 +18,15 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -44,5 +49,15 @@ jobs:
             echo 'no changes'
           else
             git commit -m "chore(daily): refresh feed.json + archive + summaries"
+            git pull --rebase --autostash
             git push
           fi
+
+      # GITHUB_TOKEN による push は他 workflow をトリガーしないので、
+      # ここで Pages デプロイまで完結させる。
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - id: deployment
+        uses: actions/deploy-pages@v4
