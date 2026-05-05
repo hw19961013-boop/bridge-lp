@@ -447,7 +447,7 @@ def fetch_wiki_onthisday(limit: int = 4) -> list[dict]:
 # ============================================================
 # Gemini 要約 (短い RSS description を 200-260字に膨らませる)
 # ============================================================
-GEMINI_MODEL = 'gemini-2.5-flash-lite'
+GEMINI_MODEL = 'gemini-2.5-flash'  # Free tier 250 RPD (flash-lite は 20 RPD で即枯渇)
 GEMINI_ENDPOINT = (
     f'https://generativelanguage.googleapis.com/v1beta/models/'
     f'{GEMINI_MODEL}:generateContent'
