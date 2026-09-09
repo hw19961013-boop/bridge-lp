@@ -1,30 +1,34 @@
 import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
 // 便AJ 計測コミット0: 院内/経営タブの総字数と1画面目(ビューポート内)の字数を (a)名称・数値 (b)説明文 (c)モーダル・facts/lesson に分けて出す
 const browser = await chromium.launch();
-const EXPL = 'small, .ctrl-note, .shop-hint, .pnl-note, .kb-cond, .act-note, .kijun-badge, .mission-lesson, .modal-note, .card-title small, .ctrl-head small, .jihi-stat, .shop-voice, .dec-sub, .tb-card p, .rs-learn';
+// (b) 説明文。v81 便AJ-2 の計測コミット0で「(d) 人の声・名札」(スタッフの声 .shop-voice・スタッフ帯 .staff-strip の職種名/氏名)を (b) から外して別計上にした(職種名は名称・声は人の気配=第25条。畳む対象ではない)
+const EXPL = 'small, .ctrl-note, .shop-hint, .pnl-note, .kb-cond, .act-note, .kijun-badge, .mission-lesson, .modal-note, .card-title small, .ctrl-head small, .jihi-stat, .dec-sub, .tb-card p, .rs-learn';
+const VOICE = '.shop-voice, .staff-strip';
 async function measure(page, tab) {
   await page.evaluate((t) => document.querySelector(`[data-tab="${t}"]`)?.click(), tab); await page.waitForTimeout(250);
   await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(50);
-  return page.evaluate((EXPL) => {
+  return page.evaluate(([EXPL, VOICE]) => {
     const pane = document.querySelector('.tab-pane.on, .pane.on, section.on, [data-pane].on') || document.body;
     const vis = (el) => { const r = el.getBoundingClientRect(); const cs = getComputedStyle(el); return cs.display !== 'none' && cs.visibility !== 'hidden' && r.width > 0 && r.height > 0; };
     const inView = (el) => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
     const explSet = new Set(pane.querySelectorAll(EXPL));
-    const isExpl = (n) => { let e = n.parentElement; while (e && e !== pane) { if (explSet.has(e)) return true; e = e.parentElement; } return false; };
+    const voiceSet = new Set(pane.querySelectorAll(VOICE));
+    const isIn = (set) => (n) => { let e = n.parentElement; while (e && e !== pane) { if (set.has(e)) return true; e = e.parentElement; } return false; };
+    const isExpl = isIn(explSet), isVoice = isIn(voiceSet);
     const inModal = (n) => !!n.parentElement.closest('#modal, #decisionGate, #tutorial, #startGate, details:not([open])');
-    let total = { a: 0, b: 0, c: 0 }, first = { a: 0, b: 0, c: 0 };
+    let total = { a: 0, b: 0, c: 0, d: 0 }, first = { a: 0, b: 0, c: 0, d: 0 };
     const walker = document.createTreeWalker(pane, NodeFilter.SHOW_TEXT);
     let n;
     while ((n = walker.nextNode())) {
       const t = n.textContent.replace(/\s+/g, '');
       if (!t) continue;
       const el = n.parentElement; if (!el || !vis(el)) continue;
-      const cat = inModal(n) ? 'c' : isExpl(n) ? 'b' : 'a';
+      const cat = inModal(n) ? 'c' : isVoice(n) ? 'd' : isExpl(n) ? 'b' : 'a';
       total[cat] += t.length;
       if (inView(el)) first[cat] += t.length;
     }
-    return { total, first, sum: total.a + total.b + total.c, firstSum: first.a + first.b + first.c };
-  }, EXPL);
+    return { total, first, sum: total.a + total.b + total.c + total.d, firstSum: first.a + first.b + first.c + first.d, height: document.documentElement.scrollHeight };
+  }, [EXPL, VOICE]);
 }
 for (const w of [375, 390]) {
   for (const stage of ['day1', 'day10']) {

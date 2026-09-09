@@ -133,5 +133,12 @@ t('validate: 全ケースがスキーマを満たす(id 一意・3択以上・ne
   eq(real, []);
 });
 
+t('pick: 候補が全て既出(重み0.35)で優先層が空でも相談を返す(v79 qa の957日目クラッシュの再現)', () => {
+  const st = D.newState('seed-all-seen'); st.nextDay = 1;
+  for (const c of D.all()) st.seen[c.id] = 1;
+  const ctx = { day: 300, money: 50000000, rep: 80, aw: 0.8, staff: { doctors: 2, nurses: 4, receptionists: 2, pts: 2 }, staffTotal: 10, specialty: 'orthopedics', stage: 3, depts: [], branches: 0, hospital: false, rehaLevel: 0, flags: {}, slack: 3, trust: 3, load: 0.7, patients7: 80, newp7: 40, refer7: 0, waitAvg: 5, balked7: 0, monthProfit: 500000, monthRevenue: 5000000, dailyCost: 0, runway: 999, rentDay: 0, examMean: 6, relations: {}, kaitei: null, mainEquip: null }; // 人員・資金に余裕があり load>0.6 で prio が全て0=全候補の重みが 0.35 になり優先層が空
+  const r = D.pick(ctx, st);
+  ok(r && r.c && r.c.id, '相談が返る');
+});
 console.log(`decisions.test: ${n - failed} passed / ${failed} failed`);
 process.exit(failed ? 1 : 0);

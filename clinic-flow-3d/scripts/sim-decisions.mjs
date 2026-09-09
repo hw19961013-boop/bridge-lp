@@ -15,7 +15,7 @@ const dir = join(ROOT, 'app', 'decisions');
 for (const f of readdirSync(dir).filter((x) => /^cases-.*\.js$/.test(x)).sort()) D.register(require(join(dir, f)));
 
 const COST = { doctors: 80000, nurses: 18000, receptionists: 10000, pts: 16000, rehaAides: 10000 };
-function run(strategy, seed, specialty) {
+function run(strategy, seed, specialty, equip) {
   const G = { money: 2000000, rep: 60, aw: 0.3, coins: 0, relations: { hospital: { lv: 0, last: 0 }, caremane: { lv: 0, last: 0 }, rouken: { lv: 0, last: 0 }, pharmacy: { lv: 0, last: 0 }, company: { lv: 0, last: 0 }, sports: { lv: 0, last: 0 }, school: { lv: 0, last: 0 }, shoutengai: { lv: 0, last: 0 }, houkatsu: { lv: 0, last: 0 } } };
   const s = { doctors: 1, nurses: 1, receptionists: 1, pts: 0, rehaAides: 0, floorLv: 1, examMean: 6, rehaLevel: 0 };
   const st = D.newState(seed);
@@ -52,7 +52,7 @@ function run(strategy, seed, specialty) {
       waitAvg: Math.round(10 + Math.max(0, load - 0.6) * 60), balked7: load > 1 ? 2 : 0,
       monthProfit: hist.slice(-30).reduce((a, x) => a + x.revenue - x.cost, 0), monthRevenue: hist.slice(-30).reduce((a, x) => a + x.revenue, 0),
       dailyCost: Math.round(cost), runway: Math.max(0, Math.round(G.money / Math.max(1, cost))), rentDay: 25000, examMean: s.examMean,
-      relations: Object.fromEntries(Object.entries(G.relations).map(([k, v]) => [k, v.lv])), kaitei: 0
+      relations: Object.fromEntries(Object.entries(G.relations).map(([k, v]) => [k, v.lv])), kaitei: 0, mainEquip: equip || null
     };
     const picked = D.pick(ctx, st);
     if (!picked) continue;
@@ -73,7 +73,7 @@ function run(strategy, seed, specialty) {
     D.commit(c, ch, o, { G, settings: s }, st, { viaChain: picked.viaChain });
     decided++;
   }
-  return { money: Math.round(G.money), rep: Math.round(G.rep * 10) / 10, slack: st.slack, trust: st.trust, staff: s.doctors + s.nurses + s.receptionists + s.pts + s.rehaAides, decided, chains, blockedPicks, uniq: Object.keys(st.seen).length };
+  return { money: Math.round(G.money), rep: Math.round(G.rep * 10) / 10, slack: st.slack, trust: st.trust, staff: s.doctors + s.nurses + s.receptionists + s.pts + s.rehaAides, decided, chains, blockedPicks, uniq: Object.keys(st.seen).length, seen: st.seen };
 }
 
 const strategies = ['first', 'middle', 'last', 'cheapest', 'spender', 'random'];
@@ -159,7 +159,19 @@ const spread = Math.max(...freeRates) - Math.min(...freeRates);
 const yens = POSK.map((k) => acc[k].yen / acc[k].n);
 console.log(`「罰なし」の割合の差 ${spread.toFixed(1)}pt(上限15pt) / 90日換算費用の最大÷最小 ${(Math.max(...yens) / Math.max(1, Math.min(...yens))).toFixed(1)}倍(目安2倍)`);
 
+/* ---------- 眼科本院の走行(便AI-3): 固有ケースが実際に出ること ----------
+ * specialty='ophthalmology'・mainEquip.surgery=true(検査設備一式も導入済み)で200日回し、
+ * 眼科固有(spec:['ophthalmology'])のケースが1回以上 st.seen に載ることを「固有ケースがある」の定義とする */
+const OPHTHA_EQUIP = { fundusSet: true, oct: true, field: true, surgery: true };
+const ophthaRuns = seeds.map((sd) => run('random', sd, 'ophthalmology', OPHTHA_EQUIP));
+const ophthaSpecIds = D.all().filter((c) => (c.spec || []).length === 1 && c.spec[0] === 'ophthalmology').map((c) => c.id);
+const ophthaSeenCount = {};
+for (const id of ophthaSpecIds) ophthaSeenCount[id] = ophthaRuns.reduce((a, r) => a + (r.seen[id] || 0), 0);
+const ophthaTotal = Object.values(ophthaSeenCount).reduce((a, n) => a + n, 0);
+console.log(`眼科本院(手術設備あり・種5×200日)の固有ケース出現回数: ${JSON.stringify(ophthaSeenCount)} / 合計${ophthaTotal}回`);
+
 const NG = [];
+if (ophthaTotal < 1) NG.push('眼科本院(手術設備あり)の200日走行で眼科固有ケースが1回も出ない');
 if (dominant) NG.push(`${dominant} が4指標すべてで首位(位置だけで勝てる)`);
 if (spread > 15) NG.push(`位置別の「罰なし」の割合の差が ${spread.toFixed(1)}pt(上限15pt)`);
 const decidedMin = Math.min(...strategies.map((s) => table[s].decided));

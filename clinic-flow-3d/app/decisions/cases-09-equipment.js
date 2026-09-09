@@ -466,6 +466,30 @@
           reflect: '資金を守った。継続費は透析患者が減っても続く' }
       ],
       lesson: '大型機器の更新は、金額より止まる日数と依頼先で決まる', point: '透析装置の更新と稼働'
+    },
+    {
+      id: 'EQ-18', cat: 9, title: '眼底三次元画像解析の回し方', tier: 2, spec: ['ophthalmology'], who: 'ort', cool: 200,
+      cond: (c) => !!(c.mainEquip && c.mainEquip.oct),
+      say: '眼底三次元画像解析は月1回までの算定です。撮る順番、どう決めますか。',
+      bg: (c) => `眼底三次元画像解析(OCT)を導入済み。継続患者1日平均${c.patients7}人、混み具合${Math.round(c.load * 100)}%。`,
+      ask: '眼底三次元画像解析の検査枠',
+      facts: (c) => [{ label: '算定の回数', val: '患者1人につき月1回まで(告示)' }, { label: '資金', val: yen(c.money) }],
+      choices: [
+        { id: 'schedule', label: 'システムで来院間隔を管理する', note: '¥40,000。来院間隔を記録して月1回の枠を管理。余力+1',
+          req: { money: 40000 },
+          fx: { money: -40000, slack: 1, flag: 'eq_oct_sched' },
+          when: [{ if: (c) => c.staffTotal >= 4, fx: { rep: 0.5 }, why: '職員が多いほど、記録の運用がすぐ定着した' }],
+          reflect: '仕組みを作った。月1回の枠を捨てずに使い切れる' },
+        { id: 'ledger', label: '検査のたびに紙台帳で確認する', note: '費用なし。余力−1。確認漏れで算定できない撮影が起きうる',
+          fx: { slack: -1 },
+          chance: { p: 0.3, label: '確認漏れで撮影が算定できず材料費だけ残る', hit: { money: -15000 }, miss: {} },
+          reflect: '人の手で確認した。漏れは起きるときに起きる' },
+        { id: 'everytime', label: '毎回撮って、算定は後で選別する', note: '費用なし。撮り過ぎで算定漏れが起き、新患×0.97が30日',
+          fx: { newMul: { mul: 0.97, days: 30, label: '算定トラブルの噂' } },
+          chance: { p: 0.35, label: '算定できない撮影で材料費相当が無駄になる', hit: { money: -20000 }, miss: {} },
+          reflect: '撮ってから選んだ。算定できない撮影は、患者にも職員にも重い' }
+      ],
+      lesson: '眼底三次元画像解析は、撮る枠より いつ撮るかで価値が決まる', point: '眼底三次元画像解析の運用'
     }
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = CASES;

@@ -461,6 +461,29 @@
           reflect: '揃えるものを絞った。残した違いは拠点の色として認めた' }
       ],
       lesson: '統一は正しさではなく費用の問題。揃えるものを絞れば早く安い', point: '複数拠点の手順統一'
+    },
+    {
+      id: 'OP-18', cat: 2, title: '白内障の手術枠をどう回すか', tier: 3, spec: ['ophthalmology'], who: 'doctor', cool: 200,
+      cond: (c) => !!(c.mainEquip && c.mainEquip.surgery) && c.load >= 0.55,
+      prio: (c) => (c.load >= 0.8 ? 2 : 0),
+      say: '手術待ちの患者が増えています。枠を広げるか、今のままでいくか。',
+      bg: (c) => `白内障の手術は火曜と金曜。1日平均${c.patients7}人、混み具合${Math.round(c.load * 100)}%。医師${c.staff.doctors}人。`,
+      ask: '手術枠の広げ方',
+      facts: (c) => [{ label: '資金', val: yen(c.money) }, { label: '1日平均', val: `${c.patients7}人` }, { label: '混み具合', val: `${Math.round(c.load * 100)}%` }],
+      choices: [
+        { id: 'add', label: '手術日を1日増やす', note: '¥4,000/日がずっと。待ちが早く減り、評判+1',
+          fx: { dailyCost: { yen: 4000, days: null, label: '手術日の増設' }, rep: 1 },
+          when: [{ if: (c) => c.load >= 0.8, fx: { trust: 1 }, why: '混んでいる時期に枠が増え、紹介元への説明がしやすくなった' }],
+          reflect: '枠を広げた。広げた枠を維持する費用は続く' },
+        { id: 'order', label: '今のまま、並び順を厳格にする', note: '費用なし。余力−1。並び順の基準を決めて説明。不満は減る',
+          fx: { slack: -1 },
+          when: [{ if: (c) => c.load >= 0.8, fx: { rep: 0.5 }, why: '待ちの説明が明確だと、混んでいる時期ほど納得されやすい' }],
+          reflect: '仕組みで対応した。枠自体は変わらない' },
+        { id: 'refer', label: '一部を病院紹介に回す', note: '費用なし。手術の一部を病院紹介に。新患×0.97が30日、関係+1',
+          fx: { rel: { hospital: 1 }, newMul: { mul: 0.97, days: 30, label: '手術紹介による患者減' } },
+          reflect: '院内で抱えず、外に任せた分だけ収益は病院に' }
+      ],
+      lesson: '手術枠を広げる費用は、待ちが減った後も毎日続く', point: '白内障手術枠の運用'
     }
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = CASES;

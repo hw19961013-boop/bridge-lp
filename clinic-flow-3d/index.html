@@ -85,7 +85,7 @@
           <button class="view-btn" id="lineBtn">〰 導線ライン</button>
         </div>
       </div>
-      <div class="panic" id="panic" hidden>🚨 待合がパンクし、立ち待ちが出ています。椅子と「回転(受付・診察)」を見直してください</div>
+      <div class="panic" id="panic" hidden>🚨 待合がパンク。椅子と回転(受付・診察)を見直す</div>
     </div>
 
     <div class="staff-strip" id="staffStrip"></div>
@@ -94,12 +94,12 @@
     </div>
 
     <div class="card receipt-card" id="receiptCard" hidden>
-      <h2 class="card-title">🧾 直近の会計 <small>— いま何を算定した? 保険点数つきで見える</small></h2>
+      <h2 class="card-title">🧾 直近の会計</h2>
       <div id="receiptBody"></div>
     </div>
 
     <div class="card pulse-card" id="pulseCard">
-      <h2 class="card-title">📈 ライブモニター <small>— 院内人数・いまの待ち・売上をリアルタイムに。患者はタップで声かけ</small></h2>
+      <h2 class="card-title">📈 ライブモニター <small>— 患者はタップで声かけ</small></h2>
       <canvas id="pulseChart" height="110"></canvas>
       <div class="pulse-legend" id="pulseLegend"></div>
     </div>
@@ -107,18 +107,18 @@
     <div class="kpi-strip" id="kpiStrip"></div>
 
     <div class="card todo-card" id="todoCard">
-      <h2 class="card-title">📌 今日やること <small>— 迷ったらここ。詰まり → 打ち手の順で</small></h2>
+      <h2 class="card-title">📌 今日やること <small>— 迷ったらここ</small></h2>
       <div id="todoBody"></div>
     </div>
 
     <div class="card" id="scheduleCard">
-      <h2 class="card-title">🗓 診療時間 <small>— タップで 終日→午前→休診。コマごとの採算で決める</small></h2>
+      <h2 class="card-title">🗓 診療時間 <small>— タップで 終日→午前→休診</small></h2>
       <div class="sch-row" id="scheduleRow"></div>
       <p class="ctrl-note" id="scheduleNote"></p>
     </div>
 
     <div class="card" id="shopCard">
-      <h2 class="card-title">🧰 スタッフ &amp; 設備 &amp; 大型投資 <small>— 人件費は毎日かかる。採用費は逓増する</small></h2>
+      <h2 class="card-title">🧰 スタッフ &amp; 設備 &amp; 大型投資</h2>
       <div id="shopList"></div>
       <div class="op-row">
         <button class="op-btn" id="opReserve">📅 予約制 <small>¥50,000</small></button>
@@ -129,48 +129,48 @@
     </div>
 
     <div class="card" id="policyCard">
-      <h2 class="card-title">🩺 診療方針 <small>— 単価は「診療の中身」の複合で作る(医学的必要性が前提)</small></h2>
+      <h2 class="card-title">🩺 診療方針 <small>— 医学的必要性が前提</small></h2>
       <div class="ctrl-grid">
         <label class="ctrl">
           <span class="ctrl-head">診察時間(平均) <b id="vExamMean">6分</b></span>
           <input type="range" id="examMean" min="3" max="12" step="1" value="6">
-          <small class="ctrl-note">短い=回転UP・満足度リスク / 長い=丁寧・待ち時間リスク</small>
+          <small class="ctrl-note">短い=回転UP / 長い=待ち時間UP</small>
         </label>
         <label class="ctrl">
           <span class="ctrl-head">関節注・ハイドロ方針 <b id="vPInj">20%</b></span>
           <input type="range" id="pInj" min="0" max="50" step="5" value="20">
-          <small class="ctrl-note">関節腔内注射80点+薬剤 ≈180点(¥1,800)。診察が少し延びる</small>
+          <small class="ctrl-note">関節腔内注射80点+薬剤 ≈180点・診察やや延長</small>
         </label>
         <label class="ctrl">
           <span class="ctrl-head">トリガー/ブロック方針 <b id="vPTrig">12%</b></span>
           <input type="range" id="pTrig" min="0" max="40" step="4" value="12">
-          <small class="ctrl-note">トリガーポイント注射70点+薬剤 ≈120点(¥1,200)</small>
+          <small class="ctrl-note">トリガーポイント注射70点+薬剤 ≈120点</small>
         </label>
         <label class="ctrl">
           <span class="ctrl-head">物療の案内方針 <b id="vPPhysio">35%</b></span>
           <input type="range" id="pPhysio" min="0" max="70" step="5" value="35">
-          <small class="ctrl-note">消炎鎮痛等処置35点(¥350)×高回転。物療機器が必要</small>
+          <small class="ctrl-note">消炎鎮痛等処置35点・物療機器が必要</small>
         </label>
         <label class="ctrl">
           <span class="ctrl-head">処置の実施方針 <b id="vPTreat">15%</b></span>
           <input type="range" id="pTreat" min="0" max="50" step="5" value="15">
-          <small class="ctrl-note">創傷処置・ギプス等 ≈150点(¥1,500)。看護師とベッド</small>
+          <small class="ctrl-note">創傷処置・ギプス等 ≈150点・看護師とベッド</small>
         </label>
         <label class="ctrl">
-          <span class="ctrl-head">リハ提案方針 <b id="vPReha">35%</b></span>
+          <span class="ctrl-head">運動器リハビリテーション料の提案方針 <b id="vPReha">35%</b></span>
           <input type="range" id="pReha" min="0" max="70" step="5" value="35">
-          <small class="ctrl-note">運動器リハ(III)85点〜(I)185点/単位。届出後に有効</small>
+          <small class="ctrl-note">(III)85点〜(I)185点/単位・届出後</small>
         </label>
       </div>
     </div>
 
     <div class="card" id="jihiCard">
-      <h2 class="card-title">💰 自費メニュー <small>— 唯一「価格」を自分で決められる領域(価格弾力性あり)</small></h2>
+      <h2 class="card-title">💰 自費メニュー <small>— 価格を自分で決める領域</small></h2>
       <div id="jihiList"></div>
     </div>
 
     <div class="card" id="itemCard">
-      <h2 class="card-title">🪙 アイテム &amp; プレミアム施設 <small>— アプリ版の課金設計をコインで体験</small></h2>
+      <h2 class="card-title">🪙 アイテム &amp; プレミアム施設</h2>
       <div id="itemList"></div>
     </div>
   </section>
@@ -188,14 +188,14 @@
     </div>
 
     <div class="card" id="marketingCard">
-      <h2 class="card-title">📣 集患戦略 <small>— ターゲット客層×キーワード入札。CPAをLTVと比べる</small></h2>
+      <h2 class="card-title">📣 集患戦略 <small>— CPAをLTVと比べる</small></h2>
       <div id="adTarget"></div>
       <div id="adsList"></div>
       <div class="ad-summary" id="adSummary"></div>
     </div>
 
     <div class="card" id="salesCard">
-      <h2 class="card-title">🤝 営業先と関係レベル <small>— 何度も訪問して深める。30日放置で冷める</small></h2>
+      <h2 class="card-title">🤝 営業先と関係レベル <small>— 30日放置で冷める</small></h2>
       <div id="relList"></div>
     </div>
   </section>
@@ -203,7 +203,7 @@
   <!-- ===== 法人タブ ===== -->
   <section class="tab-panel" id="tab-corp">
     <div class="card" id="corpCard">
-      <h2 class="card-title">🏢 医療法人 — 分院展開 <small>— 専従要件は分院ごと。壁は資金より採用</small></h2>
+      <h2 class="card-title">🏢 医療法人 — 分院展開 <small>— 専従要件は分院ごと</small></h2>
       <div id="corpBody"></div>
     </div>
   </section>
@@ -220,20 +220,20 @@
       </div>
     </div>
 
-    <p class="mgmt-lock" id="mgmtLock" hidden>🔒 <b>Day 8 で解放:</b> KPIピン留め・事業計画・銀行融資・P&amp;L・施設基準(リハ)・分院展開。まずは日々の回転と評判づくりから。</p>
+    <p class="mgmt-lock" id="mgmtLock" hidden>🔒 <b>Day 8 で解放:</b> KPIピン留め・事業計画・銀行融資・P&amp;L・施設基準・分院展開</p>
 
     <div class="card" id="kpiCard">
-      <h2 class="card-title">📈 KPIモニタリング <small>— 日次は絞る・週次で構造・月次で計画差異</small></h2>
+      <h2 class="card-title">📈 KPIモニタリング</h2>
       <div id="kpiPicker"></div>
     </div>
 
     <div class="card" id="plannerCard">
-      <h2 class="card-title">📝 事業計画 <small>— 融資・分院展開の前提。30日ごとにレビュー</small></h2>
+      <h2 class="card-title">📝 事業計画 <small>— 30日ごとにレビュー</small></h2>
       <div id="plannerBody"></div>
     </div>
 
     <div class="card" id="bankCard">
-      <h2 class="card-title">🏦 銀行 <small>— 借入は時間を買う道具。金利は計画の質で決まる</small></h2>
+      <h2 class="card-title">🏦 銀行 <small>— 金利は計画の質で決まる</small></h2>
       <div id="bankBody"></div>
     </div>
 
@@ -245,36 +245,36 @@
     </div>
 
     <div class="card" id="acctCard">
-      <h2 class="card-title">🧾 月間レセプト集計 <small>— 算定項目ランキング(直近30日)。レセプト分析の練習</small></h2>
+      <h2 class="card-title">🧾 月間レセプト集計 <small>— 算定項目ランキング(直近30日)</small></h2>
       <div id="acctBody"></div>
     </div>
 
     <div class="card" id="decCard">
-      <h2 class="card-title">🔀 経営の分岐点 <small>— 相談が届く。決めた結果は数字と履歴に残る</small></h2>
+      <h2 class="card-title">🔀 経営の分岐点 <small>— 決めた結果は数字と履歴に残る</small></h2>
       <div id="decCardBody"></div>
     </div>
     <div class="card" id="kijunCard">
-      <h2 class="card-title">📋 施設基準・届出 <small id="kijunSub">— 算定の土台は体制と届出</small></h2>
+      <h2 class="card-title">📋 施設基準・届出</h2>
       <div id="kijunBody"></div>
     </div>
 
     <div class="card" id="leagueCard">
-      <h2 class="card-title">🏆 地域リーグ <small>— 町→市→県→地方→全国。ライバルの月商も成長する</small></h2>
+      <h2 class="card-title">🏆 地域リーグ <small>— 町→市→県→地方→全国</small></h2>
       <div id="leagueBody"></div>
     </div>
 
     <div class="card" id="missionCard">
-      <h2 class="card-title">🎯 ミッション <small>— 経営のカリキュラム(全19)。地域リーグ制覇まで続く</small></h2>
+      <h2 class="card-title">🎯 ミッション <small>— 全19</small></h2>
       <div id="missionList"></div>
     </div>
 
     <div class="card" id="achCard">
-      <h2 class="card-title">🏅 実績 <small>— やり込みの記録。解除で💰資金+🪙コイン獲得</small></h2>
+      <h2 class="card-title">🏅 実績 <small>— 解除で💰資金+🪙コイン</small></h2>
       <div id="achList"></div>
     </div>
 
     <div class="card" id="prestigeCard">
-      <h2 class="card-title">🏛 殿堂(プレステージ) <small>— 実績を引き継いで2周目へ。周回ごとに開始条件が強くなる</small></h2>
+      <h2 class="card-title">🏛 殿堂(プレステージ) <small>— 実績を引き継いで2周目へ</small></h2>
       <div id="prestigeBody"></div>
     </div>
 

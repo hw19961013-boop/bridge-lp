@@ -1,6 +1,6 @@
 /* クリニックタウン3D — Service Worker
  * network-first(常に最新を取りに行き、オフライン時はキャッシュで起動) */
-const VER = 'ct3d-v77';
+const VER = 'ct3d-v80';
 
 self.addEventListener('install', () => self.skipWaiting());
 

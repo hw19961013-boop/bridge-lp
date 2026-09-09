@@ -20,25 +20,27 @@ const v = D.validate(all);
 errs.push(...v.errs);
 
 // 合成状態の格子(到達可能性)。ゲームで起こりうる範囲に限る
-const specs = ['orthopedics', 'internal'];
+const specs = ['orthopedics', 'internal', 'ophthalmology'];
+const mainEquips = [null, { fundusSet: true, oct: true, field: true, surgery: true }]; // 他科本院の設備(v79 便AI-3・眼科固有ケースの到達可能性)
 const grid = [];
 for (const specialty of specs)
   for (const day of [5, 12, 25, 50, 90, 200])
     for (const money of [-200000, 300000, 1500000, 6000000])
       for (const load of [0.3, 0.6, 0.85, 1.0])
         for (const extra of [{}, { depts: ['homecare'], branches: 1, hospital: true }, { depts: ['dialysis', 'ophthalmology'], branches: 2 }])
-          for (const st of [{ slack: -2, trust: -1 }, { slack: 0, trust: 0 }, { slack: 2, trust: 2 }]) {
-            const patients7 = Math.round(load * 40);
-            grid.push(Object.assign({
-              day, money, rep: 60 + (load - 0.6) * 20, aw: 0.3 + load * 0.3,
-              staff: { doctors: day > 60 ? 2 : 1, nurses: day > 25 ? 2 : 1, receptionists: 1, pts: specialty === 'orthopedics' && day > 25 ? 1 : 0, rehaAides: 0 },
-              staffTotal: 3 + (day > 25 ? 1 : 0) + (day > 60 ? 1 : 0), specialty, stage: day >= 8 ? 3 : day >= 4 ? 2 : 1,
-              depts: [], branches: 0, hospital: false, rehaLevel: specialty === 'orthopedics' && day > 25 ? 1 : 0, flags: {},
-              load, patients7, newp7: Math.round(patients7 * 0.3), refer7: Math.round(patients7 * 0.1), waitAvg: 10 + load * 40, balked7: load >= 0.85 ? 2 : 0,
-              monthProfit: Math.round((load - 0.45) * 3000000), monthRevenue: Math.round(patients7 * 6000 * 26), dailyCost: 120000, runway: Math.max(0, Math.round(money / 120000)),
-              rentDay: 25000, examMean: 6, relations: { hospital: day > 25 ? 1 : 0, caremane: day > 50 ? 1 : 0, rouken: 0 }, kaitei: 0
-            }, extra, st));
-          }
+          for (const st of [{ slack: -2, trust: -1 }, { slack: 0, trust: 0 }, { slack: 2, trust: 2 }])
+            for (const mainEquip of mainEquips) {
+              const patients7 = Math.round(load * 40);
+              grid.push(Object.assign({
+                day, money, rep: 60 + (load - 0.6) * 20, aw: 0.3 + load * 0.3,
+                staff: { doctors: day > 60 ? 2 : 1, nurses: day > 25 ? 2 : 1, receptionists: 1, pts: specialty === 'orthopedics' && day > 25 ? 1 : 0, rehaAides: 0 },
+                staffTotal: 3 + (day > 25 ? 1 : 0) + (day > 60 ? 1 : 0), specialty, stage: day >= 8 ? 3 : day >= 4 ? 2 : 1,
+                depts: [], branches: 0, hospital: false, rehaLevel: specialty === 'orthopedics' && day > 25 ? 1 : 0, flags: {},
+                load, patients7, newp7: Math.round(patients7 * 0.3), refer7: Math.round(patients7 * 0.1), waitAvg: 10 + load * 40, balked7: load >= 0.85 ? 2 : 0,
+                monthProfit: Math.round((load - 0.45) * 3000000), monthRevenue: Math.round(patients7 * 6000 * 26), dailyCost: 120000, runway: Math.max(0, Math.round(money / 120000)),
+                rentDay: 25000, examMean: 6, relations: { hospital: day > 25 ? 1 : 0, caremane: day > 50 ? 1 : 0, rouken: 0, school: day > 12 ? 1 : 0 }, kaitei: 0, mainEquip
+              }, extra, st));
+            }
 
 const stBase = D.newState('check');
 const unreachable = [];

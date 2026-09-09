@@ -10,16 +10,16 @@
   --card: #FFFFFF;
   --ink: #22333D;
   --ink-2: #4A5D68;
-  --ink-3: #7C929E;
+  --ink-3: #596D78; /* v80: 補足の薄字。旧 #7C929E は白地 3.25:1 で AA 未達→5.41(色相・彩度は保つ) */
   --blue: #3E7CA6;
   --blue-deep: #2C5F82;
   --blue-pale: #DCEDF6;
   --green: #4FA98C;
-  --green-deep: #3A8A70;
+  --green-deep: #31745F; /* v80: 旧 #3A8A70 は白地 4.16→5.54・green-pale 上 4.75 */
   --green-pale: #DFF2EA;
-  --amber: #C98A2D;
+  --amber: #8D611F; /* v80: 旧 #C98A2D は白地 2.93→5.44(文字色18箇所が AA 未達だった) */
   --amber-pale: #FBF0DC;
-  --red: #C4574E;
+  --red: #B5453C; /* v80: 旧 #C4574E は白地 4.36→5.41・red-pale 上 4.54 */
   --red-pale: #FAE7E5;
   --line: rgba(62, 124, 166, 0.16);
   --shadow: 0 1px 2px rgba(34, 51, 61, 0.05), 0 6px 20px rgba(62, 124, 166, 0.10);
@@ -116,7 +116,7 @@ a { color: var(--blue-deep); }
 }
 .speed-btn[data-speed="0"] { min-width: 44px; } /* v75(保留#41): ⏸ は文字が1つで28px幅だった。タップ領域44px */
 .speed-btn.on { background: var(--blue-deep); border-color: var(--blue-deep); color: #fff; }
-.speed-btn.skip { background: var(--amber-pale); border-color: rgba(201,138,45,0.4); color: var(--amber); font-weight: 800; }
+.speed-btn.skip { background: var(--amber-pale); border-color: rgba(141,97,31,0.4); color: var(--amber); font-weight: 800; }
 /* 320px級: 8ボタンは1行に収まらない。圧縮せず折り返す(幅を削るとWCAG AAの24pxを割る) */
 @media (max-width: 360px) {
   .head-btns { gap: 4px; }
@@ -450,7 +450,7 @@ input[type="range"]::-moz-range-thumb {
 .pv-track.big { height: 14px; margin-top: 5px; }
 .pv-track i { display: block; height: 100%; border-radius: 999px; transition: width 0.4s ease; }
 .pv-track i.low { background: linear-gradient(90deg, #D98079, var(--red)); }
-.pv-track i.mid { background: linear-gradient(90deg, #DBA95B, var(--amber)); }
+.pv-track i.mid { background: linear-gradient(90deg, #B58330, var(--amber)); }
 .pv-track i.full { background: linear-gradient(90deg, var(--blue), var(--green)); }
 .pv-row {
   display: flex;
@@ -687,7 +687,7 @@ input[type="range"]::-moz-range-thumb {
 .sch-btn .sch-kind { font: 600 10px/1 var(--sans); color: var(--ink-3); }
 .sch-btn.full { background: var(--green-pale); border-color: rgba(79,169,140,0.4); }
 .sch-btn.full .sch-kind { color: var(--green-deep); }
-.sch-btn.am { background: var(--amber-pale); border-color: rgba(201,138,45,0.35); }
+.sch-btn.am { background: var(--amber-pale); border-color: rgba(141,97,31,0.35); }
 .sch-btn.am .sch-kind { color: var(--amber); }
 .sch-btn.closed { opacity: 0.6; }
 
@@ -1055,7 +1055,7 @@ input[type="range"]::-moz-range-thumb {
 .ach-chip.done {
   color: var(--amber);
   background: var(--amber-pale);
-  border-color: rgba(201,138,45,0.4);
+  border-color: rgba(141,97,31,0.4);
   font-weight: 700;
 }
 .ach-chip.done b { color: var(--amber); }

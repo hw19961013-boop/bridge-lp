@@ -476,6 +476,28 @@
           reflect: '外に回す形。本院の混雑と外の安定を天秤に載せた' }
       ],
       lesson: '同じ人数でも、並べるかずらすかで能力の形が変わる。支える職種で決める', point: '複数医師の勤務配置'
+    },
+    {
+      id: 'ST-16', cat: 1, title: '視能訓練士の採用時期', tier: 1, spec: ['ophthalmology'], who: 'ort', cool: 365, once: true,
+      cond: (c) => c.day >= 6,
+      say: '呼ばれた日だけ来ています。検査の待ちを見ると、この日数で足りているか気になります。',
+      bg: (c) => `眼科本院。視能訓練士は非常勤扱い。1日平均${c.patients7}人、混み具合${Math.round(c.load * 100)}%。`,
+      ask: '視能訓練士の採用',
+      facts: (c) => [{ label: '資金', val: yen(c.money) }, { label: '1日平均', val: `${c.patients7}人` }, { label: '混み具合', val: `${Math.round(c.load * 100)}%` }],
+      choices: [
+        { id: 'full', label: '常勤で採用する', note: '採用費¥140,000。日給¥15,000が毎日。14日後から検査が速くなる',
+          req: { money: 140000 },
+          fx: { money: -140000, dailyCost: { yen: 15000, days: null, label: '視能訓練士(常勤)' }, delayed: [{ days: 14, label: '検査の順番待ちが減る', fx: { examDelta: { d: -0.4, days: 120, label: '視能訓練士の検査補助' } } }] },
+          when: [{ if: (c) => c.load >= 0.7, fx: { rep: 0.5 }, why: '混んでいる時期に検査が速くなり、待ち時間の不満がすぐ減った' }],
+          reflect: '検査を任せられる専門職が増えた。効果が出るのは慣れてから' },
+        { id: 'part', label: '非常勤のまま週3日にする', note: '¥6,000/日が200日。常勤より安いが、検査の枠は少し広がる程度',
+          fx: { dailyCost: { yen: 6000, days: 200, label: '非常勤の視能訓練士(週3日)' }, examDelta: { d: -0.15, days: 200, label: '非常勤の検査補助' } },
+          reflect: '非常勤で応えた。枠が足りるかは混み具合次第' },
+        { id: 'no', label: '今回は採用せず様子を見る', note: '費用なし。検査の待ちが残り、新患×0.97が30日',
+          fx: { newMul: { mul: 0.97, days: 30, label: '検査待ちの不満' } },
+          reflect: '見送った。待ちが評判に出るまでの猶予は短い' }
+      ],
+      lesson: '検査を任せる専門職を置くかは、検査の速さと固定費の交換', point: '視能訓練士の採用時期'
     }
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = CASES;

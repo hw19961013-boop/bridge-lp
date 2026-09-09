@@ -440,6 +440,29 @@
           reflect: '都度の調整で応えた。動かされた人の分を忘れやすい' }
       ],
       lesson: '固定の枠を持つ診療は、空きの費用と融通の価値を天秤にかける', point: '透析の振替。予備枠・上限・都度調整'
+    },
+    {
+      id: 'PT-18', cat: 5, title: '点眼が続かない高齢患者への対応', tier: 2, spec: ['ophthalmology'], who: 'caremane', cool: 150,
+      say: '担当のお宅、点眼を忘れがちです。緑内障の管理、大丈夫でしょうか。',
+      bg: (c) => `独居の高齢患者。点眼の自己管理が難しい。ケアマネジャーとの関係 Lv${c.relations.caremane || 0}。1日平均${c.patients7}人。`,
+      ask: '点眼継続の支援策',
+      facts: (c) => [{ label: 'ケアマネジャーとの関係', val: `Lv${c.relations.caremane || 0}` }],
+      choices: [
+        { id: 'aid', label: '点眼補助具と点眼表を渡す', note: '¥2,000の道具代。渡すだけでは続かないことがある',
+          req: { money: 2000 },
+          fx: { money: -2000, flag: 'pt_dropaid' },
+          chance: { p: 0.5, label: '点眼が続くようになる', hit: { trust: 1 }, miss: {} },
+          reflect: '道具を渡した。続くかどうかは日々の習慣が決める' },
+        { id: 'ask', label: 'ケアマネジャー経由で訪問介護に声かけを頼む', note: '費用なし。余力−1。関係+1。訪問介護の対応力に左右される',
+          fx: { slack: -1, rel: { caremane: 1 } },
+          when: [{ if: (c) => (c.relations.caremane || 0) >= 1, fx: { trust: 1 }, why: '関係が育っていると、声かけの依頼がすぐ通った' }],
+          reflect: '院外の力を借りた。頼れる関係を先に作っていたか' },
+        { id: 'wait', label: '次回受診まで様子を見る', note: '費用なし。余力−1。緑内障が進む可能性は残る',
+          fx: { slack: -1 },
+          chance: { p: 0.35, label: '緑内障が進行し、家族から相談が来る', hit: { trust: -1, rep: -0.5 }, miss: {} },
+          reflect: '様子を見た。進む病気は、見ている間も進む' }
+      ],
+      lesson: '点眼が続くかは、本人の意思でなく、誰が見ているかで決まる', point: '点眼の継続支援'
     }
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = CASES;

@@ -200,15 +200,15 @@
   };
 
   const SHOP = {
-    doctor:  { label: '医師を採用', costs: [0, 500000, 800000, 1200000, 2000000, 3000000], day: COSTS.doctorDay, hint: '診察室が1室増える(日給¥80,000)。採用費は人数とともに高騰' },
-    nurse:   { label: '看護師を採用', costs: [120000, 120000, 150000, 180000, 220000, 260000], day: COSTS.nurseDay, hint: '処置ベッドの稼働数=看護師数(日給¥18,000)' },
-    pt:      { label: 'PTを採用', costs: [150000, 150000, 180000, 180000, 220000, 220000, 250000, 250000, 300000, 300000, 350000, 350000, 400000, 400000, 450000, 450000, 500000, 550000, 600000, 650000], day: COSTS.ptDay, hint: '施設基準の要件・リハ稼働の源泉(日給¥16,000)' },
-    recep:   { label: '受付を増員', costs: [60000, 60000, 80000, 100000], day: COSTS.recepDay, hint: '受付窓口が増える(日給¥10,000)' },
-    chairs:  { label: '待合椅子を+2脚', costs: null, flat: 40000, step: 2, hint: '立ち待ちはクレームと離反のもと' },
-    beds:    { label: '処置ベッドを増設', costs: null, flat: 150000, hint: '処置(創傷・固定等)1件+¥1,500。看護師とセット' },
-    machines:{ label: 'リハ機器を増設', costs: null, flat: 300000, hint: 'リハ稼働=min(機器, PT×2+助手)。面積要件は増築で' },
-    physio:  { label: '物療機器を増設', costs: null, flat: 80000, hint: '消炎鎮痛等処置(1件¥350)。PT不要・高回転。1台35件/日' },
-    rehaAide:{ label: 'リハ助手を採用', costs: [80000, 80000, 90000, 90000, 100000, 100000, 110000, 110000], day: 10000, hint: 'リハ室の回転対策: PT単位上限+4/人・機器稼働+1(日給¥10,000)' }
+    doctor:  { label: '医師を採用', costs: [0, 500000, 800000, 1200000, 2000000, 3000000], day: COSTS.doctorDay, hint: '診察室+1・日給¥80,000(採用費は逓増)' },
+    nurse:   { label: '看護師を採用', costs: [120000, 120000, 150000, 180000, 220000, 260000], day: COSTS.nurseDay, hint: '処置ベッド稼働=看護師数・日給¥18,000' },
+    pt:      { label: 'PTを採用', costs: [150000, 150000, 180000, 180000, 220000, 220000, 250000, 250000, 300000, 300000, 350000, 350000, 400000, 400000, 450000, 450000, 500000, 550000, 600000, 650000], day: COSTS.ptDay, hint: '施設基準の専従要件・日給¥16,000' },
+    recep:   { label: '受付を増員', costs: [60000, 60000, 80000, 100000], day: COSTS.recepDay, hint: '受付窓口+1・日給¥10,000' },
+    chairs:  { label: '待合椅子を+2脚', costs: null, flat: 40000, step: 2, hint: '' },
+    beds:    { label: '処置ベッドを増設', costs: null, flat: 150000, hint: '処置1件+¥1,500・看護師とセット' },
+    machines:{ label: 'リハ機器を増設', costs: null, flat: 300000, hint: 'リハ稼働=min(機器, PT×2+助手)・面積要件は増築' },
+    physio:  { label: '物療機器を増設', costs: null, flat: 80000, hint: '消炎鎮痛等処置1件¥350・PT不要・1台35件/日' },
+    rehaAide:{ label: 'リハ助手を採用', costs: [80000, 80000, 90000, 90000, 100000, 100000, 110000, 110000], day: 10000, hint: 'PT単位上限+4/人・機器稼働+1・日給¥10,000' }
   };
 
   const EXPAND_COST = 5000000;
@@ -225,9 +225,9 @@
   const PRP_CERT_COST = 500000;
 
   const KEYWORDS = [
-    { id: 'area', name: '「◯◯町 整形外科」', cpc: 400, cvr: 0.10, vol: 40, source: 'house', hint: '指名度が高く CV率10%。ただし検索数に上限' },
-    { id: 'pain', name: '「腰痛・膝の痛み」', cpc: 150, cvr: 0.035, vol: 120, source: 'house', hint: '検索数は多いが、比較検討層で CV率3.5%' },
-    { id: 'sports', name: '「スポーツ整形」', cpc: 250, cvr: 0.06, vol: 30, source: 'station', reha: true, hint: 'リハ需要の高い患者層。単価・LTVが高い' }
+    { id: 'area', name: '「◯◯町 整形外科」', cpc: 400, cvr: 0.10, vol: 40, source: 'house', hint: 'CV率10%・検索数に上限' },
+    { id: 'pain', name: '「腰痛・膝の痛み」', cpc: 150, cvr: 0.035, vol: 120, source: 'house', hint: 'CV率3.5%・検索数は多い' },
+    { id: 'sports', name: '「スポーツ整形」', cpc: 250, cvr: 0.06, vol: 30, source: 'station', reha: true, hint: 'CV率6%・単価とLTVが高い' }
   ];
 
   // 営業先(関係レベル 0〜max)。30日訪問しないと関係が1つ冷める
@@ -311,18 +311,18 @@
   /* ================= プレミアム(コイン)経済 — アプリ版の課金設計をゲーム内で体験 ================= */
 
   const ITEMS = {
-    campaign: { label: '📣 集患キャンペーン', coin: 4, days: 3, hint: '明日から3日間、自然新患+50%。認知が育つ前のブースト向き' },
-    ops: { label: '⚡ 業務改善コンサル', coin: 4, days: 3, hint: '明日から3日間、診察の回転UP(診察時間-1.2分相当)' },
-    training: { label: '🎓 接遇研修(即時)', coin: 3, days: 0, hint: 'その場で評判+3。体験改善のショートカット' },
-    lucky: { label: '🍀 ラッキー看板', coin: 3, days: 7, hint: '明日から7日間、認知+0.7%/日。看板・広告と重ねがけ可' },
-    skip7: { label: '⏩ 7日パック(自動運営)', coin: 3, days: 0, hint: '7日ぶんを一括で自動運営。結果はP&L・週次サマリーで確認' }
+    campaign: { label: '📣 集患キャンペーン', coin: 4, days: 3, hint: '3日間 自然新患+50%' },
+    ops: { label: '⚡ 業務改善コンサル', coin: 4, days: 3, hint: '3日間 診察時間-1.2分' },
+    training: { label: '🎓 接遇研修(即時)', coin: 3, days: 0, hint: '即時 評判+3' },
+    lucky: { label: '🍀 ラッキー看板', coin: 3, days: 7, hint: '7日間 認知+0.7%/日・重ねがけ可' },
+    skip7: { label: '⏩ 7日パック(自動運営)', coin: 3, days: 0, hint: '7日を一括で自動運営' }
   };
 
   const FACILITIES = {
-    cafe: { label: '☕ 院内カフェ', coin: 8, hint: '待ち時間の不満をやわらげる(患者体験+5%)。待合に常設表示' },
-    kids: { label: '🧸 キッズスペース', coin: 7, hint: '子連れ・勤労世帯の新患+1〜2人/日' },
-    bus: { label: '🚌 送迎バス', coin: 10, hint: '高齢の新患+1〜2人/日、リハ・再診の来院率UP' },
-    signage: { label: '📺 待合サイネージ', coin: 6, hint: '体感待ち時間-15% — 「待たされ感」を情報で削る' }
+    cafe: { label: '☕ 院内カフェ', coin: 8, hint: '患者体験+5%・待合に常設' },
+    kids: { label: '🧸 キッズスペース', coin: 7, hint: '新患+1〜2人/日(子連れ・勤労)' },
+    bus: { label: '🚌 送迎バス', coin: 10, hint: '高齢の新患+1〜2人/日・再診率UP' },
+    signage: { label: '📺 待合サイネージ', coin: 6, hint: '体感待ち時間-15%' }
   };
 
   const ACHIEVEMENTS = [
@@ -2093,7 +2093,7 @@
            <li>🤝 <b>営業まわり・ターゲット客層</b>(タウン)</li>
            <li>🪙 <b>アイテム・プレミアム施設・実績</b> — コインはミッションと実績で獲得</li>
          </ul>
-         <p class="modal-note">📖 打ち手は「詰まっている所」に打つのが原則。院内タブの「今日やること」が案内します。</p>`
+         <p class="modal-note">📖 打ち手は詰まっている所に。案内は「今日やること」</p>`
       : `<p>Day 8 — ここからが経営の本番です。</p>
          <ul class="unlock-list">
            ${settings.specialty === 'orthopedics' ? '<li>🏃 <b>運動器リハ</b>(PT採用・リハ機器・施設基準の届出)</li>' : '<li>📋 <b>施設基準・届出</b>(経営タブ)</li>'}
@@ -2101,7 +2101,7 @@
            <li>🏢 <b>分院展開</b>(法人タブ)</li>
            ${settings.specialty === 'orthopedics' ? '<li>🪙 <b>自費メニュー</b>(PRP・AGAほか)と<b>大型投資</b>(MRI・DEXA・増築)</li>' : '<li>🪙 <b>自費メニュー</b>と<b>大型投資</b>(増築)</li>'}
          </ul>
-         ${settings.specialty === 'orthopedics' ? '<p class="modal-note">📖 リハは整形外来の柱。施設基準(専従PT数×面積)で1回の単価が¥1,700→¥3,700まで変わります。</p>' : '<p class="modal-note">📖 体制と届出が算定の土台。経営タブの施設基準カードで確かめられます。</p>'}`;
+         ${settings.specialty === 'orthopedics' ? '<p class="modal-note">📖 施設基準(専従PT数×面積)で運動器リハビリテーション料の1回単価が¥1,700→¥3,700</p>' : '<p class="modal-note">📖 施設基準カード(経営タブ)で確認できます</p>'}`;
     if ($('modal').classList.contains('show')) {
       banner('🔓 新しい打ち手が解放されました。院内・経営タブをチェック');
       return;
@@ -3036,7 +3036,7 @@
         <span class="sch-kind">${DAY_SPECS[k].label}</span>
       </button>`).join('');
     const openMin = settings.schedule.reduce((a, k) => a + DAY_SPECS[k].min, 0);
-    $('scheduleNote').innerHTML = `週の診療時間: <b>${(openMin / 60).toFixed(0)}時間</b> / 午前のみ=人件費6割 / 日曜開院=手当1.4倍・ただし競合休みで新患1.3倍`;
+    $('scheduleNote').innerHTML = `週<b>${(openMin / 60).toFixed(0)}時間</b> / 午前=人件費6割 / 日曜=手当1.4倍・新患1.3倍`;
     el.querySelectorAll('[data-sch]').forEach((b) => b.addEventListener('click', () => {
       const i = Number(b.dataset.sch);
       const order = ['full', 'am', 'closed'];
@@ -3110,7 +3110,7 @@
         <div class="shop-row locked">
           <div class="shop-info">
             <span class="shop-name">🔒 ${item.label}</span>
-            <span class="shop-hint">Day ${need === 2 ? 4 : 8} で解放 — ${need === 2 ? 'まずは受付と椅子で回転を作る' : '経営が安定したら次のステージへ'}</span>
+            <span class="shop-hint">Day ${need === 2 ? 4 : 8} で解放</span>
           </div>
         </div>`;
       }
@@ -3137,7 +3137,7 @@
       <div class="shop-row locked">
         <div class="shop-info">
           <span class="shop-name">🔒 大型投資(${bigNames})</span>
-          <span class="shop-hint">Day 8 で解放 — 大型投資は「何日で回収できるか」で判断する世界</span>
+          <span class="shop-hint">Day 8 で解放</span>
         </div>
       </div>` : `
       ${hide.includes('mri') ? '' : `<div class="shop-row ${settings.mri ? 'expand-row done' : 'expand-row'}">
@@ -3148,25 +3148,25 @@
       </div>`}
       ${hide.includes('dexa') ? '' : `<div class="shop-row ${settings.dexa ? 'expand-row done' : 'expand-row'}">
         <div class="shop-info"><span class="shop-name">🦴 骨密度測定装置(DEXA)${settings.dexa ? ' 導入済み' : ''}</span>
-        <span class="shop-hint">骨塩定量検査(DEXA法)360点+管理で1受診¥3,800。初診の一部が骨粗鬆症の定期通院に</span></div>
+        <span class="shop-hint">骨塩定量検査(DEXA法)360点+管理で1受診¥3,800</span></div>
         ${settings.dexa ? '' : `<div class="shop-btns"><button class="mini-btn plus" id="dexaBtn">🦴 ${yen(DEXA_COST)}</button></div>`}
       </div>`}
       ${hide.includes('echo') ? '' : `<div class="shop-row ${settings.echo ? 'expand-row done' : 'expand-row'}">
         <div class="shop-info"><span class="shop-name">📡 超音波診断装置(運動器エコー)${settings.echo ? ' 導入済み' : ''}</span>
-        <span class="shop-hint">超音波検査(運動器)350点。初診の約3割(スポーツ層4.5割)で算定。いまの整形の単価トレンド</span>
+        <span class="shop-hint">超音波検査(運動器)350点・初診の約3割(スポーツ層4.5割)</span>
         ${typeof STAFF_UI !== 'undefined' ? `<span class="shop-voice">${STAFF_UI.faceSVG('doctor', 'normal', 17)} 剣持「エコーは診断の質も説明力も上がる。導入するなら使い倒す」</span>` : ''}</div>
         ${settings.echo ? '' : `<div class="shop-btns"><button class="mini-btn plus" id="echoBtn">📡 ${yen(ECHO_COST)}</button></div>`}
       </div>`}
       ${settings.floorLv === 1
         ? `<div class="shop-row expand-row">
             <div class="shop-info"><span class="shop-name">🏗 院を増築する(Lv2)</span>
-            <span class="shop-hint">フロア26×16へ。診察室4・リハ室100㎡(機器12台)・椅子20脚に上限UP。運動器リハ(I)の面積要件</span></div>
+            <span class="shop-hint">診察室4・リハ室100㎡(機器12)・椅子20に上限UP</span></div>
             <div class="shop-btns"><button class="mini-btn plus" id="expandBtn">🏗 ${yen(EXPAND_COST)}</button></div>
           </div>`
         : settings.floorLv === 2
           ? `<div class="shop-row expand-row">
               <div class="shop-info"><span class="shop-name">🏙 別館を建てる(Lv3)</span>
-              <span class="shop-hint">フロア32×20へ。診察室6・リハ室150㎡(機器18)・椅子28・受付4窓口・ベッド6・PT20名。ただし家賃¥120,000/日 — 埋める算段が先</span></div>
+              <span class="shop-hint">診察室6・リハ室150㎡(機器18)・椅子28・受付4・ベッド6・PT20名/家賃¥120,000/日</span></div>
               <div class="shop-btns"><button class="mini-btn plus" id="expand2Btn">🏙 ${yen(EXPAND2_COST)}</button></div>
             </div>`
           : `<div class="shop-row expand-row done"><div class="shop-info"><span class="shop-name">🏙 別館まで増築済み(診察室6・リハ室150㎡)</span></div></div>`}`;
@@ -3246,7 +3246,7 @@
       </div>`}
       <div class="jihi-item">
         <div class="jihi-head"><button class="op-btn ${settings.prpOn ? 'on' : ''}" data-jihi="prpOn">💉 PRP療法(再生医療)${settings.prpOn ? '' : ` <small>要認定 ${yen(PRP_CERT_COST)}</small>`}</button>
-        <span class="jihi-stat">想定 ${prpDemand.toFixed(1)}件/日(評判・スポーツ連携で増)・原価 ${yen(FEES.prpCogs)}/件</span></div>
+        <span class="jihi-stat">想定 ${prpDemand.toFixed(1)}件/日・原価 ${yen(FEES.prpCogs)}/件</span></div>
         <label class="ctrl"><span class="ctrl-head">価格 <b>${yen(settings.prpPrice)}</b></span>
         <input type="range" data-jprice="prpPrice" min="30000" max="165000" step="5000" value="${settings.prpPrice}"></label>
       </div>
@@ -3258,7 +3258,7 @@
       </div>
       <div class="jihi-item">
         <div class="jihi-head"><button class="op-btn ${settings.goods ? 'on' : ''}" data-jihi="goods">🦵 物販(サポーター等)<small> 原価60%</small></button>
-        <span class="jihi-stat">処置・リハ患者の一部が購入(¥3,500)</span></div>
+        <span class="jihi-stat">一部が購入・¥3,500</span></div>
       </div>`;
     el.querySelectorAll('[data-jihi]').forEach((b) => b.addEventListener('click', () => {
       const k = b.dataset.jihi;
@@ -3375,7 +3375,7 @@
       const lastH = G.history.filter((h) => h.kind !== 'closed').slice(-1)[0];
       tEl.innerHTML = `
         <div class="op-row">${Object.entries(segLabel).map(([k, v]) => `<button class="op-btn ${G.targetSeg === k ? 'on' : ''}" data-tseg="${k}">${v}</button>`).join('')}</div>
-        <p class="ctrl-note">高齢者=リハ・骨粗鬆症・定着◎ / 勤労者=健診・AGA・定着△ / スポーツ=MRI・PRP・単価◎${lastH && lastH.segS !== undefined ? ` — 昨日の客層: 高齢${lastH.segS}・勤労${lastH.segW}・スポーツ${lastH.segP}人` : ''}</p>
+        <p class="ctrl-note">高齢=リハ・骨粗鬆症 / 勤労=健診・AGA / スポーツ=MRI・PRP${lastH && lastH.segS !== undefined ? ` — 昨日の客層: 高齢${lastH.segS}・勤労${lastH.segW}・スポーツ${lastH.segP}人` : ''}</p>
         ${(() => { const f = (G.regulars || []).filter((r) => r.visits >= 5).length; const g = (G.stats && G.stats.gradu) || 0; return f || g ? `<p class="ctrl-note">🌟 顔なじみ(通院5回以上) <b>${f}人</b> — 口コミで認知+${Math.min(0.3, f * 0.01).toFixed(2)}%/日${g ? ` ・ 🎓卒業 累計<b>${g}人</b>(治して送り出した数)` : ''}</p>` : ''; })()}`;
       tEl.querySelectorAll('[data-tseg]').forEach((b) => b.addEventListener('click', () => {
         G.targetSeg = b.dataset.tseg;
@@ -4894,11 +4894,11 @@
   /* ================= チュートリアル ================= */
 
   const TUTORIAL = [
-    { tab: null, sel: null, text: 'ようこそ。今日からこの{科名}はあなたの院です。前の院長が診てきた患者は、明日も来ます。まずは<b>①1日進める → ②結果を見る → ③1つ直す</b>。最初はこれだけで十分です。' },
-    { tab: null, sel: '.hud', text: '<b>資金・評判・認知</b>が経営の体温計。右の <b>⏩1日</b> で1日まるごとスキップもOK。まずは今日1日、患者さんの流れを眺めてみましょう。' },
-    { tab: 'clinic', sel: '#todoCard', text: '<b>迷ったらここ</b>。「今日やること」にミッション・スタッフからの依頼・詰まりの診断と打ち手が常に出ています。ボタンでその画面へ飛べます。' },
-    { tab: 'clinic', sel: '#shopCard', text: '最初に触れるのは<b>受付と椅子</b>。Day 4、Day 8と進むごとに採用・設備・大型投資・分院…と打ち手がどんどん解放されます。' },
-    { tab: 'mgmt', sel: '#formulaCard', text: 'いちばん大事な式は <b>売上 = 患者数 × 単価</b>。それでは初日の診療、スタートです。' }
+    { tab: null, sel: null, text: '今日からこの{科名}はあなたの院です。まずは<b>①1日進める → ②結果を見る → ③1つ直す</b>。' },
+    { tab: null, sel: '.hud', text: '<b>資金・評判・認知</b>が経営の体温計。<b>⏩1日</b> で1日スキップできます。' },
+    { tab: 'clinic', sel: '#todoCard', text: '<b>迷ったらここ</b>。ミッション・依頼・詰まりの打ち手が出ます。' },
+    { tab: 'clinic', sel: '#shopCard', text: '最初は<b>受付と椅子</b>。Day 4・Day 8 で打ち手が増えます。' },
+    { tab: 'mgmt', sel: '#formulaCard', text: 'いちばん大事な式は <b>売上 = 患者数 × 単価</b>。では初日をどうぞ。' }
   ];
   let tutIdx = -1;
 
@@ -5292,7 +5292,8 @@
       refer7: Math.round((relLv('hospital') + 0.7 * (relLv('caremane') + relLv('rouken')) + (st ? DECISIONS.trustReferrals(st) : 0)) * 10) / 10,
       waitAvg: Math.round(avg('avgWait')), balked7: Math.round(avg('balked')),
       monthProfit, monthRevenue, dailyCost: dailyCostNow, runway: Math.max(0, Math.round(G.money / Math.max(1, dailyCostNow))),
-      rentDay: COSTS.rent[settings.floorLv], examMean: settings.examMean, relations: rel, kaitei: G.kaitei ? G.kaitei.count : 0
+      rentDay: COSTS.rent[settings.floorLv], examMean: settings.examMean, relations: rel, kaitei: G.kaitei ? G.kaitei.count : 0,
+      mainEquip: settings.mainEquip || null // 他科本院の設備(眼科の検査・手術設備。v79 便AI-3・眼科固有ケースの存在条件)
     };
   }
   const decWho = (c) => (typeof c.who === 'string' ? DECISIONS.WHO[c.who] || { name: c.who, title: '', emoji: '💬' } : Object.assign({ emoji: '💬' }, c.who));
@@ -5450,7 +5451,7 @@
         <span class="kijun-badge ${st.slack < 0 ? 'off' : st.slack > 0 ? '' : 'alt'}">職員の余力 ${st.slack > 0 ? '+' : ''}${st.slack} · ${meaning(st.slack, '診察が速い', '診察が延びる')}</span>
         <span class="kijun-badge ${st.trust < 0 ? 'off' : st.trust > 0 ? '' : 'alt'}">地域の信頼 ${st.trust > 0 ? '+' : ''}${st.trust} · ${meaning(st.trust, '紹介が増える', '新患が減る')}</span>
       </div>
-      <p class="kijun-kb">余力は1段で診察1人あたり±0.3分。信頼は1段で新患±2%、正なら紹介+0.3人/日。相談は Day 5 から4〜7日おき。判断中は時間が止まる</p>
+      <p class="kijun-kb">余力1段=診察±0.3分 / 信頼1段=新患±2%・紹介+0.3人/日</p>
       ${mods.length ? `<h3 class="sub-title">続いている効果</h3>${(() => {
         const perm = mods.filter((m) => m.kind === 'dailyCost' && m.until == null);
         const rest = mods.filter((m) => !(m.kind === 'dailyCost' && m.until == null));
